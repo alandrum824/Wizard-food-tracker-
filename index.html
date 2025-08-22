@@ -460,6 +460,219 @@
             font-size: 0.8rem;
         }
 
+        /* Character Display */
+        .character-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255,215,0,0.1);
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .character-item {
+            text-align: center;
+            padding: 0.5rem;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            border: 1px solid rgba(255,215,0,0.2);
+        }
+
+        .character-icon {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .character-label {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        /* Streak Display */
+        .streak-display {
+            text-align: center;
+            padding: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .streak-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        .streak-text {
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        /* Enhanced Button Glow */
+        .magical-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .magical-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 20px var(--secondary);
+            animation: buttonGlow 1.5s infinite;
+        }
+
+        @keyframes buttonGlow {
+            0%, 100% { box-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 20px var(--secondary); }
+            50% { box-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 30px var(--secondary); }
+        }
+
+        /* Enhanced Rune Sparkles */
+        .rune.earned {
+            position: relative;
+        }
+
+        .rune.earned::before {
+            content: '✨';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 1rem;
+            animation: sparkleFloat 2s infinite;
+        }
+
+        @keyframes sparkleFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-5px) rotate(180deg); opacity: 1; }
+        }
+
+        /* House Switch Button */
+        .house-switch-btn {
+            background: linear-gradient(45deg, #8b0000, #dc2626);
+            font-size: 0.9rem;
+            padding: 8px 16px;
+        }
+
+        /* Stats Dashboard */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255,215,0,0.1);
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #ccc;
+            margin-top: 0.25rem;
+        }
+
+        /* Access Key Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            margin: 10% auto;
+            padding: 2rem;
+            border: 2px solid rgba(255,215,0,0.3);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Notification System */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            border: 2px solid var(--secondary);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3), 0 0 20px var(--secondary);
+            transform: translateX(400px);
+            transition: transform 0.4s ease;
+            z-index: 1500;
+            max-width: 300px;
+            animation: notificationGlow 2s infinite;
+        }
+
+        @keyframes notificationGlow {
+            0%, 100% { box-shadow: 0 10px 25px rgba(0,0,0,0.3), 0 0 20px var(--secondary); }
+            50% { box-shadow: 0 10px 25px rgba(0,0,0,0.3), 0 0 30px var(--secondary); }
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Character Customization Modal */
+        .customization-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .customize-option {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255,215,0,0.1);
+            border: 2px solid rgba(255,215,0,0.3);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .customize-option:hover, .customize-option.selected {
+            border-color: var(--secondary);
+            background: rgba(255,215,0,0.2);
+            transform: scale(1.05);
+        }
+
+        .customize-icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .academy-logo {
@@ -482,6 +695,15 @@
 
             #gameBoard {
                 grid-template-columns: repeat(6, 35px) !important;
+            }
+
+            .character-display {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -509,6 +731,12 @@
     <div class="welcome-page" id="welcomePage">
         <h1 class="academy-logo">WYRNWICK ACADEMY</h1>
         <p class="academy-subtitle">Begin your magical wellness journey</p>
+        
+        <!-- Access Key Input -->
+        <div style="margin-bottom: 2rem;">
+            <input type="text" id="accessKey" class="magical-input" placeholder="Enter your magical access key (optional)" style="max-width: 300px; margin: 0 auto; display: block;">
+            <p style="font-size: 0.9rem; color: #ccc; margin-top: 0.5rem; text-align: center;">Leave empty for public access</p>
+        </div>
         
         <div class="house-selection">
             <div class="house-crest viperthorn" onclick="selectHouse('viperthorn')">
@@ -542,6 +770,33 @@
         <div class="tracker-header">
             <h1 class="tracker-title">Wyrnwick Academy</h1>
             <p class="house-welcome" id="houseWelcome">Welcome, Student!</p>
+            
+            <!-- Character Display -->
+            <div class="character-display" id="characterDisplay">
+                <div class="character-item">
+                    <div class="character-icon" id="wandIcon">🪄</div>
+                    <div class="character-label">Wand</div>
+                </div>
+                <div class="character-item">
+                    <div class="character-icon" id="petIcon">🦉</div>
+                    <div class="character-label">Companion</div>
+                </div>
+                <div class="character-item">
+                    <div class="character-icon" id="titleIcon">⭐</div>
+                    <div class="character-label" id="titleText">Student</div>
+                </div>
+            </div>
+            
+            <!-- Daily Streak -->
+            <div class="streak-display">
+                <div class="streak-number" id="streakNumber">1</div>
+                <div class="streak-text">Day Streak</div>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem;">
+                <button class="magical-btn house-switch-btn" onclick="switchHouse()">🔄 Switch House</button>
+                <button class="magical-btn" onclick="openCustomization()">✨ Customize Character</button>
+            </div>
         </div>
 
         <div class="tracker-content">
@@ -593,6 +848,7 @@
                         <option value="Forest Trek">🌲 Forbidden Forest Trek</option>
                         <option value="Dueling Club">⚡ Dueling Club</option>
                         <option value="Lake Swimming">🏊‍♂️ Black Lake Swimming</option>
+                        <option value="Potion Brewing">🧪 Intensive Potion Brewing</option>
                         <option value="Other">🎯 Other Training</option>
                     </select>
                 </div>
@@ -647,11 +903,30 @@
                 <div id="gameStatus" style="text-align: center; margin-top: 0.5rem; color: var(--secondary); font-weight: bold;"></div>
             </div>
 
-            <!-- Stats and Runes Section -->
+            <!-- Stats and Achievements -->
             <div class="magical-card">
-                <h2 class="card-title">🏆 Magical Achievements</h2>
+                <h2 class="card-title">📊 Weekly Progress</h2>
                 
-                <div style="text-align: center; margin-bottom: 2rem;">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number" id="weeklyCalories">0</span>
+                        <div class="stat-label">Weekly Calories</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="weeklyBurn">0</span>
+                        <div class="stat-label">Calories Burned</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="weeklyPoints">0</span>
+                        <div class="stat-label">House Points</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="totalRunes">0</span>
+                        <div class="stat-label">Runes Earned</div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin: 1rem 0;">
                     <div style="font-size: 1.2rem; color: var(--secondary); margin-bottom: 0.5rem;">House Points</div>
                     <div style="font-size: 2rem; font-weight: bold; color: var(--secondary);" id="housePoints">0</div>
                 </div>
@@ -683,10 +958,26 @@
                         <div class="rune-name">Game Master</div>
                     </div>
                     <div class="rune" id="rune7">
+                        <div class="rune-icon">🏆</div>
+                        <div class="rune-name">Consistent Caster</div>
+                    </div>
+                    <div class="rune" id="rune8">
+                        <div class="rune-icon">📚</div>
+                        <div class="rune-name">Full Spellbook</div>
+                    </div>
+                    <div class="rune" id="rune9">
+                        <div class="rune-icon">⚖️</div>
+                        <div class="rune-name">Dual Training</div>
+                    </div>
+                    <div class="rune" id="rune10">
+                        <div class="rune-icon">🧘</div>
+                        <div class="rune-name">Mindful Monday</div>
+                    </div>
+                    <div class="rune" id="rune11">
                         <div class="rune-icon">👑</div>
                         <div class="rune-name">Grand Master</div>
                     </div>
-                    <div class="rune" id="rune8">
+                    <div class="rune" id="rune12">
                         <div class="rune-icon">💎</div>
                         <div class="rune-name">Legend</div>
                     </div>
@@ -695,9 +986,79 @@
         </div>
     </div>
 
+    <!-- Character Customization Modal -->
+    <div class="modal" id="customizationModal">
+        <div class="modal-content">
+            <h2 style="color: var(--secondary); margin-bottom: 1rem;">Customize Your Character</h2>
+            
+            <h3 style="color: #fff; margin-bottom: 0.5rem;">Choose Your Wand</h3>
+            <div class="customization-grid" id="wandOptions">
+                <div class="customize-option" onclick="selectCustomization('wand', '🪄')">
+                    <div class="customize-icon">🪄</div>
+                    <div>Classic</div>
+                </div>
+                <div class="customize-option" onclick="selectCustomization('wand', '⚡')">
+                    <div class="customize-icon">⚡</div>
+                    <div>Lightning</div>
+                </div>
+                <div class="customize-option" onclick="selectCustomization('wand', '🌟')">
+                    <div class="customize-icon">🌟</div>
+                    <div>Stellar</div>
+                </div>
+                <div class="customize-option" onclick="selectCustomization('wand', '🔮')">
+                    <div class="customize-icon">🔮</div>
+                    <div>Crystal</div>
+                </div>
+            </div>
+            
+            <h3 style="color: #fff; margin: 1rem 0 0.5rem;">Choose Your Companion</h3>
+            <div class="customization-grid" id="petOptions">
+                <div class="customize-option" onclick="selectCustomization('pet', '🦉')">
+                    <div class="customize-icon">🦉</div>
+                    <div>Owl</div>
+                </div>
+                <div class="customize-option" onclick="selectCustomization('pet', '🐱')">
+                    <div class="customize-icon">🐱</div>
+                    <div>Cat</div>
+                </div>
+                <div class="customize-option" onclick="selectCustomization('pet', '🐸')">
+                    <div class="customize-icon">🐸</div>
+                    <div>Toad</div>
+                </div>
+                <div class="customize-option" onclick="selectCustomization('pet', '🐉')">
+                    <div class="customize-icon">🐉</div>
+                    <div>Dragon</div>
+                </div>
+            </div>
+            
+            <h3 style="color: #fff; margin: 1rem 0 0.5rem;">Choose Your Title</h3>
+            <div class="customization-grid" id="titleOptions">
+                <div class="customize-option" onclick="selectCustomization('title', '⭐', 'Student')">
+                    <div class="customize-icon">⭐</div>
+                    <div>Student</div>
+                </div>
+                <div class="customize-option" onclick="selectCustomization('title', '🎓', 'Scholar')">
+                    <div class="customize-icon">🎓</div>
+                    <div>Scholar</div>
+                </div>
+                <div class="customize-option" onclick="selectCustomization('title', '⚔️', 'Warrior')">
+                    <div class="customize-icon">⚔️</div>
+                    <div>Warrior</div>
+                </div>
+                <div class="customize-option" onclick="selectCustomization('title', '🔮', 'Mystic')">
+                    <div class="customize-icon">🔮</div>
+                    <div>Mystic</div>
+                </div>
+            </div>
+            
+            <button class="magical-btn" onclick="closeCustomization()" style="margin-top: 1rem;">✨ Save Changes</button>
+        </div>
+    </div>
+
     <script>
-        // Enhanced Food Database
+        // Enhanced Food Database with magical foods
         const foods = [
+            // Regular foods
             {name: "Apple", calories: 95},
             {name: "Banana", calories: 105},
             {name: "Orange", calories: 62},
@@ -737,7 +1098,18 @@
             {name: "Tea", calories: 2},
             {name: "Soda", calories: 140},
             {name: "Beer", calories: 154},
-            {name: "Wine", calories: 125}
+            {name: "Wine", calories: 125},
+            // Magical foods
+            {name: "Pumpkin Pastry", calories: 320},
+            {name: "Wyrnwick Porridge", calories: 180},
+            {name: "Enchanted Berries", calories: 45},
+            {name: "Mystical Mushroom Stew", calories: 240},
+            {name: "Golden Honey Cakes", calories: 290},
+            {name: "Elven Bread", calories: 150},
+            {name: "Dragon Spice Soup", calories: 200},
+            {name: "Phoenix Feather Tea", calories: 5},
+            {name: "Starlight Smoothie", calories: 120},
+            {name: "Academy Feast Platter", calories: 450}
         ];
 
         // Game variables
@@ -746,7 +1118,15 @@
         let gameScore = 0;
         let movesLeft = 20;
         let gameActive = false;
-        const crystals = ['💎', '🔮', '⭐', '✨', '💫', '🌟'];
+        const crystals = ['💎', '🔮', '⭐', '✨', '💫', '🌟', '🧊', '🌌']; // Added 2 new crystals
+
+        // Character customization
+        let currentCustomization = {
+            wand: '🪄',
+            pet: '🦉', 
+            title: '⭐',
+            titleText: 'Student'
+        };
 
         // Initialize stars
         function createStars() {
@@ -761,10 +1141,121 @@
             }
         }
 
-        // House selection
+        // Show notification
+        function showNotification(title, message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+                <div class="notification-title">${title}</div>
+                <div>${message}</div>
+            `;
+            document.body.appendChild(notification);
+
+            setTimeout(() => notification.classList.add('show'), 100);
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 400);
+            }, 3000);
+        }
+
+        // House selection with access key
         function selectHouse(house) {
+            const accessKey = document.getElementById('accessKey').value.trim();
+            
+            // Optional access key validation (can be extended for premium features)
+            if (accessKey && !validateAccessKey(accessKey)) {
+                alert('Invalid access key! Continuing with public access.');
+            }
+            
             localStorage.setItem('wyrnwickHouse', house);
+            localStorage.setItem('accessKey', accessKey || 'public');
             showTracker();
+        }
+
+        function validateAccessKey(key) {
+            // Simple validation - can be extended
+            const validKeys = ['PREMIUM2024', 'WIZARD123', 'ACADEMY'];
+            return validKeys.includes(key.toUpperCase());
+        }
+
+        // Switch house functionality
+        function switchHouse() {
+            if (confirm('Are you sure you want to switch houses? Your progress will be kept.')) {
+                document.getElementById('welcomePage').style.display = 'block';
+                document.getElementById('trackerPage').style.display = 'none';
+                document.body.className = '';
+            }
+        }
+
+        // Character customization
+        function openCustomization() {
+            document.getElementById('customizationModal').style.display = 'block';
+            loadCustomizationChoices();
+        }
+
+        function closeCustomization() {
+            document.getElementById('customizationModal').style.display = 'none';
+            saveCustomization();
+            updateCharacterDisplay();
+        }
+
+        function selectCustomization(type, icon, text = null) {
+            currentCustomization[type] = icon;
+            if (text) currentCustomization.titleText = text;
+            
+            // Update UI selection
+            const container = document.getElementById(type + 'Options');
+            container.querySelectorAll('.customize-option').forEach(opt => opt.classList.remove('selected'));
+            event.target.closest('.customize-option').classList.add('selected');
+        }
+
+        function loadCustomizationChoices() {
+            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            if (data.customization) {
+                currentCustomization = {...currentCustomization, ...data.customization};
+            }
+        }
+
+        function saveCustomization() {
+            let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            data.customization = currentCustomization;
+            localStorage.setItem('wyrnwickData', JSON.stringify(data));
+        }
+
+        function updateCharacterDisplay() {
+            document.getElementById('wandIcon').textContent = currentCustomization.wand;
+            document.getElementById('petIcon').textContent = currentCustomization.pet;
+            document.getElementById('titleIcon').textContent = currentCustomization.title;
+            document.getElementById('titleText').textContent = currentCustomization.titleText;
+        }
+
+        // Daily streak system
+        function updateStreak() {
+            let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            const today = new Date().toDateString();
+            const yesterday = new Date(Date.now() - 86400000).toDateString();
+            
+            if (!data.lastLoginDate) {
+                // First time
+                data.streak = 1;
+                data.lastLoginDate = today;
+                showNotification('🎉 Welcome!', 'Your magical journey begins!');
+            } else if (data.lastLoginDate === yesterday) {
+                // Consecutive day
+                data.streak = (data.streak || 1) + 1;
+                data.lastLoginDate = today;
+                showNotification('🔥 Streak Continued!', `${data.streak} days in a row!`);
+            } else if (data.lastLoginDate !== today) {
+                // Streak broken
+                if (data.streak && data.streak > 1) {
+                    showNotification('💔 Streak Broken', 'But every day is a new beginning!');
+                }
+                data.streak = 1;
+                data.lastLoginDate = today;
+            }
+            
+            localStorage.setItem('wyrnwickData', JSON.stringify(data));
+            document.getElementById('streakNumber').textContent = data.streak || 1;
         }
 
         // Show tracker page
@@ -778,6 +1269,8 @@
             document.getElementById('houseWelcome').textContent = `Welcome, ${house.charAt(0).toUpperCase() + house.slice(1)} student!`;
             
             loadData();
+            updateStreak();
+            updateCharacterDisplay();
             updateDisplay();
             startNewGame();
         }
@@ -831,7 +1324,7 @@
             let calories = parseInt(document.getElementById('caloriesInput').value);
 
             if (!foodName) {
-                alert('Please enter a food name!');
+                showNotification('⚠️ Missing Info', 'Please enter a food name!');
                 return;
             }
 
@@ -849,6 +1342,7 @@
             if (!data.dailyCalories) data.dailyCalories = 0;
             if (!data.housePoints) data.housePoints = 0;
             if (!data.earnedRunes) data.earnedRunes = [];
+            if (!data.weeklyStats) data.weeklyStats = {};
 
             // Add food
             data.foodsToday.push({
@@ -861,11 +1355,18 @@
             data.dailyCalories += totalCalories;
             data.housePoints += Math.floor(totalCalories / 10); // 1 point per 10 calories
 
+            // Update weekly stats
+            const weekKey = getWeekKey();
+            if (!data.weeklyStats[weekKey]) data.weeklyStats[weekKey] = {calories: 0, burned: 0, points: 0};
+            data.weeklyStats[weekKey].calories += totalCalories;
+            data.weeklyStats[weekKey].points += Math.floor(totalCalories / 10);
+
             // Save data
             localStorage.setItem('wyrnwickData', JSON.stringify(data));
 
             // Show calorie gain animation
             showCalorieGain(totalCalories);
+            showNotification('✨ Feast Added!', `+${totalCalories} calories logged`);
 
             // Clear inputs
             document.getElementById('foodInput').value = '';
@@ -884,7 +1385,7 @@
             const intensity = document.getElementById('intensityInput').value;
 
             if (!duration || duration < 1) {
-                alert('Please enter a valid duration!');
+                showNotification('⚠️ Missing Info', 'Please enter a valid duration!');
                 return;
             }
 
@@ -904,6 +1405,7 @@
             if (!data.dailyBurn) data.dailyBurn = 0;
             if (!data.dailyMinutes) data.dailyMinutes = 0;
             if (!data.housePoints) data.housePoints = 0;
+            if (!data.weeklyStats) data.weeklyStats = {};
 
             // Add activity
             data.activitiesToday.push({
@@ -918,15 +1420,29 @@
             data.dailyMinutes += duration;
             data.housePoints += Math.floor(caloriesBurned / 5); // 1 point per 5 calories burned
 
+            // Update weekly stats
+            const weekKey = getWeekKey();
+            if (!data.weeklyStats[weekKey]) data.weeklyStats[weekKey] = {calories: 0, burned: 0, points: 0};
+            data.weeklyStats[weekKey].burned += caloriesBurned;
+            data.weeklyStats[weekKey].points += Math.floor(caloriesBurned / 5);
+
             // Save data
             localStorage.setItem('wyrnwickData', JSON.stringify(data));
 
             // Clear inputs
             document.getElementById('durationInput').value = '';
 
+            showNotification('💪 Training Logged!', `${duration} minutes, -${caloriesBurned} calories`);
+
             // Update display
             updateDisplay();
             checkRunes();
+        }
+
+        function getWeekKey() {
+            const now = new Date();
+            const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
+            return startOfWeek.toISOString().split('T')[0];
         }
 
         // Show calorie gain animation
@@ -943,7 +1459,7 @@
             }, 1000);
         }
 
-        // Update display
+        // Enhanced update display with weekly stats
         function updateDisplay() {
             const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
             const dailyCalories = data.dailyCalories || 0;
@@ -952,12 +1468,13 @@
             const housePoints = data.housePoints || 0;
             const foodsToday = data.foodsToday || [];
             const activitiesToday = data.activitiesToday || [];
+            const earnedRunes = data.earnedRunes || [];
 
             // Update calorie bar
             const netCalories = Math.max(0, dailyCalories - dailyBurn);
             const percentage = Math.min((netCalories / 1200) * 100, 100);
             document.getElementById('manaFill').style.width = percentage + '%';
-            document.getElementById('manaText').textContent = `${netCalories} / 1200 Calories (Net: ${dailyCalories} eaten - ${dailyBurn} burned)`;
+            document.getElementById('manaText').textContent = `${netCalories} / 1200 Calories (${dailyCalories} eaten - ${dailyBurn} burned)`;
 
             // Update house points
             document.getElementById('housePoints').textContent = housePoints;
@@ -965,6 +1482,14 @@
             // Update fitness display
             document.getElementById('dailyBurn').textContent = `${dailyBurn} calories burned`;
             document.getElementById('dailyMinutes').textContent = `${dailyMinutes} minutes`;
+
+            // Update weekly stats
+            const weekKey = getWeekKey();
+            const weeklyStats = data.weeklyStats?.[weekKey] || {calories: 0, burned: 0, points: 0};
+            document.getElementById('weeklyCalories').textContent = weeklyStats.calories;
+            document.getElementById('weeklyBurn').textContent = weeklyStats.burned;
+            document.getElementById('weeklyPoints').textContent = weeklyStats.points;
+            document.getElementById('totalRunes').textContent = earnedRunes.length;
 
             // Update food log
             const foodLog = document.getElementById('foodLog');
@@ -991,7 +1516,7 @@
             updateRunes();
         }
 
-        // Enhanced rune checking
+        // Enhanced rune checking with new achievements
         function checkRunes() {
             const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
             const dailyCalories = data.dailyCalories || 0;
@@ -1001,7 +1526,11 @@
             const foodsToday = data.foodsToday || [];
             const activitiesToday = data.activitiesToday || [];
             const gameHighScore = data.gameHighScore || 0;
+            const streak = data.streak || 1;
             let earnedRunes = data.earnedRunes || [];
+
+            const today = new Date();
+            const isMonday = today.getDay() === 1;
 
             const runes = [
                 {id: 'rune1', name: 'First Feast', condition: () => foodsToday.length >= 1},
@@ -1010,8 +1539,12 @@
                 {id: 'rune4', name: 'Daily Ritual', condition: () => dailyCalories >= 1200 && dailyCalories <= 1400},
                 {id: 'rune5', name: 'Warrior', condition: () => dailyMinutes >= 30},
                 {id: 'rune6', name: 'Game Master', condition: () => gameHighScore >= 500},
-                {id: 'rune7', name: 'Grand Master', condition: () => housePoints >= 500},
-                {id: 'rune8', name: 'Legend', condition: () => housePoints >= 1000}
+                {id: 'rune7', name: 'Consistent Caster', condition: () => streak >= 5},
+                {id: 'rune8', name: 'Full Spellbook', condition: () => foodsToday.length >= 10},
+                {id: 'rune9', name: 'Dual Training', condition: () => foodsToday.length >= 1 && activitiesToday.length >= 1},
+                {id: 'rune10', name: 'Mindful Monday', condition: () => isMonday && dailyCalories < 1000},
+                {id: 'rune11', name: 'Grand Master', condition: () => housePoints >= 500},
+                {id: 'rune12', name: 'Legend', condition: () => housePoints >= 1000}
             ];
 
             runes.forEach(rune => {
@@ -1027,7 +1560,7 @@
 
         // Show rune earned notification
         function showRuneEarned(runeName) {
-            alert(`🎉 Rune Earned: ${runeName}! 🎉`);
+            showNotification('🏆 Rune Earned!', `${runeName} unlocked!`);
         }
 
         // Update runes display
@@ -1055,10 +1588,11 @@
                 data.dailyMinutes = 0;
                 localStorage.setItem('wyrnwickData', JSON.stringify(data));
                 updateDisplay();
+                showNotification('🧹 Day Cleared', 'Fresh start for today!');
             }
         }
 
-        // GAME FUNCTIONS
+        // ENHANCED GAME FUNCTIONS
         function startNewGame() {
             gameBoard = [];
             selectedCell = null;
@@ -1170,6 +1704,12 @@
                 const uniqueMatches = [...new Set(matches)];
                 gameScore += uniqueMatches.length * 10;
                 
+                // Bonus points for large matches
+                if (uniqueMatches.length >= 6) {
+                    gameScore += 50;
+                    showNotification('✨ Epic Match!', '+50 bonus points!');
+                }
+                
                 // Animate matched cells
                 uniqueMatches.forEach(index => {
                     document.getElementById(`cell-${index}`).classList.add('matched');
@@ -1208,20 +1748,28 @@
             let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
             if (!data.gameHighScore || gameScore > data.gameHighScore) {
                 data.gameHighScore = gameScore;
+                showNotification('🎮 New High Score!', `${gameScore} points!`);
             }
             if (!data.housePoints) data.housePoints = 0;
-            data.housePoints += Math.floor(gameScore / 10);
+            
+            // Bonus points for high scores
+            let bonusPoints = Math.floor(gameScore / 10);
+            if (gameScore >= 600) {
+                bonusPoints += 50; // Extra bonus for 600+
+                showNotification('👑 Master Player!', '+50 bonus house points!');
+            }
+            
+            data.housePoints += bonusPoints;
             localStorage.setItem('wyrnwickData', JSON.stringify(data));
             
-            document.getElementById('gameStatus').textContent = `Game Over! Final Score: ${gameScore}`;
+            document.getElementById('gameStatus').textContent = `Game Over! Score: ${gameScore} (+${bonusPoints} house points)`;
             updateDisplay();
             checkRunes();
         }
 
         function getHint() {
             if (!gameActive) return;
-            
-            alert('Hint: Look for crystals that could form a line of 3 when swapped with adjacent crystals!');
+            showNotification('💡 Hint', 'Look for crystals that could form a line of 3 when swapped with adjacent crystals!');
         }
 
         // Load data
@@ -1241,6 +1789,11 @@
                 data.lastLogin = today;
                 localStorage.setItem('wyrnwickData', JSON.stringify(data));
             }
+
+            // Load customization
+            if (data.customization) {
+                currentCustomization = {...currentCustomization, ...data.customization};
+            }
         }
 
         // Initialize app
@@ -1251,6 +1804,14 @@
             const savedHouse = localStorage.getItem('wyrnwickHouse');
             if (savedHouse) {
                 showTracker();
+            }
+
+            // Close modal when clicking outside
+            window.onclick = function(event) {
+                const modal = document.getElementById('customizationModal');
+                if (event.target === modal) {
+                    closeCustomization();
+                }
             }
         }
 
