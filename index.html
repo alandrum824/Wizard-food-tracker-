@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wyrnwick Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Magical Background Effects */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* House Color Themes */
+        .viperthorn { --primary: #2d5a3d; --secondary: #c0c0c0; --accent: #4a7c59; }
+        .braverun { --primary: #8b0000; --secondary: #ffd700; --accent: #cd212a; }
+        .nightwing { --primary: #1e3a8a; --secondary: #000000; --accent: #3b82f6; }
+        .cinderglen { --primary: #fbbf24; --secondary: #92400e; --accent: #f59e0b; }
+
+        /* Welcome Page Styles */
+        .welcome-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .academy-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffd700, #fff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .academy-subtitle {
+            font-size: 1.4rem;
+            font-style: italic;
+            color: #ffd700;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .house-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .house-crest {
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border: 3px solid rgba(255,215,0,0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .house-crest::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,215,0,0.1), transparent);
+            transform: rotate(-45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .house-crest:hover::before {
+            opacity: 1;
+            transform: rotate(-45deg) translate(50%, 50%);
+        }
+
+        .house-crest:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--secondary);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px var(--secondary);
+        }
+
+        .house-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+        }
+
+        .house-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+
+        .house-motto {
+            font-style: italic;
+            color: #ccc;
+            font-size: 1rem;
+        }
+
+        /* Tracker Page Styles */
+        .tracker-page {
+            display: none;
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .tracker-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 20px;
+            border: 3px solid var(--secondary);
+        }
+
+        .tracker-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .house-welcome {
+            font-size: 1.2rem;
+            color: #fff;
+            font-style: italic;
+        }
+
+        .tracker-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .magical-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border: 2px solid rgba(255,215,0,0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .card-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .magical-input, .magical-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid rgba(255,215,0,0.3);
+            border-radius: 10px;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            font-size: 1rem;
+            font-family: 'Crimson Text', serif;
+        }
+
+        .magical-input:focus, .magical-select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 15px rgba(255,215,0,0.4);
+        }
+
+        .magical-btn {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            font-family: 'Crimson Text', serif;
+        }
+
+        .magical-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Mana Bar */
+        .mana-container {
+            margin: 2rem 0;
+        }
+
+        .mana-bar {
+            height: 30px;
+            background: linear-gradient(90deg, #000, #333);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid var(--secondary);
+            position: relative;
+        }
+
+        .mana-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            transition: width 0.8s ease;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .mana-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .mana-text {
+            text-align: center;
+            margin-top: 0.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        /* Food Log */
+        .food-log {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 1rem;
+        }
+
+        .food-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 8px;
+            background: rgba(255,215,0,0.1);
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 8px;
+            animation: foodAppear 0.5s ease;
+        }
+
+        @keyframes foodAppear {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .food-name {
+            font-weight: bold;
+        }
+
+        .food-calories {
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        /* Runes (Badges) */
+        .runes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .rune {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255,215,0,0.1);
+            border: 2px solid rgba(255,215,0,0.3);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .rune.earned {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            border-color: var(--secondary);
+            animation: runeGlow 2s infinite;
+        }
+
+        @keyframes runeGlow {
+            0%, 100% { box-shadow: 0 0 10px var(--secondary); }
+            50% { box-shadow: 0 0 20px var(--secondary); }
+        }
+
+        .rune-icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .rune-name {
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Auto-suggest dropdown */
+        .suggest-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.9);
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 0 0 10px 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+        }
+
+        .suggest-item {
+            padding: 10px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .suggest-item:hover {
+            background: rgba(255,215,0,0.2);
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .academy-logo {
+                font-size: 2.5rem;
+            }
+            
+            .house-selection {
+                grid-template-columns: 1fr;
+            }
+            
+            .tracker-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation for mana gain */
+        @keyframes manaGain {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-50px) scale(1.2); opacity: 0; }
+        }
+
+        .mana-gained {
+            position: fixed;
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 1.2rem;
+            pointer-events: none;
+            z-index: 1000;
+            animation: manaGain 1s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+
+    <!-- Welcome/House Selection Page -->
+    <div class="welcome-page" id="welcomePage">
+        <h1 class="academy-logo">WYRNWICK ACADEMY</h1>
+        <p class="academy-subtitle">Begin your magical wellness journey</p>
+        
+        <div class="house-selection">
+            <div class="house-crest viperthorn" onclick="selectHouse('viperthorn')">
+                <div class="house-icon">🐍</div>
+                <div class="house-name">VIPERTHORN</div>
+                <div class="house-motto">"Cunning guides the wise"</div>
+            </div>
+            
+            <div class="house-crest braverun" onclick="selectHouse('braverun')">
+                <div class="house-icon">🦁</div>
+                <div class="house-name">BRAVERUN</div>
+                <div class="house-motto">"Courage conquers all"</div>
+            </div>
+            
+            <div class="house-crest nightwing" onclick="selectHouse('nightwing')">
+                <div class="house-icon">🦅</div>
+                <div class="house-name">NIGHTWING</div>
+                <div class="house-motto">"Wisdom illuminates darkness"</div>
+            </div>
+            
+            <div class="house-crest cinderglen" onclick="selectHouse('cinderglen')">
+                <div class="house-icon">🦡</div>
+                <div class="house-name">CINDERGLEN</div>
+                <div class="house-motto">"Loyalty burns eternal"</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Food Tracker Page -->
+    <div class="tracker-page" id="trackerPage">
+        <div class="tracker-header">
+            <h1 class="tracker-title">Wyrnwick Academy</h1>
+            <p class="house-welcome" id="houseWelcome">Welcome, Student!</p>
+        </div>
+
+        <div class="tracker-content">
+            <!-- Food Input Section -->
+            <div class="magical-card">
+                <h2 class="card-title">🪄 Spellbinder Logbook</h2>
+                
+                <div class="input-group">
+                    <div class="input-container">
+                        <input type="text" id="foodInput" class="magical-input" placeholder="What magical feast did you enjoy?" autocomplete="off">
+                        <div class="suggest-dropdown" id="suggestDropdown"></div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <input type="number" id="quantityInput" class="magical-input" placeholder="Quantity (e.g., 1, 2, 0.5)" value="1" step="0.1" min="0.1">
+                </div>
+                
+                <div class="input-group">
+                    <input type="number" id="caloriesInput" class="magical-input" placeholder="Mana (calories) - auto-filled" readonly>
+                </div>
+                
+                <button class="magical-btn" onclick="addFood()">✨ Add to Spell Log</button>
+                
+                <div class="mana-container">
+                    <div class="mana-bar">
+                        <div class="mana-fill" id="manaFill" style="width: 0%"></div>
+                    </div>
+                    <div class="mana-text" id="manaText">0 / 1200 Mana</div>
+                </div>
+                
+                <div class="food-log" id="foodLog"></div>
+                
+                <button class="magical-btn" onclick="clearDay()" style="background: linear-gradient(45deg, #8b0000, #dc2626); margin-top: 1rem;">🧹 Clear Today's Spells</button>
+            </div>
+
+            <!-- Stats and Runes Section -->
+            <div class="magical-card">
+                <h2 class="card-title">🏆 Magical Achievements</h2>
+                
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <div style="font-size: 1.2rem; color: var(--secondary); margin-bottom: 0.5rem;">House Points</div>
+                    <div style="font-size: 2rem; font-weight: bold; color: var(--secondary);" id="housePoints">0</div>
+                </div>
+                
+                <h3 style="color: var(--secondary); margin-bottom: 1rem; text-align: center;">Earned Runes</h3>
+                <div class="runes-container" id="runesContainer">
+                    <div class="rune" id="rune1">
+                        <div class="rune-icon">🍎</div>
+                        <div class="rune-name">First Feast</div>
+                    </div>
+                    <div class="rune" id="rune2">
+                        <div class="rune-icon">⚡</div>
+                        <div class="rune-name">Mana Master</div>
+                    </div>
+                    <div class="rune" id="rune3">
+                        <div class="rune-icon">🔥</div>
+                        <div class="rune-name">Power Surge</div>
+                    </div>
+                    <div class="rune" id="rune4">
+                        <div class="rune-icon">🌟</div>
+                        <div class="rune-name">Daily Ritual</div>
+                    </div>
+                    <div class="rune" id="rune5">
+                        <div class="rune-icon">👑</div>
+                        <div class="rune-name">Grand Master</div>
+                    </div>
+                    <div class="rune" id="rune6">
+                        <div class="rune-icon">💎</div>
+                        <div class="rune-name">Legend</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Food Database
+        const foods = [
+            {name: "Apple", calories: 95},
+            {name: "Banana", calories: 105},
+            {name: "Orange", calories: 62},
+            {name: "Grapes", calories: 62},
+            {name: "Strawberries", calories: 32},
+            {name: "Chicken Breast", calories: 165},
+            {name: "Salmon", calories: 206},
+            {name: "Beef", calories: 250},
+            {name: "Eggs", calories: 70},
+            {name: "Milk", calories: 42},
+            {name: "Cheese", calories: 113},
+            {name: "Yogurt", calories: 59},
+            {name: "Bread", calories: 79},
+            {name: "Rice", calories: 130},
+            {name: "Pasta", calories: 131},
+            {name: "Potato", calories: 161},
+            {name: "Broccoli", calories: 25},
+            {name: "Carrots", calories: 25},
+            {name: "Spinach", calories: 7},
+            {name: "Chocolate", calories: 546},
+            {name: "Ice Cream", calories: 207},
+            {name: "Pizza", calories: 285},
+            {name: "Hamburger", calories: 354},
+            {name: "French Fries", calories: 365},
+            {name: "Salad", calories: 33},
+            {name: "Oatmeal", calories: 68},
+            {name: "Almonds", calories: 576},
+            {name: "Peanut Butter", calories: 588},
+            {name: "Avocado", calories: 234},
+            {name: "Sweet Potato", calories: 112}
+        ];
+
+        // Initialize stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // House selection
+        function selectHouse(house) {
+            localStorage.setItem('wyrnwickHouse', house);
+            showTracker();
+        }
+
+        // Show tracker page
+        function showTracker() {
+            const house = localStorage.getItem('wyrnwickHouse');
+            if (!house) return;
+
+            document.getElementById('welcomePage').style.display = 'none';
+            document.getElementById('trackerPage').style.display = 'block';
+            document.body.className = house;
+            document.getElementById('houseWelcome').textContent = `Welcome, ${house.charAt(0).toUpperCase() + house.slice(1)} student!`;
+            
+            loadData();
+            updateDisplay();
+        }
+
+        // Food auto-suggest
+        function setupAutoSuggest() {
+            const input = document.getElementById('foodInput');
+            const dropdown = document.getElementById('suggestDropdown');
+
+            input.addEventListener('input', function() {
+                const value = this.value.toLowerCase();
+                if (value.length < 2) {
+                    dropdown.style.display = 'none';
+                    return;
+                }
+
+                const matches = foods.filter(food => 
+                    food.name.toLowerCase().includes(value)
+                ).slice(0, 5);
+
+                if (matches.length > 0) {
+                    dropdown.innerHTML = matches.map(food => 
+                        `<div class="suggest-item" onclick="selectFood('${food.name}', ${food.calories})">${food.name} (${food.calories} cal)</div>`
+                    ).join('');
+                    dropdown.style.display = 'block';
+                } else {
+                    dropdown.style.display = 'none';
+                }
+            });
+
+            // Hide dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.input-container')) {
+                    dropdown.style.display = 'none';
+                }
+            });
+        }
+
+        // Select food from dropdown
+        function selectFood(name, calories) {
+            document.getElementById('foodInput').value = name;
+            document.getElementById('caloriesInput').value = calories;
+            document.getElementById('suggestDropdown').style.display = 'none';
+        }
+
+        // Add food to log
+        function addFood() {
+            const foodName = document.getElementById('foodInput').value.trim();
+            const quantity = parseFloat(document.getElementById('quantityInput').value) || 1;
+            let calories = parseInt(document.getElementById('caloriesInput').value);
+
+            if (!foodName) {
+                alert('Please enter a food name!');
+                return;
+            }
+
+            // Auto-calculate calories if not provided
+            if (!calories) {
+                const food = foods.find(f => f.name.toLowerCase() === foodName.toLowerCase());
+                calories = food ? food.calories : 100; // Default to 100 if not found
+            }
+
+            const totalCalories = Math.round(calories * quantity);
+
+            // Get current data
+            let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            if (!data.foodsToday) data.foodsToday = [];
+            if (!data.dailyMana) data.dailyMana = 0;
+            if (!data.housePoints) data.housePoints = 0;
+            if (!data.earnedRunes) data.earnedRunes = [];
+
+            // Add food
+            data.foodsToday.push({
+                name: foodName,
+                quantity: quantity,
+                calories: totalCalories,
+                timestamp: Date.now()
+            });
+
+            data.dailyMana += totalCalories;
+            data.housePoints += Math.floor(totalCalories / 10); // 1 point per 10 calories
+
+            // Save data
+            localStorage.setItem('wyrnwickData', JSON.stringify(data));
+
+            // Show mana gain animation
+            showManaGain(totalCalories);
+
+            // Clear inputs
+            document.getElementById('foodInput').value = '';
+            document.getElementById('quantityInput').value = '1';
+            document.getElementById('caloriesInput').value = '';
+
+            // Update display
+            updateDisplay();
+            checkRunes();
+        }
+
+        // Show mana gain animation
+        function showManaGain(calories) {
+            const element = document.createElement('div');
+            element.className = 'mana-gained';
+            element.textContent = `+${calories} Mana!`;
+            element.style.left = '50%';
+            element.style.top = '50%';
+            document.body.appendChild(element);
+
+            setTimeout(() => {
+                element.remove();
+            }, 1000);
+        }
+
+        // Update display
+        function updateDisplay() {
+            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            const dailyMana = data.dailyMana || 0;
+            const housePoints = data.housePoints || 0;
+            const foodsToday = data.foodsToday || [];
+
+            // Update mana bar
+            const percentage = Math.min((dailyMana / 1200) * 100, 100);
+            document.getElementById('manaFill').style.width = percentage + '%';
+            document.getElementById('manaText').textContent = `${dailyMana} / 1200 Mana`;
+
+            // Update house points
+            document.getElementById('housePoints').textContent = housePoints;
+
+            // Update food log
+            const foodLog = document.getElementById('foodLog');
+            foodLog.innerHTML = foodsToday.map(food => `
+                <div class="food-item">
+                    <span class="food-name">${food.name} ${food.quantity > 1 ? `(×${food.quantity})` : ''}</span>
+                    <span class="food-calories">${food.calories} mana</span>
+                </div>
+            `).join('');
+
+            // Update runes
+            updateRunes();
+        }
+
+        // Check and award runes
+        function checkRunes() {
+            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            const dailyMana = data.dailyMana || 0;
+            const housePoints = data.housePoints || 0;
+            const foodsToday = data.foodsToday || [];
+            let earnedRunes = data.earnedRunes || [];
+
+            const runes = [
+                {id: 'rune1', name: 'First Feast', condition: () => foodsToday.length >= 1},
+                {id: 'rune2', name: 'Mana Master', condition: () => dailyMana >= 1200},
+                {id: 'rune3', name: 'Power Surge', condition: () => dailyMana >= 1500},
+                {id: 'rune4', name: 'Daily Ritual', condition: () => dailyMana >= 1200 && dailyMana <= 1400},
+                {id: 'rune5', name: 'Grand Master', condition: () => housePoints >= 500},
+                {id: 'rune6', name: 'Legend', condition: () => housePoints >= 1000}
+            ];
+
+            runes.forEach(rune => {
+                if (rune.condition() && !earnedRunes.includes(rune.name)) {
+                    earnedRunes.push(rune.name);
+                    showRuneEarned(rune.name);
+                }
+            });
+
+            data.earnedRunes = earnedRunes;
+            localStorage.setItem('wyrnwickData', JSON.stringify(data));
+        }
+
+        // Show rune earned notification
+        function showRuneEarned(runeName) {
+            alert(`🎉 Rune Earned: ${runeName}! 🎉`);
+        }
+
+        // Update runes display
+        function updateRunes() {
+            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            const earnedRunes = data.earnedRunes || [];
+
+            const runeElements = document.querySelectorAll('.rune');
+            runeElements.forEach((element, index) => {
+                const runeName = element.querySelector('.rune-name').textContent;
+                if (earnedRunes.includes(runeName)) {
+                    element.classList.add('earned');
+                }
+            });
+        }
+
+        // Clear day
+        function clearDay() {
+            if (confirm('Are you sure you want to clear today\'s spell log?')) {
+                let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+                data.foodsToday = [];
+                data.dailyMana = 0;
+                localStorage.setItem('wyrnwickData', JSON.stringify(data));
+                updateDisplay();
+            }
+        }
+
+        // Load data
+        function loadData() {
+            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            // Check if it's a new day
+            const today = new Date().toDateString();
+            const lastLogin = data.lastLogin || '';
+
+            if (lastLogin !== today) {
+                // New day - reset daily stats but keep house points and runes
+                data.foodsToday = [];
+                data.dailyMana = 0;
+                data.lastLogin = today;
+                localStorage.setItem('wyrnwickData', JSON.stringify(data));
+            }
+        }
+
+        // Initialize app
+        function initApp() {
+            createStars();
+            setupAutoSuggest();
+
+            const savedHouse = localStorage.getItem('wyrnwickHouse');
+            if (savedHouse) {
+                showTracker();
+            }
+        }
+
+        // Start the app
+        initApp();
+    </script>
+</body>
+</html>
