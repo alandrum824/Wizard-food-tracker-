@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wyrnwick Academy - Legendary Nutrition Tracker</title>
+    <title>Hogsworth Academy - Legendary Nutrition Tracker</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
@@ -85,28 +85,28 @@
         }
 
         /* Harry Potter House Themes */
-        .viperthorn { 
+        .serpent { 
             --primary: #1a4d2e; 
             --secondary: #c0c0c0; 
             --accent: #2d5a3d;
             --house-main: #1a4d2e;
             --house-accent: #c0c0c0;
         }
-        .braverun { 
+        .griffin { 
             --primary: #740001; 
             --secondary: #ffd700; 
             --accent: #ae0001;
             --house-main: #740001;
             --house-accent: #ffd700;
         }
-        .nightwing { 
+        .raven { 
             --primary: #0e1a40; 
             --secondary: #946b2d; 
             --accent: #222f5b;
             --house-main: #0e1a40;
             --house-accent: #946b2d;
         }
-        .cinderglen { 
+        .hufflecrest { 
             --primary: #ecb939; 
             --secondary: #372e29; 
             --accent: #f0c75e;
@@ -292,22 +292,22 @@
             overflow: hidden;
         }
 
-        .house-crest.viperthorn {
+        .house-crest.serpent {
             border-color: #1a4d2e;
             background: linear-gradient(145deg, rgba(26,77,46,0.2), rgba(26,77,46,0.1));
         }
 
-        .house-crest.braverun {
+        .house-crest.griffin {
             border-color: #740001;
             background: linear-gradient(145deg, rgba(116,0,1,0.2), rgba(116,0,1,0.1));
         }
 
-        .house-crest.nightwing {
+        .house-crest.raven {
             border-color: #0e1a40;
             background: linear-gradient(145deg, rgba(14,26,64,0.2), rgba(14,26,64,0.1));
         }
 
-        .house-crest.cinderglen {
+        .house-crest.hufflecrest {
             border-color: #ecb939;
             background: linear-gradient(145deg, rgba(236,185,57,0.2), rgba(236,185,57,0.1));
         }
@@ -362,10 +362,10 @@
             margin-bottom: 0.5rem;
         }
 
-        .house-crest.viperthorn .house-name { color: #c0c0c0; }
-        .house-crest.braverun .house-name { color: #ffd700; }
-        .house-crest.nightwing .house-name { color: #946b2d; }
-        .house-crest.cinderglen .house-name { color: #372e29; }
+        .house-crest.serpent .house-name { color: #c0c0c0; }
+        .house-crest.griffin .house-name { color: #ffd700; }
+        .house-crest.raven .house-name { color: #946b2d; }
+        .house-crest.hufflecrest .house-name { color: #372e29; }
 
         .house-motto {
             font-style: italic;
@@ -983,7 +983,7 @@
     <!-- Student Key Gate -->
     <div class="key-gate" id="keyGate">
         <div class="admission-letter">
-            <h1 class="admission-title">🏰 WYRNWICK ACADEMY</h1>
+            <h1 class="admission-title">🏰 HOGSWORTH ACADEMY</h1>
             <p class="admission-text">
                 Welcome, aspiring wizard! Your acceptance letter has arrived.<br>
                 Enter your student key to begin your magical nutrition journey.
@@ -1002,39 +1002,39 @@
 
     <!-- Welcome & House Selection -->
     <div class="welcome-page" id="welcomePage">
-        <h1 class="academy-logo">⚡ WYRNWICK ACADEMY ⚡</h1>
+        <h1 class="academy-logo">⚡ HOGSWORTH ACADEMY ⚡</h1>
         <p class="academy-subtitle">Choose Your Magical House & Begin Your Journey</p>
         
         <div class="house-selection">
-            <div class="house-crest viperthorn" onclick="selectHouse('viperthorn')">
+            <div class="house-crest serpent" onclick="selectHouse('serpent')">
                 <div class="house-icon">
                     <div class="house-character">🐍</div>
                 </div>
-                <h3 class="house-name">VIPERTHORN</h3>
+                <h3 class="house-name">SERPENT</h3>
                 <p class="house-motto">"Ambition & Cunning"</p>
             </div>
             
-            <div class="house-crest braverun" onclick="selectHouse('braverun')">
-                <div class="house-icon">
-                    <div class="house-character">🦁</div>
-                </div>
-                <h3 class="house-name">BRAVERUN</h3>
-                <p class="house-motto">"Courage & Determination"</p>
-            </div>
-            
-            <div class="house-crest nightwing" onclick="selectHouse('nightwing')">
+            <div class="house-crest griffin" onclick="selectHouse('griffin')">
                 <div class="house-icon">
                     <div class="house-character">🦅</div>
                 </div>
-                <h3 class="house-name">NIGHTWING</h3>
-                <p class="house-motto">"Wisdom & Wit"</p>
+                <h3 class="house-name">GRIFFIN</h3>
+                <p class="house-motto">"Courage & Bravery"</p>
             </div>
             
-            <div class="house-crest cinderglen" onclick="selectHouse('cinderglen')">
+            <div class="house-crest raven" onclick="selectHouse('raven')">
+                <div class="house-icon">
+                    <div class="house-character">🐦‍⬛</div>
+                </div>
+                <h3 class="house-name">RAVEN</h3>
+                <p class="house-motto">"Wisdom & Intelligence"</p>
+            </div>
+            
+            <div class="house-crest hufflecrest" onclick="selectHouse('hufflecrest')">
                 <div class="house-icon">
                     <div class="house-character">🦡</div>
                 </div>
-                <h3 class="house-name">CINDERGLEN</h3>
+                <h3 class="house-name">HUFFLECREST</h3>
                 <p class="house-motto">"Loyalty & Hard Work"</p>
             </div>
         </div>
@@ -1268,35 +1268,35 @@
                 <button class="close-btn" onclick="closeModal('customizeModal')">&times;</button>
             </div>
             <div class="house-selection">
-                <div class="house-crest viperthorn" onclick="changeHouse('viperthorn')">
+                <div class="house-crest serpent" onclick="changeHouse('serpent')">
                     <div class="house-icon">
                         <div class="house-character">🐍</div>
                     </div>
-                    <h3 class="house-name">VIPERTHORN</h3>
+                    <h3 class="house-name">SERPENT</h3>
                     <p class="house-motto">"Ambition & Cunning"</p>
                 </div>
                 
-                <div class="house-crest braverun" onclick="changeHouse('braverun')">
-                    <div class="house-icon">
-                        <div class="house-character">🦁</div>
-                    </div>
-                    <h3 class="house-name">BRAVERUN</h3>
-                    <p class="house-motto">"Courage & Determination"</p>
-                </div>
-                
-                <div class="house-crest nightwing" onclick="changeHouse('nightwing')">
+                <div class="house-crest griffin" onclick="changeHouse('griffin')">
                     <div class="house-icon">
                         <div class="house-character">🦅</div>
                     </div>
-                    <h3 class="house-name">NIGHTWING</h3>
-                    <p class="house-motto">"Wisdom & Wit"</p>
+                    <h3 class="house-name">GRIFFIN</h3>
+                    <p class="house-motto">"Courage & Bravery"</p>
                 </div>
                 
-                <div class="house-crest cinderglen" onclick="changeHouse('cinderglen')">
+                <div class="house-crest raven" onclick="changeHouse('raven')">
+                    <div class="house-icon">
+                        <div class="house-character">🐦‍⬛</div>
+                    </div>
+                    <h3 class="house-name">RAVEN</h3>
+                    <p class="house-motto">"Wisdom & Intelligence"</p>
+                </div>
+                
+                <div class="house-crest hufflecrest" onclick="changeHouse('hufflecrest')">
                     <div class="house-icon">
                         <div class="house-character">🦡</div>
                     </div>
-                    <h3 class="house-name">CINDERGLEN</h3>
+                    <h3 class="house-name">HUFFLECREST</h3>
                     <p class="house-motto">"Loyalty & Hard Work"</p>
                 </div>
             </div>
@@ -1676,7 +1676,7 @@
             const validKeys = ['WIZARD123', 'MAGIC', 'ACADEMY', 'STUDENT'];
             
             if (validKeys.includes(key) || key === '') {
-                showToast('Welcome to Wyrnwick Academy! 🏰✨', 'success');
+                showToast('Welcome to Hogsworth Academy! 🏰✨', 'success');
                 setTimeout(() => {
                     document.getElementById('keyGate').style.display = 'none';
                     document.getElementById('welcomePage').style.display = 'flex';
@@ -1725,20 +1725,20 @@
         // Display update functions
         function updateHouseDisplay() {
             const houseNames = {
-                'viperthorn': 'VIPERTHORN HOUSE',
-                'braverun': 'BRAVERUN HOUSE', 
-                'nightwing': 'NIGHTWING HOUSE',
-                'cinderglen': 'CINDERGLEN HOUSE'
+                'serpent': 'SERPENT HOUSE',
+                'griffin': 'GRIFFIN HOUSE', 
+                'raven': 'RAVEN HOUSE',
+                'hufflecrest': 'HUFFLECREST HOUSE'
             };
             
             const houseWelcomes = {
-                'viperthorn': 'Cunning and ambitious nutrition tracking 🐍',
-                'braverun': 'Brave the journey to better health 🦁',
-                'nightwing': 'Wise choices for optimal nutrition 🦅', 
-                'cinderglen': 'Steady progress through dedication 🦡'
+                'serpent': 'Ambitious and cunning nutrition mastery 🐍',
+                'griffin': 'Brave the path to legendary fitness 🦅',
+                'raven': 'Wise choices for optimal wellness 🐦‍⬛', 
+                'hufflecrest': 'Dedicated progress through loyal effort 🦡'
             };
             
-            document.getElementById('houseTitle').textContent = houseNames[gameState.currentHouse] || 'WYRNWICK ACADEMY';
+            document.getElementById('houseTitle').textContent = houseNames[gameState.currentHouse] || 'HOGSWORTH ACADEMY';
             document.getElementById('houseWelcome').textContent = houseWelcomes[gameState.currentHouse] || 'Welcome to your magical nutrition journey!';
             document.getElementById('userHouse').textContent = gameState.currentHouse.charAt(0).toUpperCase() + gameState.currentHouse.slice(1);
         }
