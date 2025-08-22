@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hogsworth Academy - Legendary Nutrition Tracker</title>
+    <title>Hogsworth Academy - Magical Nutrition Castle</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:wght@400;600;700&family=Celtic+Hand&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -23,32 +23,45 @@
             position: relative;
         }
 
-        /* Magical Background Effects */
-        .stars {
+        /* Magical Castle Background */
+        .castle-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
+            background: 
+                radial-gradient(ellipse at 20% 80%, rgba(139, 69, 19, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(25, 25, 112, 0.4) 0%, transparent 50%),
+                linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            z-index: -2;
+        }
+
+        .castle-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.4), transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: twinkle 4s ease-in-out infinite alternate;
             z-index: 1;
         }
 
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #fff;
-            border-radius: 50%;
-            animation: twinkle 3s infinite;
-        }
-
         @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
         }
 
-        .floating-sparkles {
+        /* Floating Magical Particles */
+        .magical-particles {
             position: fixed;
             top: 0;
             left: 0;
@@ -58,18 +71,19 @@
             z-index: 2;
         }
 
-        .sparkle {
+        .particle {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #ffd700;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #ffd700, #ffed4e);
             border-radius: 50%;
-            animation: float 6s infinite linear;
+            animation: float 8s infinite linear;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
         }
 
         @keyframes float {
             0% {
-                transform: translateY(100vh) rotate(0deg);
+                transform: translateY(100vh) rotate(0deg) scale(0.5);
                 opacity: 0;
             }
             10% {
@@ -79,67 +93,39 @@
                 opacity: 1;
             }
             100% {
-                transform: translateY(-10px) rotate(360deg);
+                transform: translateY(-10px) rotate(360deg) scale(1);
                 opacity: 0;
             }
         }
 
-        /* Harry Potter House Themes */
+        /* House Color Themes */
         .serpent { 
-            --primary: #1a4d2e; 
+            --primary: #1a472a; 
             --secondary: #c0c0c0; 
             --accent: #2d5a3d;
-            --house-main: #1a4d2e;
-            --house-accent: #c0c0c0;
+            --house-glow: rgba(26, 71, 42, 0.6);
         }
         .griffin { 
             --primary: #740001; 
             --secondary: #ffd700; 
             --accent: #ae0001;
-            --house-main: #740001;
-            --house-accent: #ffd700;
+            --house-glow: rgba(116, 0, 1, 0.6);
         }
         .raven { 
             --primary: #0e1a40; 
             --secondary: #946b2d; 
             --accent: #222f5b;
-            --house-main: #0e1a40;
-            --house-accent: #946b2d;
+            --house-glow: rgba(14, 26, 64, 0.6);
         }
         .hufflecrest { 
             --primary: #ecb939; 
             --secondary: #372e29; 
             --accent: #f0c75e;
-            --house-main: #ecb939;
-            --house-accent: #372e29;
+            --house-glow: rgba(236, 185, 57, 0.6);
         }
 
-        /* Toast Notifications */
-        .toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(45deg, #4ade80, #22c55e);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            z-index: 1000;
-            animation: toastSlide 0.5s ease;
-            font-weight: bold;
-        }
-
-        .toast.error {
-            background: linear-gradient(45deg, #ef4444, #dc2626);
-        }
-
-        @keyframes toastSlide {
-            from { transform: translateX(100%); }
-            to { transform: translateX(0); }
-        }
-
-        /* Student Key Gate */
-        .key-gate {
+        /* Castle Gate Entry */
+        .castle-gate {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -148,92 +134,123 @@
             padding: 20px;
             position: relative;
             z-index: 10;
+            background: radial-gradient(ellipse at center, rgba(139, 69, 19, 0.1), transparent);
         }
 
-        .admission-letter {
-            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-            border: 3px solid rgba(255,215,0,0.5);
-            border-radius: 20px;
+        .gate-scroll {
+            background: linear-gradient(145deg, rgba(139, 69, 19, 0.9), rgba(101, 67, 33, 0.8));
+            border: 4px solid #8b4513;
+            border-radius: 25px;
             padding: 3rem;
             text-align: center;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            box-shadow: 
+                0 0 30px rgba(139, 69, 19, 0.8),
+                inset 0 0 20px rgba(255, 215, 0, 0.1);
             max-width: 500px;
-            animation: letterGlow 3s infinite;
+            position: relative;
         }
 
-        @keyframes letterGlow {
-            0%, 100% { box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-            50% { box-shadow: 0 20px 40px rgba(255,215,0,0.2); }
+        .gate-scroll::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #ffd700, #8b4513, #ffd700);
+            border-radius: 30px;
+            z-index: -1;
+            animation: borderGlow 3s infinite;
         }
 
-        .admission-title {
+        @keyframes borderGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        .academy-title {
             font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: #ffd700;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 
+                2px 2px 4px rgba(0,0,0,0.8),
+                0 0 20px rgba(255, 215, 0, 0.6);
+            letter-spacing: 2px;
         }
 
-        .admission-text {
-            font-size: 1.2rem;
+        .academy-subtitle {
+            font-size: 1.1rem;
+            color: #f4e4bc;
             margin-bottom: 2rem;
-            line-height: 1.6;
+            font-style: italic;
+            line-height: 1.4;
         }
 
-        .key-input {
+        .magical-input {
             width: 100%;
-            padding: 15px;
-            border: 2px solid rgba(255,215,0,0.3);
-            border-radius: 10px;
-            background: rgba(0,0,0,0.3);
-            color: #fff;
+            padding: 15px 20px;
+            border: 3px solid rgba(255, 215, 0, 0.4);
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #ffd700;
             font-size: 1.2rem;
             text-align: center;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Crimson Text', serif;
             transition: all 0.3s ease;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
-        .key-input:focus {
+        .magical-input:focus {
             outline: none;
             border-color: #ffd700;
-            box-shadow: 0 0 15px rgba(255,215,0,0.4);
+            box-shadow: 
+                0 0 20px rgba(255, 215, 0, 0.8),
+                inset 0 0 10px rgba(255, 215, 0, 0.2);
+            transform: scale(1.02);
         }
 
-        .enter-btn {
+        .castle-btn {
             width: 100%;
-            padding: 15px;
+            padding: 15px 25px;
             border: none;
-            border-radius: 10px;
-            background: linear-gradient(45deg, #ffd700, #ffed4e);
-            color: #000;
+            border-radius: 15px;
+            background: linear-gradient(45deg, #8b4513, #a0522d);
+            color: #ffd700;
             font-weight: bold;
             font-size: 1.2rem;
             cursor: pointer;
             transition: all 0.3s ease;
             margin-bottom: 1rem;
+            font-family: 'Cinzel', serif;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
-        .enter-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(255,215,0,0.3);
+        .castle-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(255, 215, 0, 0.3);
         }
 
-        .skip-link {
-            color: rgba(255,215,0,0.7);
+        .guest-link {
+            color: rgba(255, 215, 0, 0.8);
             text-decoration: underline;
             cursor: pointer;
             font-size: 0.9rem;
-            margin-top: 1rem;
             transition: color 0.3s ease;
         }
 
-        .skip-link:hover {
+        .guest-link:hover {
             color: #ffd700;
         }
 
-        /* Welcome Page Styles */
-        .welcome-page {
+        /* House Selection Great Hall */
+        .great-hall {
             display: none;
             flex-direction: column;
             align-items: center;
@@ -244,286 +261,322 @@
             z-index: 10;
         }
 
-        .academy-logo {
+        .hall-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .hall-title {
             font-family: 'Cinzel', serif;
             font-size: 4rem;
             font-weight: 900;
-            text-align: center;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #ffd700, #fff, #ffd700);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            animation: logoShimmer 3s infinite;
-        }
-
-        @keyframes logoShimmer {
-            0%, 100% { filter: brightness(1); }
-            50% { filter: brightness(1.2); }
-        }
-
-        .academy-subtitle {
-            font-size: 1.4rem;
-            font-style: italic;
             color: #ffd700;
-            margin-bottom: 3rem;
-            text-align: center;
+            margin-bottom: 1rem;
+            text-shadow: 
+                3px 3px 6px rgba(0,0,0,0.8),
+                0 0 30px rgba(255, 215, 0, 0.6);
+            letter-spacing: 3px;
         }
 
-        .house-selection {
+        .hall-subtitle {
+            font-size: 1.3rem;
+            color: #f4e4bc;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .sorting-text {
+            font-size: 1.1rem;
+            color: #ccc;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .house-chamber {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            gap: 2.5rem;
             max-width: 1200px;
             width: 100%;
         }
 
-        .house-crest {
-            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-            border: 3px solid rgba(255,215,0,0.3);
+        .house-banner {
+            background: linear-gradient(145deg, rgba(139, 69, 19, 0.8), rgba(101, 67, 33, 0.6));
+            border: 3px solid rgba(255, 215, 0, 0.4);
             border-radius: 20px;
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             text-align: center;
             cursor: pointer;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(10px);
+            transition: all 0.5s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .house-crest.serpent {
-            border-color: #1a4d2e;
-            background: linear-gradient(145deg, rgba(26,77,46,0.2), rgba(26,77,46,0.1));
-        }
-
-        .house-crest.griffin {
-            border-color: #740001;
-            background: linear-gradient(145deg, rgba(116,0,1,0.2), rgba(116,0,1,0.1));
-        }
-
-        .house-crest.raven {
-            border-color: #0e1a40;
-            background: linear-gradient(145deg, rgba(14,26,64,0.2), rgba(14,26,64,0.1));
-        }
-
-        .house-crest.hufflecrest {
-            border-color: #ecb939;
-            background: linear-gradient(145deg, rgba(236,185,57,0.2), rgba(236,185,57,0.1));
-        }
-
-        .house-crest::before {
+        .house-banner::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,215,0,0.1), transparent);
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
             transform: rotate(-45deg);
-            transition: all 0.6s ease;
+            transition: all 0.8s ease;
             opacity: 0;
         }
 
-        .house-crest:hover::before {
+        .house-banner:hover::before {
             opacity: 1;
             transform: rotate(-45deg) translate(50%, 50%);
         }
 
-        .house-crest:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        .house-banner:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.6),
+                0 0 40px var(--house-glow);
         }
 
-        .house-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 80px;
-        }
+        .house-banner.serpent { border-color: #1a472a; }
+        .house-banner.griffin { border-color: #740001; }
+        .house-banner.raven { border-color: #0e1a40; }
+        .house-banner.hufflecrest { border-color: #ecb939; }
 
-        .house-character {
+        .house-emblem {
             font-size: 5rem;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
-            transition: transform 0.3s ease;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.8));
+            transition: transform 0.4s ease;
         }
 
-        .house-crest:hover .house-character {
-            transform: scale(1.1) rotate(5deg);
+        .house-banner:hover .house-emblem {
+            transform: scale(1.2) rotate(10deg);
         }
 
         .house-name {
             font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
         }
 
-        .house-crest.serpent .house-name { color: #c0c0c0; }
-        .house-crest.griffin .house-name { color: #ffd700; }
-        .house-crest.raven .house-name { color: #946b2d; }
-        .house-crest.hufflecrest .house-name { color: #372e29; }
+        .house-banner.serpent .house-name { color: #c0c0c0; }
+        .house-banner.griffin .house-name { color: #ffd700; }
+        .house-banner.raven .house-name { color: #946b2d; }
+        .house-banner.hufflecrest .house-name { color: #372e29; }
+
+        .house-values {
+            font-style: italic;
+            color: #e6d3a3;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
 
         .house-motto {
-            font-style: italic;
+            font-size: 0.9rem;
             color: #ccc;
-            font-size: 1rem;
+            font-weight: 600;
         }
 
-        /* Tracker Page Styles */
-        .tracker-page {
+        /* Main Castle Interface */
+        .castle-main {
             display: none;
-            padding: 2rem;
+            min-height: 100vh;
             position: relative;
             z-index: 10;
         }
 
-        .tracker-header {
-            text-align: center;
-            margin-bottom: 2rem;
-            padding: 2rem;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+        /* Navigation Tower */
+        .nav-tower {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            background: linear-gradient(145deg, rgba(139, 69, 19, 0.95), rgba(101, 67, 33, 0.9));
+            border: 3px solid rgba(255, 215, 0, 0.6);
             border-radius: 20px;
+            padding: 1rem;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .castle-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: #ffd700;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            border: 2px solid var(--secondary);
+            color: #fff;
+            padding: 0.6rem 1.2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.4),
+                0 0 20px var(--house-glow);
+        }
+
+        /* House Banner in Main */
+        .house-status {
+            margin: 120px 20px 20px;
+            background: linear-gradient(145deg, var(--primary), var(--accent));
             border: 3px solid var(--secondary);
+            border-radius: 25px;
+            padding: 2rem;
+            text-align: center;
             position: relative;
             overflow: hidden;
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.5),
+                0 0 30px var(--house-glow);
         }
 
-        .tracker-header::before {
+        .house-status::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-            animation: headerSweep 8s infinite;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 4s infinite;
         }
 
-        @keyframes headerSweep {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
 
-        .tracker-title {
+        .house-title {
             font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
-            font-weight: 700;
+            font-size: 2.2rem;
             color: var(--secondary);
             margin-bottom: 0.5rem;
             position: relative;
             z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
         }
 
         .house-welcome {
-            font-size: 1.2rem;
-            color: #fff;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
             font-style: italic;
-            margin-bottom: 1rem;
             position: relative;
             z-index: 2;
         }
 
-        .character-info {
+        .wizard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-item {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            font-size: 0.9rem;
-            color: #ddd;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 2;
+            flex-direction: column;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.9);
         }
 
-        .streak-info {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            font-size: 1rem;
-            color: var(--secondary);
-            margin-bottom: 1rem;
+        .stat-value {
+            font-size: 1.5rem;
             font-weight: bold;
-            position: relative;
-            z-index: 2;
-        }
-
-        .nav-btn {
-            position: absolute;
-            background: rgba(0,0,0,0.4);
-            border: 2px solid var(--secondary);
             color: var(--secondary);
-            padding: 0.7rem 1.2rem;
-            border-radius: 25px;
-            cursor: pointer;
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-label {
             font-size: 0.9rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            z-index: 3;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .nav-btn:hover {
-            background: var(--secondary);
-            color: var(--primary);
-            transform: scale(1.05);
-        }
-
-        .goals-btn { top: 1rem; left: 1rem; }
-        .chest-btn { top: 1rem; right: 1rem; }
-        .week-btn { top: 3.5rem; left: 1rem; }
-        .customize-btn { top: 3.5rem; right: 1rem; }
-
-        /* XP Bar */
-        .xp-container {
-            margin: 1rem 0;
+        /* XP Crystal */
+        .xp-crystal {
+            margin: 1.5rem auto;
             position: relative;
             z-index: 2;
         }
 
-        .xp-bar {
-            height: 30px;
+        .crystal-container {
+            width: 250px;
+            height: 35px;
             background: linear-gradient(90deg, #000, #333);
-            border-radius: 15px;
-            overflow: hidden;
+            border-radius: 20px;
             border: 3px solid var(--secondary);
+            overflow: hidden;
             position: relative;
+            margin: 0 auto;
         }
 
-        .xp-fill {
+        .crystal-fill {
             height: 100%;
             background: linear-gradient(90deg, #9333ea, #c084fc, #e879f9);
-            transition: width 1.2s ease;
-            border-radius: 15px;
+            border-radius: 20px;
             position: relative;
+            transition: width 1.2s ease;
         }
 
-        .xp-fill::after {
+        .crystal-fill::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            animation: shimmer 2s infinite;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: crystalShimmer 3s infinite;
         }
 
-        @keyframes shimmer {
+        @keyframes crystalShimmer {
             0% { transform: translateX(-100%); }
             100% { transform: translateX(100%); }
         }
 
         .xp-text {
             text-align: center;
-            margin-top: 0.5rem;
+            margin-top: 0.8rem;
             font-weight: bold;
             color: var(--secondary);
             font-size: 1rem;
         }
 
-        .tracker-content {
+        /* Content Chambers */
+        .castle-chambers {
+            padding: 20px;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
@@ -531,313 +584,99 @@
             margin: 0 auto;
         }
 
-        .magical-card {
-            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-            border: 3px solid rgba(255,215,0,0.4);
-            border-radius: 20px;
+        .chamber {
+            background: linear-gradient(145deg, rgba(139, 69, 19, 0.8), rgba(101, 67, 33, 0.6));
+            border: 3px solid rgba(255, 215, 0, 0.4);
+            border-radius: 25px;
             padding: 2rem;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
         }
 
-        .magical-card::before {
+        .chamber::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.1), transparent);
-            animation: cardGlow 3s infinite;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            animation: chamberGlow 6s infinite;
         }
 
-        @keyframes cardGlow {
+        @keyframes chamberGlow {
             0% { left: -100%; }
             50% { left: 100%; }
             100% { left: -100%; }
         }
 
-        .card-title {
+        .chamber-title {
             font-family: 'Cinzel', serif;
-            font-size: 1.6rem;
-            color: var(--secondary);
+            font-size: 1.8rem;
+            color: #ffd700;
             margin-bottom: 1.5rem;
             text-align: center;
             position: relative;
             z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
         }
 
-        .input-group {
-            margin-bottom: 1rem;
+        /* Nutrition Tracking Chamber */
+        .food-search {
             position: relative;
+            margin-bottom: 1.5rem;
             z-index: 2;
         }
 
-        .input-row {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .magical-input, .magical-select {
-            padding: 15px 18px;
-            border: 2px solid rgba(255,215,0,0.4);
-            border-radius: 12px;
-            background: rgba(0,0,0,0.4);
+        .spell-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.5);
             color: #fff;
             font-size: 1rem;
             font-family: 'Crimson Text', serif;
             transition: all 0.3s ease;
         }
 
-        .magical-input {
-            width: 100%;
-        }
-
-        .magical-select {
-            min-width: 90px;
-        }
-
-        .magical-input:focus, .magical-select:focus {
+        .spell-input:focus {
             outline: none;
-            border-color: var(--secondary);
-            box-shadow: 0 0 20px rgba(255,215,0,0.5);
-            transform: scale(1.02);
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
 
-        .magical-btn {
-            width: 100%;
-            padding: 15px 25px;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            color: #fff;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
-            font-family: 'Crimson Text', serif;
-            position: relative;
-            z-index: 2;
-        }
-
-        .magical-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-        }
-
-        .magical-btn.secondary {
-            background: linear-gradient(45deg, #4b5563, #6b7280);
-        }
-
-        /* Enhanced Nutrition Preview */
-        .nutrition-preview {
-            background: linear-gradient(45deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2));
-            border: 2px solid rgba(255,215,0,0.4);
-            border-radius: 12px;
-            padding: 15px;
-            margin: 1rem 0;
-            text-align: center;
-            font-size: 1rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .preview-title {
-            font-weight: bold;
-            color: var(--secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .preview-macros {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 1rem;
-            margin-top: 0.5rem;
-        }
-
-        .preview-macro {
-            text-align: center;
-        }
-
-        .preview-value {
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .preview-label {
-            font-size: 0.8rem;
-            color: #ccc;
-        }
-
-        /* Food Search Suggestions */
-        .suggest-dropdown {
+        .suggestion-scroll {
             position: absolute;
             top: 100%;
             left: 0;
             right: 0;
-            background: linear-gradient(145deg, rgba(0,0,0,0.9), rgba(0,0,0,0.8));
-            border: 2px solid rgba(255,215,0,0.4);
-            border-radius: 12px;
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9));
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            border-radius: 15px;
             backdrop-filter: blur(15px);
             z-index: 1000;
             max-height: 300px;
             overflow-y: auto;
+            display: none;
         }
 
-        .suggest-item {
+        .suggestion-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 12px 15px;
             cursor: pointer;
             transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(255,215,0,0.2);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
         }
 
-        .suggest-item:hover {
-            background: rgba(255,215,0,0.2);
-        }
-
-        .suggest-item:last-child {
-            border-bottom: none;
-        }
-
-        .suggest-food-name {
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 0.2rem;
-        }
-
-        .suggest-food-info {
-            font-size: 0.8rem;
-            color: #ccc;
-        }
-
-        /* Enhanced Goals & Macros */
-        .goals-container {
-            margin: 2rem 0;
-            position: relative;
-            z-index: 2;
-        }
-
-        .calorie-ring {
-            position: relative;
-            width: 140px;
-            height: 140px;
-            margin: 0 auto 1rem;
-        }
-
-        .ring-bg {
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            background:
-                radial-gradient(circle 56px, #0a0a0a 56px, transparent 57px),
-                radial-gradient(circle 68px, rgba(255,255,255,.15) 68px, transparent 69px),
-                conic-gradient(rgba(255,255,255,.18) 0 360deg);
-        }
-
-        .ring-fill {
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            transition: background 1s ease;
-        }
-
-        .ring-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
-
-        .ring-calories {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: var(--secondary);
-        }
-
-        .ring-remaining {
-            font-size: 0.9rem;
-            color: #ccc;
-        }
-
-        .macro-bars {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .macro-bar {
-            text-align: center;
-        }
-
-        .macro-name {
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-        }
-
-        .macro-progress {
-            height: 10px;
-            background: rgba(0,0,0,0.4);
-            border-radius: 5px;
-            overflow: hidden;
-            margin-bottom: 0.5rem;
-            border: 1px solid rgba(255,215,0,0.3);
-        }
-
-        .macro-fill {
-            height: 100%;
-            transition: width 1s ease;
-            border-radius: 5px;
-        }
-
-        .protein-fill { background: linear-gradient(90deg, #ef4444, #dc2626); }
-        .carbs-fill { background: linear-gradient(90deg, #3b82f6, #2563eb); }
-        .fat-fill { background: linear-gradient(90deg, #f59e0b, #d97706); }
-
-        .macro-text {
-            font-size: 0.8rem;
-            color: #ccc;
-        }
-
-        /* Enhanced Food Log */
-        .food-log {
-            max-height: 450px;
-            overflow-y: auto;
-            margin-top: 1rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .food-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            margin-bottom: 10px;
-            background: linear-gradient(45deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05));
-            border: 2px solid rgba(255,215,0,0.3);
-            border-radius: 12px;
-            animation: foodAppear 0.6s ease;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .food-item:hover {
-            background: linear-gradient(45deg, rgba(255,215,0,0.2), rgba(255,215,0,0.1));
-            transform: translateY(-2px);
-        }
-
-        @keyframes foodAppear {
-            from { opacity: 0; transform: translateY(-30px) scale(0.9); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+        .suggestion-item:hover {
+            background: rgba(255, 215, 0, 0.2);
         }
 
         .food-details {
@@ -846,93 +685,340 @@
 
         .food-name {
             font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 0.2rem;
+        }
+
+        .food-info {
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+
+        .quantity-controls {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            z-index: 2;
+            position: relative;
+        }
+
+        .quantity-input {
+            flex: 2;
+            padding: 12px 15px;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .unit-select {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        /* Nutrition Preview Crystal */
+        .nutrition-crystal {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.6), rgba(20, 20, 20, 0.4));
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .crystal-title {
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .crystal-macros {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .macro-crystal {
+            text-align: center;
+        }
+
+        .macro-value {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #ffd700;
+        }
+
+        .macro-label {
+            font-size: 0.8rem;
+            color: #ccc;
+            margin-top: 0.3rem;
+        }
+
+        .spell-buttons {
+            display: flex;
+            gap: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .spell-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: #fff;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Crimson Text', serif;
+        }
+
+        .spell-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .spell-btn.secondary {
+            background: linear-gradient(45deg, #4b5563, #6b7280);
+        }
+
+        /* Progress Chamber */
+        .progress-orb {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .calorie-orb {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(var(--secondary) 0deg, rgba(255,255,255,0.2) 0deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 
+                0 0 30px var(--house-glow),
+                inset 0 0 20px rgba(0, 0, 0, 0.5);
+            transition: background 1s ease;
+        }
+
+        .orb-content {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 50%;
+            width: 110px;
+            height: 110px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .orb-calories {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        .orb-remaining {
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+
+        .macro-runes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .rune {
+            text-align: center;
+        }
+
+        .rune-name {
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .rune-bar {
+            height: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            margin-bottom: 0.5rem;
+        }
+
+        .rune-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 1s ease;
+        }
+
+        .protein-fill { 
+            background: linear-gradient(90deg, #ef4444, #dc2626);
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+        }
+        .carbs-fill { 
+            background: linear-gradient(90deg, #3b82f6, #2563eb);
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+        .fat-fill { 
+            background: linear-gradient(90deg, #f59e0b, #d97706);
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+        }
+
+        .rune-text {
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+
+        /* Food Log Scroll */
+        .food-scroll {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .food-entry {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            animation: entryAppear 0.6s ease;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .food-entry:hover {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+            transform: translateY(-2px);
+        }
+
+        @keyframes entryAppear {
+            from { opacity: 0; transform: translateY(-20px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .entry-details {
+            flex: 1;
+        }
+
+        .entry-name {
+            font-weight: bold;
+            color: #ffd700;
             margin-bottom: 0.3rem;
             font-size: 1.1rem;
         }
 
-        .food-macros {
+        .entry-macros {
             font-size: 0.9rem;
             color: #ccc;
         }
 
-        .food-actions {
+        .entry-actions {
             display: flex;
             gap: 0.5rem;
         }
 
-        .action-btn {
-            background: rgba(255,215,0,0.2);
+        .action-rune {
+            background: rgba(255, 215, 0, 0.2);
             border: 1px solid var(--secondary);
             color: var(--secondary);
             cursor: pointer;
             padding: 0.5rem;
-            border-radius: 6px;
+            border-radius: 8px;
             transition: all 0.3s ease;
             font-weight: bold;
         }
 
-        .action-btn:hover {
+        .action-rune:hover {
             background: var(--secondary);
             color: var(--primary);
             transform: scale(1.1);
         }
 
-        /* Modal Styles */
-        .modal {
+        /* Modal Scrolls */
+        .modal-scroll {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
-            animation: modalFade 0.3s ease;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            animation: scrollFade 0.3s ease;
         }
 
-        @keyframes modalFade {
+        @keyframes scrollFade {
             from { opacity: 0; }
             to { opacity: 1; }
         }
 
-        .modal-content {
+        .scroll-content {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-            border: 3px solid rgba(255,215,0,0.5);
-            border-radius: 20px;
+            background: linear-gradient(145deg, rgba(139, 69, 19, 0.95), rgba(101, 67, 33, 0.9));
+            border: 3px solid #ffd700;
+            border-radius: 25px;
             padding: 2rem;
             max-width: 90%;
             max-height: 90%;
             overflow-y: auto;
-            backdrop-filter: blur(15px);
-            animation: modalSlide 0.3s ease;
+            animation: scrollSlide 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
         }
 
-        @keyframes modalSlide {
+        @keyframes scrollSlide {
             from { transform: translate(-50%, -60%) scale(0.9); }
             to { transform: translate(-50%, -50%) scale(1); }
         }
 
-        .modal-header {
+        .scroll-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2rem;
         }
 
-        .modal-title {
+        .scroll-title {
             font-family: 'Cinzel', serif;
             font-size: 2rem;
-            color: var(--secondary);
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
         }
 
-        .close-btn {
+        .close-rune {
             background: none;
             border: none;
-            color: #fff;
+            color: #ffd700;
             font-size: 2rem;
             cursor: pointer;
             padding: 0.5rem;
@@ -940,131 +1026,190 @@
             transition: all 0.3s ease;
         }
 
-        .close-btn:hover {
-            background: rgba(255,255,255,0.2);
+        .close-rune:hover {
+            background: rgba(255, 215, 0, 0.2);
             transform: rotate(90deg);
+        }
+
+        /* Toast Messages */
+        .magical-toast {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: linear-gradient(45deg, #4ade80, #22c55e);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            border: 2px solid #16a34a;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            z-index: 3000;
+            animation: toastSlide 0.5s ease;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+        }
+
+        .magical-toast.error {
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+            border-color: #b91c1c;
+        }
+
+        @keyframes toastSlide {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .tracker-content {
+            .castle-chambers {
                 grid-template-columns: 1fr;
-                gap: 1rem;
+                gap: 1.5rem;
             }
             
-            .house-selection {
+            .house-chamber {
                 grid-template-columns: 1fr;
             }
             
-            .academy-logo {
+            .hall-title {
                 font-size: 3rem;
             }
             
-            .tracker-title {
-                font-size: 2rem;
+            .nav-content {
+                flex-direction: column;
+                text-align: center;
             }
             
-            .nav-btn {
-                position: relative;
-                margin: 0.5rem;
+            .nav-buttons {
+                justify-content: center;
             }
             
-            .tracker-header {
-                padding: 1rem;
+            .house-status {
+                margin-top: 160px;
+            }
+
+            .quantity-controls {
+                flex-direction: column;
+            }
+
+            .spell-buttons {
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
     <!-- Magical Background -->
-    <div class="stars"></div>
-    <div class="floating-sparkles"></div>
+    <div class="castle-bg"></div>
+    <div class="magical-particles"></div>
 
-    <!-- Student Key Gate -->
-    <div class="key-gate" id="keyGate">
-        <div class="admission-letter">
-            <h1 class="admission-title">🏰 HOGSWORTH ACADEMY</h1>
-            <p class="admission-text">
-                Welcome, aspiring wizard! Your acceptance letter has arrived.<br>
-                Enter your student key to begin your magical nutrition journey.
+    <!-- Castle Gate Entry -->
+    <div class="castle-gate" id="castleGate">
+        <div class="gate-scroll">
+            <h1 class="academy-title">🏰 HOGSWORTH ACADEMY</h1>
+            <p class="academy-subtitle">
+                Welcome to the most prestigious academy of magical nutrition arts.<br>
+                Present your entrance key or request guest passage to begin.
             </p>
             <input type="text" 
-                   class="key-input" 
-                   id="studentKey" 
-                   placeholder="Enter Student Key (WIZARD123)"
+                   class="magical-input" 
+                   id="entranceKey" 
+                   placeholder="Enter your magical key (WIZARD123)"
                    maxlength="20">
-            <button class="enter-btn" onclick="enterAcademy()">🔮 Enter Academy</button>
-            <div class="skip-link" onclick="skipToHouseSelection()">
-                Continue as Guest Student
+            <button class="castle-btn" onclick="enterCastle()">🗝️ Enter the Academy</button>
+            <div class="guest-link" onclick="guestEntry()">
+                Request guest passage to the Great Hall
             </div>
         </div>
     </div>
 
-    <!-- Welcome & House Selection -->
-    <div class="welcome-page" id="welcomePage">
-        <h1 class="academy-logo">⚡ HOGSWORTH ACADEMY ⚡</h1>
-        <p class="academy-subtitle">Choose Your Magical House & Begin Your Journey</p>
+    <!-- Great Hall - House Selection -->
+    <div class="great-hall" id="greatHall">
+        <div class="hall-header">
+            <h1 class="hall-title">⚡ HOGSWORTH ACADEMY ⚡</h1>
+            <p class="hall-subtitle">The Great Hall of Nutritional Mastery</p>
+            <p class="sorting-text">
+                The ancient Sorting Chalice awaits your choice. Each house represents a path to wellness mastery. 
+                Choose wisely, for your house will guide your journey to legendary health and fitness.
+            </p>
+        </div>
         
-        <div class="house-selection">
-            <div class="house-crest serpent" onclick="selectHouse('serpent')">
-                <div class="house-icon">
-                    <div class="house-character">🐍</div>
-                </div>
+        <div class="house-chamber">
+            <div class="house-banner serpent" onclick="joinHouse('serpent')">
+                <div class="house-emblem">🐍</div>
                 <h3 class="house-name">SERPENT</h3>
-                <p class="house-motto">"Ambition & Cunning"</p>
+                <p class="house-values">Ambition • Cunning • Leadership</p>
+                <p class="house-motto">"Through ambition, we achieve greatness"</p>
             </div>
             
-            <div class="house-crest griffin" onclick="selectHouse('griffin')">
-                <div class="house-icon">
-                    <div class="house-character">🦅</div>
-                </div>
+            <div class="house-banner griffin" onclick="joinHouse('griffin')">
+                <div class="house-emblem">🦅</div>
                 <h3 class="house-name">GRIFFIN</h3>
-                <p class="house-motto">"Courage & Bravery"</p>
+                <p class="house-values">Courage • Bravery • Honor</p>
+                <p class="house-motto">"Brave hearts conquer all challenges"</p>
             </div>
             
-            <div class="house-crest raven" onclick="selectHouse('raven')">
-                <div class="house-icon">
-                    <div class="house-character">🐦‍⬛</div>
-                </div>
+            <div class="house-banner raven" onclick="joinHouse('raven')">
+                <div class="house-emblem">🐦‍⬛</div>
                 <h3 class="house-name">RAVEN</h3>
-                <p class="house-motto">"Wisdom & Intelligence"</p>
+                <p class="house-values">Wisdom • Intelligence • Creativity</p>
+                <p class="house-motto">"Knowledge illuminates the path forward"</p>
             </div>
             
-            <div class="house-crest hufflecrest" onclick="selectHouse('hufflecrest')">
-                <div class="house-icon">
-                    <div class="house-character">🦡</div>
-                </div>
+            <div class="house-banner hufflecrest" onclick="joinHouse('hufflecrest')">
+                <div class="house-emblem">🦡</div>
                 <h3 class="house-name">HUFFLECREST</h3>
-                <p class="house-motto">"Loyalty & Hard Work"</p>
+                <p class="house-values">Loyalty • Hard Work • Dedication</p>
+                <p class="house-motto">"Through dedication, we build legends"</p>
             </div>
         </div>
     </div>
 
-    <!-- Main Tracker Page -->
-    <div class="tracker-page" id="trackerPage">
-        <div class="tracker-header">
-            <button class="nav-btn goals-btn" onclick="openGoalsModal()">🎯 Goals</button>
-            <button class="nav-btn chest-btn" onclick="openChestModal()">🏆 Chest</button>
-            <button class="nav-btn week-btn" onclick="openWeekModal()">📊 Week</button>
-            <button class="nav-btn customize-btn" onclick="openCustomizeModal()">⚙️ House</button>
+    <!-- Main Castle Interface -->
+    <div class="castle-main" id="castleMain">
+        <!-- Navigation Tower -->
+        <div class="nav-tower">
+            <div class="nav-content">
+                <div class="castle-logo">🏰 HOGSWORTH ACADEMY</div>
+                <div class="nav-buttons">
+                    <button class="nav-btn" onclick="openScroll('goalsScroll')">🎯 Goals</button>
+                    <button class="nav-btn" onclick="openScroll('chestScroll')">🏆 Chest</button>
+                    <button class="nav-btn" onclick="openScroll('weekScroll')">📊 Progress</button>
+                    <button class="nav-btn" onclick="showGreatHall()">🏠 Houses</button>
+                    <button class="nav-btn" onclick="returnToGate()">🚪 Exit</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- House Status Banner -->
+        <div class="house-status">
+            <h1 class="house-title" id="currentHouseTitle">CHOOSE YOUR HOUSE</h1>
+            <p class="house-welcome" id="currentHouseWelcome">Visit the Great Hall to select your magical house</p>
             
-            <h1 class="tracker-title" id="houseTitle">WYRNWICK ACADEMY</h1>
-            <p class="house-welcome" id="houseWelcome">Welcome to your magical nutrition journey!</p>
-            
-            <div class="character-info">
-                <span>🧙‍♂️ Level <span id="userLevel">1</span></span>
-                <span>🎖️ <span id="userHouse">Wizard</span></span>
-                <span>⭐ <span id="totalTrophies">0</span> Trophies</span>
+            <div class="wizard-stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="wizardLevel">1</div>
+                    <div class="stat-label">🧙‍♂️ Level</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="houseDisplay">None</div>
+                    <div class="stat-label">🏠 House</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="trophyCount">0</div>
+                    <div class="stat-label">🏆 Trophies</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="currentStreak">0</div>
+                    <div class="stat-label">🔥 Streak</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="bestStreak">0</div>
+                    <div class="stat-label">⭐ Best</div>
+                </div>
             </div>
             
-            <div class="streak-info">
-                <span>🔥 <span id="currentStreak">0</span> Day Streak</span>
-                <span>💪 <span id="longestStreak">0</span> Best Streak</span>
-            </div>
-            
-            <div class="xp-container">
-                <div class="xp-bar">
-                    <div class="xp-fill" id="xpFill" style="width: 0%"></div>
+            <div class="xp-crystal">
+                <div class="crystal-container">
+                    <div class="crystal-fill" id="xpFill" style="width: 0%"></div>
                 </div>
                 <div class="xp-text">
                     <span id="currentXP">0</span> / <span id="nextLevelXP">100</span> XP
@@ -1072,292 +1217,266 @@
             </div>
         </div>
 
-        <div class="tracker-content">
-            <!-- Food Tracker Card -->
-            <div class="magical-card">
-                <h2 class="card-title">🍎 Nutrition Tracker</h2>
+        <!-- Castle Chambers -->
+        <div class="castle-chambers">
+            <!-- Nutrition Tracking Chamber -->
+            <div class="chamber">
+                <h2 class="chamber-title">🍎 Nutrition Spellbook</h2>
                 
-                <div class="input-group">
-                    <div class="input-row">
-                        <input type="text" 
-                               class="magical-input" 
-                               id="foodSearch" 
-                               placeholder="Search food (e.g., chicken, apple, oats)"
-                               onkeyup="searchFood()"
-                               aria-live="polite">
-                    </div>
-                    <div class="suggest-dropdown" id="suggestDropdown" style="display: none;"></div>
+                <div class="food-search">
+                    <input type="text" 
+                           class="spell-input" 
+                           id="foodSpell" 
+                           placeholder="Cast a food spell... (e.g., chicken, apple, oats)"
+                           aria-live="polite">
+                    <div class="suggestion-scroll" id="spellSuggestions"></div>
                 </div>
 
-                <div class="input-group">
-                    <div class="input-row">
-                        <input type="number" 
-                               class="magical-input" 
-                               id="foodAmount" 
-                               placeholder="Amount"
-                               step="0.1"
-                               min="0.1"
-                               value="100"
-                               oninput="updateNutritionPreview()">
-                        <select class="magical-select" id="foodUnit" onchange="updateNutritionPreview()">
-                            <option value="g">g</option>
-                            <option value="oz">oz</option>
-                            <option value="cup">cup</option>
-                            <option value="tbsp">tbsp</option>
-                            <option value="slice">slice</option>
-                            <option value="piece">piece</option>
-                        </select>
-                    </div>
+                <div class="quantity-controls">
+                    <input type="number" 
+                           class="quantity-input" 
+                           id="foodQuantity" 
+                           placeholder="Quantity"
+                           step="0.1"
+                           min="0.1"
+                           value="100">
+                    <select class="unit-select" id="foodUnit">
+                        <option value="g">grams</option>
+                        <option value="oz">oz</option>
+                        <option value="cup">cup</option>
+                        <option value="tbsp">tbsp</option>
+                        <option value="slice">slice</option>
+                        <option value="piece">piece</option>
+                    </select>
                 </div>
 
-                <div class="nutrition-preview" id="nutritionPreview" aria-live="polite">
-                    <div class="preview-title">🔮 Nutrition Preview</div>
-                    <div class="preview-macros">
-                        <div class="preview-macro">
-                            <div class="preview-value" id="previewCals">0</div>
-                            <div class="preview-label">Calories</div>
+                <div class="nutrition-crystal" id="nutritionCrystal" aria-live="polite">
+                    <div class="crystal-title">🔮 Nutrition Crystal</div>
+                    <div class="crystal-macros">
+                        <div class="macro-crystal">
+                            <div class="macro-value" id="previewCals">0</div>
+                            <div class="macro-label">Calories</div>
                         </div>
-                        <div class="preview-macro">
-                            <div class="preview-value" id="previewProtein">0g</div>
-                            <div class="preview-label">Protein</div>
+                        <div class="macro-crystal">
+                            <div class="macro-value" id="previewProtein">0g</div>
+                            <div class="macro-label">Protein</div>
                         </div>
-                        <div class="preview-macro">
-                            <div class="preview-value" id="previewCarbs">0g</div>
-                            <div class="preview-label">Carbs</div>
+                        <div class="macro-crystal">
+                            <div class="macro-value" id="previewCarbs">0g</div>
+                            <div class="macro-label">Carbs</div>
                         </div>
-                        <div class="preview-macro">
-                            <div class="preview-value" id="previewFat">0g</div>
-                            <div class="preview-label">Fat</div>
+                        <div class="macro-crystal">
+                            <div class="macro-value" id="previewFat">0g</div>
+                            <div class="macro-label">Fat</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="input-row">
-                    <button class="magical-btn" onclick="addFood()">⚡ Add to Log</button>
-                    <button class="magical-btn secondary" onclick="openCustomFood()" style="margin-left: 0.5rem;">➕ Custom</button>
+                <div class="spell-buttons">
+                    <button class="spell-btn" onclick="castFoodSpell()">⚡ Cast Spell</button>
+                    <button class="spell-btn secondary" onclick="openScroll('customFoodScroll')">➕ Create Food</button>
                 </div>
 
-                <div class="food-log" id="foodLog">
-                    <!-- Food items will appear here -->
+                <div class="food-scroll" id="foodScroll">
+                    <!-- Food entries will appear here -->
                 </div>
             </div>
 
-            <!-- Progress & Goals Card -->
-            <div class="magical-card">
-                <h2 class="card-title">🎯 Daily Progress</h2>
+            <!-- Progress Tracking Chamber -->
+            <div class="chamber">
+                <h2 class="chamber-title">🎯 Progress Oracle</h2>
                 
-                <div class="goals-container">
-                    <div class="calorie-ring">
-                        <div class="ring-bg"></div>
-                        <div class="ring-fill" id="calorieRing"></div>
-                        <div class="ring-text">
-                            <div class="ring-calories" id="currentCals">0</div>
-                            <div class="ring-remaining" id="remainingCals">2000 left</div>
+                <div class="progress-orb">
+                    <div class="calorie-orb" id="calorieOrb">
+                        <div class="orb-content">
+                            <div class="orb-calories" id="orbCalories">0</div>
+                            <div class="orb-remaining" id="orbRemaining">2000 left</div>
                         </div>
+                    </div>
+                </div>
+                
+                <div class="macro-runes">
+                    <div class="rune">
+                        <div class="rune-name">💪 Protein</div>
+                        <div class="rune-bar">
+                            <div class="rune-fill protein-fill" id="proteinRune" style="width: 0%"></div>
+                        </div>
+                        <div class="rune-text" id="proteinText">0g / 150g</div>
                     </div>
                     
-                    <div class="macro-bars">
-                        <div class="macro-bar">
-                            <div class="macro-name">💪 Protein</div>
-                            <div class="macro-progress">
-                                <div class="macro-fill protein-fill" id="proteinBar" style="width: 0%"></div>
-                            </div>
-                            <div class="macro-text" id="proteinText">0g / 150g</div>
+                    <div class="rune">
+                        <div class="rune-name">🌾 Carbs</div>
+                        <div class="rune-bar">
+                            <div class="rune-fill carbs-fill" id="carbsRune" style="width: 0%"></div>
                         </div>
-                        
-                        <div class="macro-bar">
-                            <div class="macro-name">🌾 Carbs</div>
-                            <div class="macro-progress">
-                                <div class="macro-fill carbs-fill" id="carbsBar" style="width: 0%"></div>
-                            </div>
-                            <div class="macro-text" id="carbsText">0g / 250g</div>
+                        <div class="rune-text" id="carbsText">0g / 250g</div>
+                    </div>
+                    
+                    <div class="rune">
+                        <div class="rune-name">🥑 Fat</div>
+                        <div class="rune-bar">
+                            <div class="rune-fill fat-fill" id="fatRune" style="width: 0%"></div>
                         </div>
-                        
-                        <div class="macro-bar">
-                            <div class="macro-name">🥑 Fat</div>
-                            <div class="macro-progress">
-                                <div class="macro-fill fat-fill" id="fatBar" style="width: 0%"></div>
-                            </div>
-                            <div class="macro-text" id="fatText">0g / 67g</div>
-                        </div>
+                        <div class="rune-text" id="fatText">0g / 67g</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Goals Modal -->
-    <div class="modal" id="goalsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">🎯 Set Your Goals</h2>
-                <button class="close-btn" onclick="closeModal('goalsModal')">&times;</button>
+    <!-- Goals Scroll -->
+    <div class="modal-scroll" id="goalsScroll">
+        <div class="scroll-content">
+            <div class="scroll-header">
+                <h2 class="scroll-title">🎯 Set Your Magical Goals</h2>
+                <button class="close-rune" onclick="closeScroll('goalsScroll')">&times;</button>
             </div>
-            <div class="input-group">
-                <label>Age:</label>
-                <input type="number" class="magical-input" id="userAge" value="25">
-            </div>
-            <div class="input-group">
-                <label>Gender:</label>
-                <select class="magical-select" id="userGender" style="width: 100%;">
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>Weight (kg):</label>
-                <input type="number" class="magical-input" id="userWeight" value="70" step="0.1">
-            </div>
-            <div class="input-group">
-                <label>Height (cm):</label>
-                <input type="number" class="magical-input" id="userHeight" value="175">
-            </div>
-            <div class="input-group">
-                <label>Activity Level:</label>
-                <select class="magical-select" id="activityLevel" style="width: 100%;">
-                    <option value="1.2">Sedentary (little/no exercise)</option>
-                    <option value="1.375">Lightly active (light exercise 1-3 days/week)</option>
-                    <option value="1.55" selected>Moderately active (moderate exercise 3-5 days/week)</option>
-                    <option value="1.725">Very active (hard exercise 6-7 days/week)</option>
-                    <option value="1.9">Extremely active (very hard exercise/job)</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>Goal:</label>
-                <select class="magical-select" id="userGoal" style="width: 100%;">
-                    <option value="lose">Fat Loss (-500 calories)</option>
-                    <option value="maintain" selected>Maintain Weight</option>
-                    <option value="gain">Muscle Gain (+300 calories)</option>
-                </select>
-            </div>
-            <button class="magical-btn" onclick="calculateGoals()">⚡ Calculate My Goals</button>
-        </div>
-    </div>
-
-    <!-- Trophy Chest Modal -->
-    <div class="modal" id="chestModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">🏆 Wizard's Trophy Chest</h2>
-                <button class="close-btn" onclick="closeModal('chestModal')">&times;</button>
-            </div>
-            <div class="chest-grid" id="chestGrid">
-                <!-- Trophies will be populated here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Week Overview Modal -->
-    <div class="modal" id="weekModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">📊 Weekly Overview</h2>
-                <button class="close-btn" onclick="closeModal('weekModal')">&times;</button>
-            </div>
-            <div id="weekContent">
-                <!-- Week data will be populated here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- House Customize Modal -->
-    <div class="modal" id="customizeModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">⚙️ House Selection</h2>
-                <button class="close-btn" onclick="closeModal('customizeModal')">&times;</button>
-            </div>
-            <div class="house-selection">
-                <div class="house-crest serpent" onclick="changeHouse('serpent')">
-                    <div class="house-icon">
-                        <div class="house-character">🐍</div>
-                    </div>
-                    <h3 class="house-name">SERPENT</h3>
-                    <p class="house-motto">"Ambition & Cunning"</p>
+            <div style="display: grid; gap: 1rem;">
+                <div>
+                    <label style="color: #ffd700; font-weight: bold; display: block; margin-bottom: 0.5rem;">Age:</label>
+                    <input type="number" class="spell-input" id="wizardAge" value="25" style="margin-bottom: 0;">
                 </div>
-                
-                <div class="house-crest griffin" onclick="changeHouse('griffin')">
-                    <div class="house-icon">
-                        <div class="house-character">🦅</div>
-                    </div>
-                    <h3 class="house-name">GRIFFIN</h3>
-                    <p class="house-motto">"Courage & Bravery"</p>
+                <div>
+                    <label style="color: #ffd700; font-weight: bold; display: block; margin-bottom: 0.5rem;">Gender:</label>
+                    <select class="unit-select" id="wizardGender" style="width: 100%;">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
                 </div>
-                
-                <div class="house-crest raven" onclick="changeHouse('raven')">
-                    <div class="house-icon">
-                        <div class="house-character">🐦‍⬛</div>
-                    </div>
-                    <h3 class="house-name">RAVEN</h3>
-                    <p class="house-motto">"Wisdom & Intelligence"</p>
+                <div>
+                    <label style="color: #ffd700; font-weight: bold; display: block; margin-bottom: 0.5rem;">Weight (kg):</label>
+                    <input type="number" class="spell-input" id="wizardWeight" value="70" step="0.1" style="margin-bottom: 0;">
                 </div>
-                
-                <div class="house-crest hufflecrest" onclick="changeHouse('hufflecrest')">
-                    <div class="house-icon">
-                        <div class="house-character">🦡</div>
-                    </div>
-                    <h3 class="house-name">HUFFLECREST</h3>
-                    <p class="house-motto">"Loyalty & Hard Work"</p>
+                <div>
+                    <label style="color: #ffd700; font-weight: bold; display: block; margin-bottom: 0.5rem;">Height (cm):</label>
+                    <input type="number" class="spell-input" id="wizardHeight" value="175" style="margin-bottom: 0;">
                 </div>
+                <div>
+                    <label style="color: #ffd700; font-weight: bold; display: block; margin-bottom: 0.5rem;">Activity Level:</label>
+                    <select class="unit-select" id="activityLevel" style="width: 100%;">
+                        <option value="1.2">Sedentary (little/no exercise)</option>
+                        <option value="1.375">Lightly active (light exercise 1-3 days/week)</option>
+                        <option value="1.55" selected>Moderately active (moderate exercise 3-5 days/week)</option>
+                        <option value="1.725">Very active (hard exercise 6-7 days/week)</option>
+                        <option value="1.9">Extremely active (very hard exercise/job)</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="color: #ffd700; font-weight: bold; display: block; margin-bottom: 0.5rem;">Goal:</label>
+                    <select class="unit-select" id="wizardGoal" style="width: 100%;">
+                        <option value="lose">Fat Loss (-500 calories)</option>
+                        <option value="maintain" selected>Maintain Weight</option>
+                        <option value="gain">Muscle Gain (+300 calories)</option>
+                    </select>
+                </div>
+                <button class="castle-btn" onclick="calculateMagicalGoals()" style="margin-top: 1rem;">⚡ Calculate My Destiny</button>
             </div>
         </div>
     </div>
 
-    <!-- Edit Meal Modal -->
-    <div class="modal" id="editMealModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">✏️ Edit Entry</h2>
-                <button class="close-btn" onclick="closeEditMeal()">&times;</button>
+    <!-- Trophy Chest Scroll -->
+    <div class="modal-scroll" id="chestScroll">
+        <div class="scroll-content">
+            <div class="scroll-header">
+                <h2 class="scroll-title">🏆 Trophy Vault</h2>
+                <button class="close-rune" onclick="closeScroll('chestScroll')">&times;</button>
             </div>
-            <div id="editMealName" style="text-align:center;color:var(--secondary);font-size:1.2rem;margin-bottom:1rem;"></div>
-            <div class="input-group">
-                <input id="editQty" type="number" class="magical-input" step="0.1" min="0.1" placeholder="Quantity">
+            <div id="trophyVault" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                <!-- Trophies will populate here -->
             </div>
-            <div class="input-group">
-                <select id="editUnit" class="magical-select" style="width: 100%;">
-                    <option value="g">grams</option>
-                    <option value="oz">oz</option>
-                    <option value="cup">cup</option>
-                    <option value="tbsp">tbsp</option>
-                    <option value="slice">slice</option>
-                    <option value="piece">piece</option>
-                </select>
-            </div>
-            <button class="magical-btn" onclick="saveMealEdit()">💾 Save Changes</button>
         </div>
     </div>
 
-    <!-- Custom Food Modal -->
-    <div class="modal" id="customFoodModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">🍽️ Create Custom Food</h2>
-                <button class="close-btn" onclick="closeCustomFood()">&times;</button>
+    <!-- Week Progress Scroll -->
+    <div class="modal-scroll" id="weekScroll">
+        <div class="scroll-content">
+            <div class="scroll-header">
+                <h2 class="scroll-title">📊 Weekly Chronicles</h2>
+                <button class="close-rune" onclick="closeScroll('weekScroll')">&times;</button>
             </div>
-            <div class="input-group">
-                <input id="cfName" class="magical-input" placeholder="Food Name">
+            <div id="weeklyChronicles" style="text-align: center; padding: 3rem; color: #ccc;">
+                📚 Your weekly nutrition chronicles will appear here as you build your magical journey. 
+                Keep casting food spells to unlock detailed progress insights!
             </div>
-            <div class="input-row">
-                <input id="cfPer" class="magical-input" value="100g" placeholder="Per (e.g., 100g)">
-                <input id="cfKcal" class="magical-input" type="number" placeholder="Calories">
+        </div>
+    </div>
+
+    <!-- Custom Food Scroll -->
+    <div class="modal-scroll" id="customFoodScroll">
+        <div class="scroll-content">
+            <div class="scroll-header">
+                <h2 class="scroll-title">🍽️ Create New Food Spell</h2>
+                <button class="close-rune" onclick="closeScroll('customFoodScroll')">&times;</button>
             </div>
-            <div class="input-row">
-                <input id="cfP" class="magical-input" type="number" placeholder="Protein (g)">
-                <input id="cfC" class="magical-input" type="number" placeholder="Carbs (g)">
+            <div style="display: grid; gap: 1rem;">
+                <div>
+                    <label style="color: #ffd700; font-weight: bold; display: block; margin-bottom: 0.5rem;">Food Name:</label>
+                    <input type="text" class="spell-input" id="customName" placeholder="Enter food name" style="margin-bottom: 0;">
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <div style="flex: 1;">
+                        <label style="color: #ffd700; font-weight: bold; display: block; margin-bottom: 0.5rem;">Per Amount:</label>
+                        <input type="text" class="spell-input" id="customPer" value="100g" style="margin-bottom: 0;">
+                    </div>
+                    <div style="flex: 1;">
+                        <label style="color: #ffd700; font-weight: bold; display: block; margin-bottom: 0.5rem;">Calories:</label>
+                        <input type="number" class="spell-input" id="customCals" placeholder="0" style="margin-bottom: 0;">
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <label style="color: #ffd700; font-weight: bold; display: block; margin-bottom: 0.5rem;">Protein (g):</label>
+                        <input type="number" class="spell-input" id="customProtein" placeholder="0" style="margin-bottom: 0;">
+                    </div>
+                    <div>
+                        <label style="color: #ffd700; font-weight: bold; display: block; margin-bottom: 0.5rem;">Carbs (g):</label>
+                        <input type="number" class="spell-input" id="customCarbs" placeholder="0" style="margin-bottom: 0;">
+                    </div>
+                    <div>
+                        <label style="color: #ffd700; font-weight: bold; display: block; margin-bottom: 0.5rem;">Fat (g):</label>
+                        <input type="number" class="spell-input" id="customFat" placeholder="0" style="margin-bottom: 0;">
+                    </div>
+                </div>
+                <div>
+                    <label style="color: #ffd700; font-weight: bold; display: block; margin-bottom: 0.5rem;">Aliases (comma-separated):</label>
+                    <input type="text" class="spell-input" id="customAliases" placeholder="e.g., chicken breast, grilled chicken" style="margin-bottom: 0;">
+                </div>
+                <button class="castle-btn" onclick="createCustomFood()" style="margin-top: 1rem;">✨ Create Magical Food</button>
             </div>
-            <div class="input-row">
-                <input id="cfF" class="magical-input" type="number" placeholder="Fat (g)">
+        </div>
+    </div>
+
+    <!-- Edit Meal Scroll -->
+    <div class="modal-scroll" id="editMealScroll">
+        <div class="scroll-content">
+            <div class="scroll-header">
+                <h2 class="scroll-title">✏️ Edit Food Entry</h2>
+                <button class="close-rune" onclick="closeScroll('editMealScroll')">&times;</button>
             </div>
-            <div class="input-group">
-                <input id="cfAlias" class="magical-input" placeholder="Aliases (comma-separated)">
+            <div id="editMealName" style="text-align:center;color:#ffd700;font-size:1.4rem;margin-bottom:1.5rem;font-weight:bold;"></div>
+            <div style="display: grid; gap: 1rem;">
+                <div>
+                    <label style="color: #ffd700; font-weight: bold; display: block; margin-bottom: 0.5rem;">Quantity:</label>
+                    <input id="editQty" type="number" class="spell-input" step="0.1" min="0.1" style="margin-bottom: 0;">
+                </div>
+                <div>
+                    <label style="color: #ffd700; font-weight: bold; display: block; margin-bottom: 0.5rem;">Unit:</label>
+                    <select id="editUnit" class="unit-select" style="width: 100%;">
+                        <option value="g">grams</option>
+                        <option value="oz">oz</option>
+                        <option value="cup">cup</option>
+                        <option value="tbsp">tbsp</option>
+                        <option value="slice">slice</option>
+                        <option value="piece">piece</option>
+                    </select>
+                </div>
+                <button class="castle-btn" onclick="saveMealEdit()" style="margin-top: 1rem;">💾 Save Changes</button>
             </div>
-            <button class="magical-btn" onclick="saveCustomFood()">⚡ Create Food</button>
         </div>
     </div>
 
     <script>
-        // Enhanced Game State Management
+        // Enhanced Magical Game State
         let gameState = {
             currentHouse: '',
             level: 1,
@@ -1372,14 +1491,13 @@
                 carbs: 250,
                 fat: 67
             },
-            weeklyData: [],
             customFoods: [],
             favoriteFoods: [],
             recentFoods: []
         };
 
-        // Enhanced Food Database with IDs and more foods
-        let FOODS_CATALOG = [
+        // Comprehensive Food Catalog
+        let FOOD_CATALOG = [
             // Proteins
             { id: 'chicken_breast', name: 'Chicken Breast', cals: 165, protein: 31, carbs: 0, fat: 3.6, per: '100g', aliases: ['chicken'] },
             { id: 'salmon', name: 'Salmon', cals: 208, protein: 22, carbs: 0, fat: 12, per: '100g' },
@@ -1390,65 +1508,64 @@
             { id: 'lean_beef', name: 'Lean Beef', cals: 250, protein: 26, carbs: 0, fat: 15, per: '100g' },
             { id: 'turkey', name: 'Turkey', cals: 135, protein: 30, carbs: 0, fat: 1, per: '100g' },
             { id: 'tofu', name: 'Tofu', cals: 76, protein: 8, carbs: 1.9, fat: 4.8, per: '100g' },
+            { id: 'shrimp', name: 'Shrimp', cals: 85, protein: 18, carbs: 0, fat: 1, per: '100g' },
             
-            // Carbs
+            // Carbohydrates
             { id: 'brown_rice', name: 'Brown Rice', cals: 111, protein: 2.6, carbs: 23, fat: 0.9, per: '100g' },
             { id: 'white_rice', name: 'White Rice', cals: 130, protein: 2.7, carbs: 28, fat: 0.3, per: '100g', aliases: ['rice'] },
-            { id: 'oats', name: 'Oats', cals: 389, protein: 16.9, carbs: 66, fat: 6.9, per: '100g' },
-            { id: 'oatmeal', name: 'Oatmeal', cals: 68, protein: 2.4, carbs: 12, fat: 1.4, per: '100g' },
+            { id: 'oats', name: 'Oats', cals: 389, protein: 16.9, carbs: 66, fat: 6.9, per: '100g', aliases: ['oatmeal'] },
             { id: 'quinoa', name: 'Quinoa', cals: 120, protein: 4.4, carbs: 22, fat: 1.9, per: '100g' },
             { id: 'sweet_potato', name: 'Sweet Potato', cals: 86, protein: 1.6, carbs: 20, fat: 0.1, per: '100g' },
             { id: 'potato', name: 'Potato', cals: 77, protein: 2, carbs: 17, fat: 0.1, per: '100g' },
             { id: 'pasta', name: 'Pasta', cals: 131, protein: 5, carbs: 25, fat: 1.1, per: '100g' },
-            { id: 'bread', name: 'Bread', cals: 265, protein: 9, carbs: 49, fat: 3.2, per: '100g' },
+            { id: 'bread', name: 'Whole Wheat Bread', cals: 247, protein: 13, carbs: 41, fat: 4, per: '100g' },
             { id: 'banana', name: 'Banana', cals: 89, protein: 1.1, carbs: 23, fat: 0.3, per: '100g' },
+            { id: 'apple', name: 'Apple', cals: 52, protein: 0.3, carbs: 14, fat: 0.2, per: '100g' },
             
-            // Fats
+            // Healthy Fats
             { id: 'avocado', name: 'Avocado', cals: 160, protein: 2, carbs: 9, fat: 15, per: '100g' },
-            { id: 'almonds', name: 'Almonds', cals: 579, protein: 21, carbs: 22, fat: 50, per: '100g', aliases: ['nuts'] },
+            { id: 'almonds', name: 'Almonds', cals: 579, protein: 21, carbs: 22, fat: 50, per: '100g' },
+            { id: 'walnuts', name: 'Walnuts', cals: 654, protein: 15, carbs: 14, fat: 65, per: '100g' },
             { id: 'olive_oil', name: 'Olive Oil', cals: 884, protein: 0, carbs: 0, fat: 100, per: '100g' },
             { id: 'peanut_butter', name: 'Peanut Butter', cals: 588, protein: 25, carbs: 20, fat: 50, per: '100g', aliases: ['pb'] },
-            { id: 'walnuts', name: 'Walnuts', cals: 654, protein: 15, carbs: 14, fat: 65, per: '100g' },
-            { id: 'coconut_oil', name: 'Coconut Oil', cals: 862, protein: 0, carbs: 0, fat: 100, per: '100g' },
-            { id: 'butter', name: 'Butter', cals: 717, protein: 0.9, carbs: 0.1, fat: 81, per: '100g' },
+            { id: 'chia_seeds', name: 'Chia Seeds', cals: 486, protein: 17, carbs: 42, fat: 31, per: '100g' },
             
             // Vegetables
             { id: 'broccoli', name: 'Broccoli', cals: 34, protein: 2.8, carbs: 7, fat: 0.4, per: '100g' },
             { id: 'spinach', name: 'Spinach', cals: 23, protein: 2.9, carbs: 3.6, fat: 0.4, per: '100g' },
+            { id: 'kale', name: 'Kale', cals: 35, protein: 2.9, carbs: 4.4, fat: 1.5, per: '100g' },
             { id: 'carrots', name: 'Carrots', cals: 41, protein: 0.9, carbs: 10, fat: 0.2, per: '100g' },
-            { id: 'tomato', name: 'Tomato', cals: 18, protein: 0.9, carbs: 3.9, fat: 0.2, per: '100g' },
-            { id: 'cucumber', name: 'Cucumber', cals: 16, protein: 0.7, carbs: 4, fat: 0.1, per: '100g' },
+            { id: 'bell_peppers', name: 'Bell Peppers', cals: 20, protein: 0.9, carbs: 4.6, fat: 0.2, per: '100g' },
             
             // Fruits
-            { id: 'apple', name: 'Apple', cals: 52, protein: 0.3, carbs: 14, fat: 0.2, per: '100g' },
-            { id: 'orange', name: 'Orange', cals: 47, protein: 0.9, carbs: 12, fat: 0.1, per: '100g' },
-            { id: 'strawberries', name: 'Strawberries', cals: 32, protein: 0.7, carbs: 8, fat: 0.3, per: '100g' },
             { id: 'blueberries', name: 'Blueberries', cals: 57, protein: 0.7, carbs: 14, fat: 0.3, per: '100g' },
+            { id: 'strawberries', name: 'Strawberries', cals: 32, protein: 0.7, carbs: 8, fat: 0.3, per: '100g' },
+            { id: 'orange', name: 'Orange', cals: 47, protein: 0.9, carbs: 12, fat: 0.1, per: '100g' },
             
             // Dairy
-            { id: 'milk', name: 'Milk', cals: 42, protein: 3.4, carbs: 5, fat: 1, per: '100g' },
-            { id: 'cheese', name: 'Cheese', cals: 402, protein: 25, carbs: 1.3, fat: 33, per: '100g' },
-            { id: 'yogurt', name: 'Yogurt', cals: 59, protein: 10, carbs: 3.6, fat: 0.4, per: '100g' }
+            { id: 'milk', name: 'Milk (2%)', cals: 50, protein: 3.3, carbs: 5, fat: 2, per: '100g' },
+            { id: 'cheese', name: 'Cheddar Cheese', cals: 402, protein: 25, carbs: 1.3, fat: 33, per: '100g' },
+            { id: 'yogurt', name: 'Plain Yogurt', cals: 59, protein: 10, carbs: 3.6, fat: 0.4, per: '100g' }
         ];
 
         // Trophy System
-        const trophySystem = {
-            'first-meal': { name: 'First Meal', icon: '🍽️', desc: 'Log your first meal', condition: () => gameState.dailyLog.length >= 1 },
-            'macro-master': { name: 'Macro Master', icon: '⚖️', desc: 'Hit all macro targets in one day', condition: () => checkMacroTargets() },
-            'calorie-king': { name: 'Calorie King', icon: '👑', desc: 'Reach calorie goal', condition: () => getCurrentCals() >= gameState.goals.calories * 0.95 },
-            'protein-power': { name: 'Protein Power', icon: '💪', desc: 'Hit protein target', condition: () => getCurrentProtein() >= gameState.goals.protein * 0.95 },
-            'streak-star': { name: 'Streak Star', icon: '🔥', desc: 'Maintain 7-day streak', condition: () => gameState.streak >= 7 },
-            'level-legend': { name: 'Level Legend', icon: '🌟', desc: 'Reach level 5', condition: () => gameState.level >= 5 },
-            'house-hero': { name: 'House Hero', icon: '🏆', desc: 'Choose your house', condition: () => gameState.currentHouse !== '' },
-            'nutrition-ninja': { name: 'Nutrition Ninja', icon: '🥷', desc: 'Log 50 meals', condition: () => getTotalMealsLogged() >= 50 },
-            'potion-master': { name: 'Potion Master', icon: '🧪', desc: 'Use all food categories', condition: () => checkFoodVariety() },
-            'zen-master': { name: 'Zen Master', icon: '🧘', desc: 'Perfect week (7 days on target)', condition: () => checkPerfectWeek() },
-            'challenge-champion': { name: 'Challenge Champion', icon: '🏅', desc: 'Complete 10 weekly challenges', condition: () => getChallengesCompleted() >= 10 },
-            'ultimate-wizard': { name: 'Ultimate Wizard', icon: '🧙‍♂️', desc: 'Unlock all other trophies', condition: () => gameState.trophies.length >= 11 }
+        const TROPHY_VAULT = {
+            'first-meal': { name: 'First Feast', icon: '🍽️', desc: 'Cast your first food spell', condition: () => gameState.dailyLog.length >= 1 },
+            'macro-master': { name: 'Macro Wizard', icon: '⚖️', desc: 'Hit all macro targets in one day', condition: () => checkMacroTargets() },
+            'calorie-king': { name: 'Calorie Sovereign', icon: '👑', desc: 'Reach your calorie goal', condition: () => getCurrentCals() >= gameState.goals.calories * 0.95 },
+            'protein-power': { name: 'Protein Champion', icon: '💪', desc: 'Hit your protein target', condition: () => getCurrentProtein() >= gameState.goals.protein * 0.95 },
+            'streak-star': { name: 'Streak Legend', icon: '🔥', desc: 'Maintain a 7-day streak', condition: () => gameState.streak >= 7 },
+            'level-legend': { name: 'Level Master', icon: '🌟', desc: 'Reach level 10', condition: () => gameState.level >= 10 },
+            'house-hero': { name: 'House Champion', icon: '🏆', desc: 'Join a magical house', condition: () => gameState.currentHouse !== '' },
+            'nutrition-ninja': { name: 'Nutrition Sage', icon: '🥷', desc: 'Log 100 meals', condition: () => getTotalMealsLogged() >= 100 },
+            'custom-creator': { name: 'Food Alchemist', icon: '🧪', desc: 'Create 5 custom foods', condition: () => gameState.customFoods.length >= 5 },
+            'favorite-master': { name: 'Favorite Collector', icon: '⭐', desc: 'Add 10 favorite foods', condition: () => gameState.favoriteFoods.length >= 10 },
+            'dedication-badge': { name: 'Dedication Medal', icon: '🏅', desc: 'Use the app for 30 days', condition: () => false }, // Placeholder
+            'ultimate-wizard': { name: 'Ultimate Nutrition Wizard', icon: '🧙‍♂️', desc: 'Unlock all other trophies', condition: () => gameState.trophies.length >= 10 }
         };
 
-        // Unit Conversion System
-        const unitConversions = {
+        // Unit Conversions
+        const UNIT_CONVERSIONS = {
             'g': 1,
             'oz': 28.35,
             'cup': 240,
@@ -1460,122 +1577,111 @@
         // Global Variables
         let selectedFood = null;
         let editingMealId = null;
-        let selectedFoodId = null;
 
         // Utility Functions
-        const debounce = (fn, ms = 150) => {
-            let t;
-            return (...a) => {
-                clearTimeout(t);
-                t = setTimeout(() => fn(...a), ms);
-            }
+        const debounce = (fn, ms = 200) => {
+            let timeout;
+            return (...args) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => fn(...args), ms);
+            };
         };
 
-        const iso = (d = new Date()) => d.toISOString().slice(0, 10);
+        const iso = (date = new Date()) => date.toISOString().slice(0, 10);
 
-        // Initialize the app
+        // Initialize App
         function init() {
-            createStars();
-            createFloatingSparkles();
+            createMagicalParticles();
+            setupFoodSpellSearch();
             loadGameState();
-            setupFoodSearch();
-            document.getElementById('studentKey').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    enterAcademy();
-                }
+            
+            // Enter key support for entrance
+            document.getElementById('entranceKey').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') enterCastle();
             });
         }
 
-        // Create magical background effects
-        function createStars() {
-            const starsContainer = document.querySelector('.stars');
-            for (let i = 0; i < 100; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                starsContainer.appendChild(star);
-            }
-        }
-
-        function createFloatingSparkles() {
-            const sparklesContainer = document.querySelector('.floating-sparkles');
-            for (let i = 0; i < 20; i++) {
-                const sparkle = document.createElement('div');
-                sparkle.className = 'sparkle';
-                sparkle.style.left = Math.random() * 100 + '%';
-                sparkle.style.animationDelay = Math.random() * 6 + 's';
-                sparkle.style.animationDuration = (4 + Math.random() * 4) + 's';
-                sparklesContainer.appendChild(sparkle);
+        // Create Magical Particles
+        function createMagicalParticles() {
+            const particleContainer = document.querySelector('.magical-particles');
+            
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (6 + Math.random() * 4) + 's';
+                particleContainer.appendChild(particle);
             }
         }
 
         // Enhanced Food Search System
-        function setupFoodSearch() {
-            const input = document.getElementById('foodSearch');
-            const dropdown = document.getElementById('suggestDropdown');
+        function setupFoodSpellSearch() {
+            const input = document.getElementById('foodSpell');
+            const suggestions = document.getElementById('spellSuggestions');
+            const quantity = document.getElementById('foodQuantity');
+            const unit = document.getElementById('foodUnit');
             
             input.addEventListener('input', debounce(function() {
-                const value = input.value.toLowerCase().trim();
-                if (value.length < 2) {
-                    dropdown.style.display = 'none';
+                const query = input.value.toLowerCase().trim();
+                if (query.length < 2) {
+                    suggestions.style.display = 'none';
                     return;
                 }
-                
-                showSuggestions(value);
-            }, 160));
+                showFoodSuggestions(query);
+            }));
             
-            input.addEventListener('keydown', e => {
-                if (e.key === 'Enter' && selectedFoodId) {
-                    addFood();
-                    e.preventDefault();
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && selectedFood) {
+                    castFoodSpell();
                 }
             });
             
-            // Hide dropdown when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!input.contains(e.target) && !dropdown.contains(e.target)) {
-                    dropdown.style.display = 'none';
+            quantity.addEventListener('input', updateNutritionPreview);
+            unit.addEventListener('change', updateNutritionPreview);
+            
+            // Hide suggestions when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!input.contains(e.target) && !suggestions.contains(e.target)) {
+                    suggestions.style.display = 'none';
                 }
             });
         }
 
-        function showSuggestions(query) {
-            const dropdown = document.getElementById('suggestDropdown');
+        function showFoodSuggestions(query) {
+            const suggestions = document.getElementById('spellSuggestions');
             
-            // Get favorites first, then recent foods, then all foods
-            const favorites = gameState.favoriteFoods.map(id => FOODS_CATALOG.find(f => f.id === id)).filter(Boolean);
-            const recents = gameState.recentFoods.map(id => FOODS_CATALOG.find(f => f.id === id)).filter(Boolean);
-            const allFoods = FOODS_CATALOG;
+            // Priority: Favorites -> Recent -> All foods
+            const favorites = gameState.favoriteFoods.map(id => FOOD_CATALOG.find(f => f.id === id)).filter(Boolean);
+            const recents = gameState.recentFoods.map(id => FOOD_CATALOG.find(f => f.id === id)).filter(Boolean);
             
-            // Create ordered list prioritizing favorites and recents
             const orderedFoods = [
                 ...favorites.filter(food => matchesQuery(food, query)),
                 ...recents.filter(food => matchesQuery(food, query) && !favorites.some(f => f.id === food.id)),
-                ...allFoods.filter(food => matchesQuery(food, query) && !favorites.some(f => f.id === food.id) && !recents.some(r => r.id === food.id))
+                ...FOOD_CATALOG.filter(food => matchesQuery(food, query) && 
+                    !favorites.some(f => f.id === food.id) && !recents.some(r => r.id === food.id))
             ];
             
-            const suggestions = orderedFoods.slice(0, 8);
+            const results = orderedFoods.slice(0, 8);
             
-            if (suggestions.length === 0) {
-                dropdown.style.display = 'none';
+            if (results.length === 0) {
+                suggestions.style.display = 'none';
                 return;
             }
             
-            dropdown.innerHTML = suggestions.map(food => `
-                <div class="suggest-item">
-                    <div onclick="selectFood('${food.id}')" style="flex: 1;">
-                        <div class="suggest-food-name">${food.name} ${isFavorite(food.id) ? '⭐' : ''}</div>
-                        <div class="suggest-food-info">${food.cals} cal • ${food.protein}p • ${food.carbs}c • ${food.fat}f per ${food.per}</div>
+            suggestions.innerHTML = results.map(food => `
+                <div class="suggestion-item">
+                    <div class="food-details" onclick="selectFood('${food.id}')">
+                        <div class="food-name">${food.name} ${isFavorite(food.id) ? '⭐' : ''}</div>
+                        <div class="food-info">${food.cals} cal • ${food.protein}p • ${food.carbs}c • ${food.fat}f per ${food.per}</div>
                     </div>
-                    <div style="margin-left: 10px;">
-                        <button class="action-btn" onclick="event.stopPropagation(); toggleFavorite('${food.id}'); updateSuggestionsList();">${isFavorite(food.id) ? '★' : '☆'}</button>
+                    <div>
+                        <button class="action-rune" onclick="event.stopPropagation(); toggleFavorite('${food.id}'); updateFoodSuggestions();">${isFavorite(food.id) ? '★' : '☆'}</button>
                     </div>
                 </div>
             `).join('');
             
-            dropdown.style.display = 'block';
+            suggestions.style.display = 'block';
         }
 
         function matchesQuery(food, query) {
@@ -1584,15 +1690,19 @@
         }
 
         function selectFood(foodId) {
-            selectedFoodId = foodId;
-            const food = FOODS_CATALOG.find(f => f.id === foodId);
-            if (food) {
-                document.getElementById('foodSearch').value = food.name;
-                document.getElementById('suggestDropdown').style.display = 'none';
+            selectedFood = FOOD_CATALOG.find(f => f.id === foodId);
+            if (selectedFood) {
+                document.getElementById('foodSpell').value = selectedFood.name;
+                document.getElementById('spellSuggestions').style.display = 'none';
                 updateNutritionPreview();
-                
-                // Add to recent foods
                 addToRecents(foodId);
+            }
+        }
+
+        function updateFoodSuggestions() {
+            const query = document.getElementById('foodSpell').value.toLowerCase().trim();
+            if (query.length >= 2) {
+                showFoodSuggestions(query);
             }
         }
 
@@ -1603,7 +1713,6 @@
             saveGameState();
         }
 
-        // Favorites System
         function toggleFavorite(foodId) {
             const index = gameState.favoriteFoods.indexOf(foodId);
             if (index > -1) {
@@ -1613,226 +1722,44 @@
                 gameState.favoriteFoods = gameState.favoriteFoods.slice(0, 50);
             }
             saveGameState();
+            checkTrophies();
         }
 
         function isFavorite(foodId) {
             return gameState.favoriteFoods.includes(foodId);
         }
 
-        function updateSuggestionsList() {
-            const query = document.getElementById('foodSearch').value.toLowerCase().trim();
-            if (query.length >= 2) {
-                showSuggestions(query);
-            }
-        }
-
-        // Custom Food System
-        function openCustomFood() {
-            document.getElementById('customFoodModal').style.display = 'block';
-        }
-
-        function closeCustomFood() {
-            document.getElementById('customFoodModal').style.display = 'none';
-            // Clear form
-            document.getElementById('cfName').value = '';
-            document.getElementById('cfPer').value = '100g';
-            document.getElementById('cfKcal').value = '';
-            document.getElementById('cfP').value = '';
-            document.getElementById('cfC').value = '';
-            document.getElementById('cfF').value = '';
-            document.getElementById('cfAlias').value = '';
-        }
-
-        function saveCustomFood() {
-            const name = document.getElementById('cfName').value.trim();
-            const per = document.getElementById('cfPer').value.trim() || '100g';
-            const cals = parseFloat(document.getElementById('cfKcal').value) || 0;
-            const protein = parseFloat(document.getElementById('cfP').value) || 0;
-            const carbs = parseFloat(document.getElementById('cfC').value) || 0;
-            const fat = parseFloat(document.getElementById('cfF').value) || 0;
-            const aliasStr = document.getElementById('cfAlias').value || '';
-            const aliases = aliasStr.split(',').map(s => s.trim()).filter(Boolean);
-            
-            if (!name || !per) {
-                showToast('Please fill in name and per fields!', 'error');
-                return;
-            }
-            
-            const id = 'custom_' + Date.now();
-            const customFood = { id, name, per, cals, protein, carbs, fat, aliases };
-            
-            // Add to game state and catalog
-            gameState.customFoods.push(customFood);
-            FOODS_CATALOG.push(customFood);
-            
-            closeCustomFood();
-            showToast(`Created ${name}! You can now search for it. ✨`, 'success');
-            saveGameState();
-        }
-
-        // Entry system functions
-        function enterAcademy() {
-            const key = document.getElementById('studentKey').value.trim().toUpperCase();
-            const validKeys = ['WIZARD123', 'MAGIC', 'ACADEMY', 'STUDENT'];
-            
-            if (validKeys.includes(key) || key === '') {
-                showToast('Welcome to Hogsworth Academy! 🏰✨', 'success');
-                setTimeout(() => {
-                    document.getElementById('keyGate').style.display = 'none';
-                    document.getElementById('welcomePage').style.display = 'flex';
-                }, 1000);
-            } else {
-                showToast('Invalid student key! Try WIZARD123 or continue as guest.', 'error');
-                document.getElementById('studentKey').style.animation = 'shake 0.5s ease';
-                setTimeout(() => {
-                    document.getElementById('studentKey').style.animation = '';
-                }, 500);
-            }
-        }
-
-        function skipToHouseSelection() {
-            showToast('Welcome, Guest Student! 🎓', 'success');
-            setTimeout(() => {
-                document.getElementById('keyGate').style.display = 'none';
-                document.getElementById('welcomePage').style.display = 'flex';
-            }, 1000);
-        }
-
-        function selectHouse(house) {
-            gameState.currentHouse = house;
-            document.body.className = house;
-            
-            // Award house hero trophy
-            awardTrophy('house-hero');
-            
-            showToast(`Welcome to ${house.charAt(0).toUpperCase() + house.slice(1)}! 🏆`, 'success');
-            
-            setTimeout(() => {
-                document.getElementById('welcomePage').style.display = 'none';
-                document.getElementById('trackerPage').style.display = 'block';
-                updateHouseDisplay();
-                updateDisplay();
-            }, 1500);
-            
-            saveGameState();
-        }
-
-        function changeHouse(house) {
-            selectHouse(house);
-            closeModal('customizeModal');
-        }
-
-        // Display update functions
-        function updateHouseDisplay() {
-            const houseNames = {
-                'serpent': 'SERPENT HOUSE',
-                'griffin': 'GRIFFIN HOUSE', 
-                'raven': 'RAVEN HOUSE',
-                'hufflecrest': 'HUFFLECREST HOUSE'
-            };
-            
-            const houseWelcomes = {
-                'serpent': 'Ambitious and cunning nutrition mastery 🐍',
-                'griffin': 'Brave the path to legendary fitness 🦅',
-                'raven': 'Wise choices for optimal wellness 🐦‍⬛', 
-                'hufflecrest': 'Dedicated progress through loyal effort 🦡'
-            };
-            
-            document.getElementById('houseTitle').textContent = houseNames[gameState.currentHouse] || 'HOGSWORTH ACADEMY';
-            document.getElementById('houseWelcome').textContent = houseWelcomes[gameState.currentHouse] || 'Welcome to your magical nutrition journey!';
-            document.getElementById('userHouse').textContent = gameState.currentHouse.charAt(0).toUpperCase() + gameState.currentHouse.slice(1);
-        }
-
-        function updateDisplay() {
-            // Update character info
-            document.getElementById('userLevel').textContent = gameState.level;
-            document.getElementById('totalTrophies').textContent = gameState.trophies.length;
-            document.getElementById('currentStreak').textContent = gameState.streak;
-            document.getElementById('longestStreak').textContent = gameState.longestStreak;
-            
-            // Update XP bar
-            const xpNeeded = gameState.level * 100;
-            const xpProgress = (gameState.xp / xpNeeded) * 100;
-            document.getElementById('xpFill').style.width = xpProgress + '%';
-            document.getElementById('currentXP').textContent = gameState.xp;
-            document.getElementById('nextLevelXP').textContent = xpNeeded;
-            
-            // Update nutrition display
-            updateNutritionDisplay();
-            updateFoodLog();
-        }
-
-        function updateNutritionDisplay() {
-            const currentCals = getCurrentCals();
-            const currentProtein = getCurrentProtein();
-            const currentCarbs = getCurrentCarbs();
-            const currentFat = getCurrentFat();
-            
-            // Update calorie ring with smooth conic gradient
-            const pct = Math.min(currentCals / gameState.goals.calories, 1);
-            const calorieRing = document.getElementById('calorieRing');
-            calorieRing.style.background = `conic-gradient(var(--secondary) ${pct * 360}deg, rgba(255,255,255,.18) 0deg)`;
-            
-            document.getElementById('currentCals').textContent = Math.round(currentCals);
-            document.getElementById('remainingCals').textContent = Math.max(0, Math.round(gameState.goals.calories - currentCals)) + ' left';
-            
-            // Update macro bars
-            const proteinProgress = Math.min((currentProtein / gameState.goals.protein) * 100, 100);
-            const carbsProgress = Math.min((currentCarbs / gameState.goals.carbs) * 100, 100);
-            const fatProgress = Math.min((currentFat / gameState.goals.fat) * 100, 100);
-            
-            document.getElementById('proteinBar').style.width = proteinProgress + '%';
-            document.getElementById('carbsBar').style.width = carbsProgress + '%';
-            document.getElementById('fatBar').style.width = fatProgress + '%';
-            
-            document.getElementById('proteinText').textContent = `${Math.round(currentProtein)}g / ${gameState.goals.protein}g`;
-            document.getElementById('carbsText').textContent = `${Math.round(currentCarbs)}g / ${gameState.goals.carbs}g`;
-            document.getElementById('fatText').textContent = `${Math.round(currentFat)}g / ${gameState.goals.fat}g`;
-        }
-
-        // Food tracking functions
-        function searchFood() {
-            // This is now handled by the enhanced search system
-            updateNutritionPreview();
-        }
-
         function updateNutritionPreview() {
-            if (!selectedFoodId) {
-                document.getElementById('previewCals').textContent = '0';
-                document.getElementById('previewProtein').textContent = '0g';
-                document.getElementById('previewCarbs').textContent = '0g';
-                document.getElementById('previewFat').textContent = '0g';
+            if (!selectedFood) {
+                resetNutritionPreview();
                 return;
             }
             
-            const food = FOODS_CATALOG.find(f => f.id === selectedFoodId);
-            const amount = parseFloat(document.getElementById('foodAmount').value) || 0;
+            const quantity = parseFloat(document.getElementById('foodQuantity').value) || 0;
             const unit = document.getElementById('foodUnit').value;
             
-            if (food && amount > 0) {
-                const nutrition = calculateNutrition(food, amount, unit);
-                
-                document.getElementById('previewCals').textContent = Math.round(nutrition.calories);
-                document.getElementById('previewProtein').textContent = nutrition.protein.toFixed(1) + 'g';
-                document.getElementById('previewCarbs').textContent = nutrition.carbs.toFixed(1) + 'g';
-                document.getElementById('previewFat').textContent = nutrition.fat.toFixed(1) + 'g';
-                
-                // Store current food data for adding
-                window.currentFoodPreview = {
-                    foodId: selectedFoodId,
-                    name: food.name,
-                    amount: amount,
-                    unit: unit,
-                    nutrition: nutrition
-                };
+            if (quantity <= 0) {
+                resetNutritionPreview();
+                return;
             }
+            
+            const nutrition = calculateNutrition(selectedFood, quantity, unit);
+            
+            document.getElementById('previewCals').textContent = Math.round(nutrition.calories);
+            document.getElementById('previewProtein').textContent = nutrition.protein.toFixed(1) + 'g';
+            document.getElementById('previewCarbs').textContent = nutrition.carbs.toFixed(1) + 'g';
+            document.getElementById('previewFat').textContent = nutrition.fat.toFixed(1) + 'g';
+        }
+
+        function resetNutritionPreview() {
+            document.getElementById('previewCals').textContent = '0';
+            document.getElementById('previewProtein').textContent = '0g';
+            document.getElementById('previewCarbs').textContent = '0g';
+            document.getElementById('previewFat').textContent = '0g';
         }
 
         function calculateNutrition(food, quantity, unit) {
-            // Convert to grams first
-            const gramsAmount = quantity * unitConversions[unit];
-            
-            // Calculate per 100g
+            const gramsAmount = quantity * UNIT_CONVERSIONS[unit];
             const multiplier = gramsAmount / 100;
             
             return {
@@ -1843,149 +1770,218 @@
             };
         }
 
-        function addFood() {
-            if (!window.currentFoodPreview) {
-                showToast('Please search and select a food first!', 'error');
+        // Entry System
+        function enterCastle() {
+            const key = document.getElementById('entranceKey').value.trim().toUpperCase();
+            const validKeys = ['WIZARD123', 'MAGIC', 'ACADEMY', 'STUDENT', 'HOGSWORTH'];
+            
+            if (validKeys.includes(key) || key === '') {
+                showMagicalToast('Welcome to Hogsworth Academy! 🏰✨', 'success');
+                setTimeout(() => {
+                    document.getElementById('castleGate').style.display = 'none';
+                    document.getElementById('greatHall').style.display = 'flex';
+                }, 1200);
+            } else {
+                showMagicalToast('Invalid magical key! Try WIZARD123 or request guest passage.', 'error');
+                const input = document.getElementById('entranceKey');
+                input.style.animation = 'shake 0.5s ease';
+                setTimeout(() => input.style.animation = '', 500);
+            }
+        }
+
+        function guestEntry() {
+            showMagicalToast('Welcome, honored guest! 🎓', 'success');
+            setTimeout(() => {
+                document.getElementById('castleGate').style.display = 'none';
+                document.getElementById('greatHall').style.display = 'flex';
+            }, 1200);
+        }
+
+        function returnToGate() {
+            document.getElementById('castleMain').style.display = 'none';
+            document.getElementById('greatHall').style.display = 'none';
+            document.getElementById('castleGate').style.display = 'flex';
+            showMagicalToast('Thank you for visiting Hogsworth Academy! 🏰', 'success');
+        }
+
+        function showGreatHall() {
+            document.getElementById('castleMain').style.display = 'none';
+            document.getElementById('greatHall').style.display = 'flex';
+        }
+
+        // House System
+        function joinHouse(house) {
+            gameState.currentHouse = house;
+            document.body.className = house;
+            
+            awardTrophy('house-hero');
+            updateHouseDisplay();
+            
+            showMagicalToast(`Welcome to ${house.charAt(0).toUpperCase() + house.slice(1)} House! 🏆`, 'success');
+            
+            setTimeout(() => {
+                document.getElementById('greatHall').style.display = 'none';
+                document.getElementById('castleMain').style.display = 'block';
+                updateAllDisplays();
+            }, 1500);
+            
+            saveGameState();
+        }
+
+        function updateHouseDisplay() {
+            const houseNames = {
+                'serpent': 'SERPENT HOUSE',
+                'griffin': 'GRIFFIN HOUSE',
+                'raven': 'RAVEN HOUSE',
+                'hufflecrest': 'HUFFLECREST HOUSE'
+            };
+            
+            const houseWelcomes = {
+                'serpent': 'Through ambition and cunning, we master nutrition 🐍',
+                'griffin': 'With courage and honor, we conquer our fitness goals 🦅',
+                'raven': 'Through wisdom and knowledge, we unlock optimal health 🐦‍⬛',
+                'hufflecrest': 'With dedication and loyalty, we build lasting wellness 🦡'
+            };
+            
+            document.getElementById('currentHouseTitle').textContent = houseNames[gameState.currentHouse] || 'CHOOSE YOUR HOUSE';
+            document.getElementById('currentHouseWelcome').textContent = houseWelcomes[gameState.currentHouse] || 'Visit the Great Hall to select your magical house';
+            document.getElementById('houseDisplay').textContent = gameState.currentHouse.charAt(0).toUpperCase() + gameState.currentHouse.slice(1) || 'None';
+        }
+
+        // Food Tracking
+        function castFoodSpell() {
+            if (!selectedFood) {
+                showMagicalToast('Please select a food from the spellbook first! 📚', 'error');
                 return;
             }
             
+            const quantity = parseFloat(document.getElementById('foodQuantity').value) || 0;
+            const unit = document.getElementById('foodUnit').value;
+            
+            if (quantity <= 0) {
+                showMagicalToast('Please enter a valid quantity! ⚖️', 'error');
+                return;
+            }
+            
+            const nutrition = calculateNutrition(selectedFood, quantity, unit);
+            
             const foodEntry = {
-                ...window.currentFoodPreview,
                 id: Date.now(),
+                foodId: selectedFood.id,
+                name: selectedFood.name,
+                quantity: quantity,
+                unit: unit,
+                nutrition: nutrition,
                 timestamp: new Date().toISOString(),
                 date: iso()
             };
             
             gameState.dailyLog.push(foodEntry);
-            
-            // Award XP and check for level up
-            addXP(10);
-            
-            // Add to recent foods
-            addToRecents(foodEntry.foodId);
-            
-            // Check for trophies
-            checkAndAwardTrophies();
-            
-            // Update display
-            updateDisplay();
+            addXP(15);
+            checkTrophies();
             
             // Clear inputs
-            document.getElementById('foodSearch').value = '';
-            document.getElementById('foodAmount').value = '100';
+            document.getElementById('foodSpell').value = '';
+            document.getElementById('foodQuantity').value = '100';
             document.getElementById('foodUnit').value = 'g';
-            selectedFoodId = null;
-            updateNutritionPreview();
+            selectedFood = null;
+            resetNutritionPreview();
             
-            showToast(`Added ${foodEntry.name}! +10 XP 🎉`, 'success');
+            updateAllDisplays();
+            showMagicalToast(`${foodEntry.name} spell cast successfully! +15 XP ⚡`, 'success');
             saveGameState();
+        }
+
+        // Display Updates
+        function updateAllDisplays() {
+            updateWizardStats();
+            updateProgressDisplay();
+            updateFoodLog();
+        }
+
+        function updateWizardStats() {
+            document.getElementById('wizardLevel').textContent = gameState.level;
+            document.getElementById('trophyCount').textContent = gameState.trophies.length;
+            document.getElementById('currentStreak').textContent = gameState.streak;
+            document.getElementById('bestStreak').textContent = gameState.longestStreak;
+            
+            // Update XP Crystal
+            const xpNeeded = gameState.level * 100;
+            const xpProgress = (gameState.xp / xpNeeded) * 100;
+            document.getElementById('xpFill').style.width = xpProgress + '%';
+            document.getElementById('currentXP').textContent = gameState.xp;
+            document.getElementById('nextLevelXP').textContent = xpNeeded;
+        }
+
+        function updateProgressDisplay() {
+            const currentCals = getCurrentCals();
+            const currentProtein = getCurrentProtein();
+            const currentCarbs = getCurrentCarbs();
+            const currentFat = getCurrentFat();
+            
+            // Update Calorie Orb
+            const calorieProgress = Math.min(currentCals / gameState.goals.calories, 1);
+            document.getElementById('calorieOrb').style.background = 
+                `conic-gradient(var(--secondary) ${calorieProgress * 360}deg, rgba(255,255,255,0.2) 0deg)`;
+            
+            document.getElementById('orbCalories').textContent = Math.round(currentCals);
+            document.getElementById('orbRemaining').textContent = Math.max(0, Math.round(gameState.goals.calories - currentCals)) + ' left';
+            
+            // Update Macro Runes
+            const proteinProgress = Math.min((currentProtein / gameState.goals.protein) * 100, 100);
+            const carbsProgress = Math.min((currentCarbs / gameState.goals.carbs) * 100, 100);
+            const fatProgress = Math.min((currentFat / gameState.goals.fat) * 100, 100);
+            
+            document.getElementById('proteinRune').style.width = proteinProgress + '%';
+            document.getElementById('carbsRune').style.width = carbsProgress + '%';
+            document.getElementById('fatRune').style.width = fatProgress + '%';
+            
+            document.getElementById('proteinText').textContent = `${Math.round(currentProtein)}g / ${gameState.goals.protein}g`;
+            document.getElementById('carbsText').textContent = `${Math.round(currentCarbs)}g / ${gameState.goals.carbs}g`;
+            document.getElementById('fatText').textContent = `${Math.round(currentFat)}g / ${gameState.goals.fat}g`;
         }
 
         function updateFoodLog() {
-            const foodLog = document.getElementById('foodLog');
-            foodLog.innerHTML = '';
+            const foodScroll = document.getElementById('foodScroll');
+            const todaysFood = getTodaysFood().reverse();
             
-            // Show today's foods in reverse order (newest first)
-            const todaysFoods = getTodaysFoods().reverse();
-            
-            todaysFoods.forEach(food => {
-                const foodItem = document.createElement('div');
-                foodItem.className = 'food-item';
-                foodItem.innerHTML = `
-                    <div class="food-details">
-                        <div class="food-name">${food.name} (${food.amount}${food.unit})</div>
-                        <div class="food-macros">${Math.round(food.nutrition.calories)} cal • ${food.nutrition.protein.toFixed(1)}g protein • ${food.nutrition.carbs.toFixed(1)}g carbs • ${food.nutrition.fat.toFixed(1)}g fat</div>
-                    </div>
-                    <div class="food-actions">
-                        <button class="action-btn" onclick="openEditMeal(${food.id})">✏️</button>
-                        <button class="action-btn" onclick="deleteFood(${food.id})">🗑️</button>
-                    </div>
-                `;
-                foodLog.appendChild(foodItem);
-            });
-            
-            if (todaysFoods.length === 0) {
-                foodLog.innerHTML = '<div style="text-align: center; color: #ccc; padding: 2rem;">No foods logged today. Start tracking! 🍽️</div>';
+            if (todaysFood.length === 0) {
+                foodScroll.innerHTML = '<div style="text-align: center; color: #ccc; padding: 2rem;">No food spells cast today. Begin your magical nutrition journey! ✨</div>';
+                return;
             }
+            
+            foodScroll.innerHTML = todaysFood.map(food => `
+                <div class="food-entry">
+                    <div class="entry-details">
+                        <div class="entry-name">${food.name} (${food.quantity}${food.unit})</div>
+                        <div class="entry-macros">${Math.round(food.nutrition.calories)} cal • ${food.nutrition.protein.toFixed(1)}g protein • ${food.nutrition.carbs.toFixed(1)}g carbs • ${food.nutrition.fat.toFixed(1)}g fat</div>
+                    </div>
+                    <div class="entry-actions">
+                        <button class="action-rune" onclick="editMeal(${food.id})" title="Edit">✏️</button>
+                        <button class="action-rune" onclick="deleteMeal(${food.id})" title="Delete">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
         }
 
-        // Edit Meal System
-        function openEditMeal(mealId) {
-            const meal = gameState.dailyLog.find(m => m.id === mealId);
-            if (!meal) return;
-            
-            editingMealId = mealId;
-            document.getElementById('editMealName').textContent = meal.name;
-            document.getElementById('editQty').value = meal.amount;
-            document.getElementById('editUnit').value = meal.unit;
-            document.getElementById('editMealModal').style.display = 'block';
-        }
-
-        function closeEditMeal() {
-            document.getElementById('editMealModal').style.display = 'none';
-            editingMealId = null;
-        }
-
-        function saveMealEdit() {
-            if (!editingMealId) return;
-            
-            const mealIndex = gameState.dailyLog.findIndex(m => m.id === editingMealId);
-            if (mealIndex === -1) return;
-            
-            const meal = gameState.dailyLog[mealIndex];
-            const newQuantity = parseFloat(document.getElementById('editQty').value) || meal.amount;
-            const newUnit = document.getElementById('editUnit').value || meal.unit;
-            
-            // Get food from catalog
-            const food = FOODS_CATALOG.find(f => f.id === meal.foodId);
-            if (!food) return;
-            
-            // Calculate new nutrition
-            const newNutrition = calculateNutrition(food, newQuantity, newUnit);
-            
-            // Update meal
-            gameState.dailyLog[mealIndex] = {
-                ...meal,
-                amount: newQuantity,
-                unit: newUnit,
-                nutrition: newNutrition
-            };
-            
-            updateDisplay();
-            closeEditMeal();
-            showToast('Meal updated! ✨', 'success');
-            saveGameState();
-        }
-
-        function deleteFood(foodId) {
-            const index = gameState.dailyLog.findIndex(food => food.id === foodId);
-            if (index !== -1) {
-                const deletedFood = gameState.dailyLog[index];
-                gameState.dailyLog.splice(index, 1);
-                updateDisplay();
-                showToast(`Removed ${deletedFood.name}`, 'success');
-                saveGameState();
-            }
-        }
-
-        // Calculation functions with ISO dates
+        // Calculation Functions
         function getCurrentCals() {
-            return getTodaysFoods().reduce((total, food) => total + food.nutrition.calories, 0);
+            return getTodaysFood().reduce((total, food) => total + food.nutrition.calories, 0);
         }
 
         function getCurrentProtein() {
-            return getTodaysFoods().reduce((total, food) => total + food.nutrition.protein, 0);
+            return getTodaysFood().reduce((total, food) => total + food.nutrition.protein, 0);
         }
 
         function getCurrentCarbs() {
-            return getTodaysFoods().reduce((total, food) => total + food.nutrition.carbs, 0);
+            return getTodaysFood().reduce((total, food) => total + food.nutrition.carbs, 0);
         }
 
         function getCurrentFat() {
-            return getTodaysFoods().reduce((total, food) => total + food.nutrition.fat, 0);
+            return getTodaysFood().reduce((total, food) => total + food.nutrition.fat, 0);
         }
 
-        function getTodaysFoods() {
+        function getTodaysFood() {
             const today = iso();
             return gameState.dailyLog.filter(food => food.date === today);
         }
@@ -1994,203 +1990,93 @@
             return gameState.dailyLog.length;
         }
 
-        // XP and Level System
-        function addXP(amount) {
-            gameState.xp += amount;
-            const xpNeeded = gameState.level * 100;
+        // Meal Management
+        let currentEditingMeal = null;
+
+        function editMeal(mealId) {
+            const meal = gameState.dailyLog.find(m => m.id === mealId);
+            if (!meal) return;
             
-            if (gameState.xp >= xpNeeded) {
-                gameState.level++;
-                gameState.xp = 0;
-                showToast(`Level Up! You're now level ${gameState.level}! 🌟`, 'success');
-                checkAndAwardTrophies();
-            }
-        }
-
-        // Trophy System
-        function checkAndAwardTrophies() {
-            Object.keys(trophySystem).forEach(trophyId => {
-                if (!gameState.trophies.includes(trophyId)) {
-                    const trophy = trophySystem[trophyId];
-                    if (trophy.condition()) {
-                        awardTrophy(trophyId);
-                    }
-                }
-            });
-        }
-
-        function awardTrophy(trophyId) {
-            if (!gameState.trophies.includes(trophyId)) {
-                gameState.trophies.push(trophyId);
-                const trophy = trophySystem[trophyId];
-                showToast(`🏆 Trophy Unlocked: ${trophy.name}! +50 XP`, 'success');
-                addXP(50);
-                saveGameState();
-            }
-        }
-
-        function checkMacroTargets() {
-            const cals = getCurrentCals();
-            const protein = getCurrentProtein();
-            const carbs = getCurrentCarbs();
-            const fat = getCurrentFat();
+            currentEditingMeal = meal;
+            document.getElementById('editMealName').textContent = meal.name;
+            document.getElementById('editQty').value = meal.quantity;
+            document.getElementById('editUnit').value = meal.unit;
             
-            return cals >= gameState.goals.calories * 0.95 &&
-                   protein >= gameState.goals.protein * 0.95 &&
-                   carbs >= gameState.goals.carbs * 0.95 &&
-                   fat >= gameState.goals.fat * 0.95;
+            openScroll('editMealScroll');
         }
 
-        function checkFoodVariety() {
-            return gameState.dailyLog.length >= 20;
-        }
-
-        function checkPerfectWeek() {
-            return gameState.streak >= 7;
-        }
-
-        function getChallengesCompleted() {
-            return Math.floor(gameState.dailyLog.length / 10);
-        }
-
-        // Modal functions
-        function openGoalsModal() {
-            document.getElementById('goalsModal').style.display = 'block';
-        }
-
-        function openChestModal() {
-            populateChest();
-            document.getElementById('chestModal').style.display = 'block';
-        }
-
-        function openWeekModal() {
-            populateWeekOverview();
-            document.getElementById('weekModal').style.display = 'block';
-        }
-
-        function openCustomizeModal() {
-            document.getElementById('customizeModal').style.display = 'block';
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        function populateChest() {
-            const chestGrid = document.getElementById('chestGrid');
-            chestGrid.innerHTML = '';
+        function saveMealEdit() {
+            if (!currentEditingMeal) return;
             
-            Object.entries(trophySystem).forEach(([trophyId, trophy]) => {
-                const trophyElement = document.createElement('div');
-                const isEarned = gameState.trophies.includes(trophyId);
-                
-                trophyElement.className = `trophy ${isEarned ? 'earned' : ''}`;
-                trophyElement.innerHTML = `
-                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">${trophy.icon}</div>
-                    <div style="font-weight: bold; font-size: 0.8rem; margin-bottom: 0.3rem;">${trophy.name}</div>
-                    <div style="font-size: 0.7rem; color: #ccc;">${trophy.desc}</div>
-                `;
-                
-                if (isEarned) {
-                    trophyElement.style.opacity = '1';
-                } else {
-                    trophyElement.style.opacity = '0.3';
-                }
-                
-                chestGrid.appendChild(trophyElement);
-            });
-        }
-
-        function populateWeekOverview() {
-            const weekContent = document.getElementById('weekContent');
-            weekContent.innerHTML = '<div style="text-align: center; padding: 2rem;">📊 Weekly tracking coming soon! Keep logging to build your history.</div>';
-        }
-
-        function calculateGoals() {
-            const age = parseInt(document.getElementById('userAge').value);
-            const gender = document.getElementById('userGender').value;
-            const weight = parseFloat(document.getElementById('userWeight').value);
-            const height = parseInt(document.getElementById('userHeight').value);
-            const activity = parseFloat(document.getElementById('activityLevel').value);
-            const goal = document.getElementById('userGoal').value;
+            const newQuantity = parseFloat(document.getElementById('editQty').value) || currentEditingMeal.quantity;
+            const newUnit = document.getElementById('editUnit').value || currentEditingMeal.unit;
             
-            // Calculate BMR using Mifflin-St Jeor Equation
-            let bmr;
-            if (gender === 'male') {
-                bmr = 10 * weight + 6.25 * height - 5 * age + 5;
-            } else {
-                bmr = 10 * weight + 6.25 * height - 5 * age - 161;
-            }
+            const food = FOOD_CATALOG.find(f => f.id === currentEditingMeal.foodId);
+            if (!food) return;
             
-            // Calculate TDEE
-            let tdee = bmr * activity;
+            const newNutrition = calculateNutrition(food, newQuantity, newUnit);
             
-            // Adjust for goal
-            if (goal === 'lose') {
-                tdee -= 500;
-            } else if (goal === 'gain') {
-                tdee += 300;
-            }
+            const mealIndex = gameState.dailyLog.findIndex(m => m.id === currentEditingMeal.id);
+            gameState.dailyLog[mealIndex] = {
+                ...currentEditingMeal,
+                quantity: newQuantity,
+                unit: newUnit,
+                nutrition: newNutrition
+            };
             
-            // Calculate macros
-            const protein = Math.round(weight * 1.8); // 1.8g per kg
-            const calories = Math.round(tdee);
-            const fat = Math.round(calories * 0.25 / 9); // 25% of calories from fat
-            const carbs = Math.round((calories - (protein * 4) - (fat * 9)) / 4);
-            
-            // Update game state
-            gameState.goals = { calories, protein, carbs, fat };
-            
-            updateDisplay();
-            closeModal('goalsModal');
-            showToast('Goals updated! 🎯', 'success');
+            updateAllDisplays();
+            closeScroll('editMealScroll');
+            showMagicalToast('Meal updated successfully! ✨', 'success');
+            currentEditingMeal = null;
             saveGameState();
         }
 
-        // Utility functions
-        function showToast(message, type = 'success') {
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.textContent = message;
-            document.body.appendChild(toast);
+        function deleteMeal(mealId) {
+            const mealIndex = gameState.dailyLog.findIndex(m => m.id === mealId);
+            if (mealIndex === -1) return;
             
-            setTimeout(() => {
-                toast.remove();
-            }, 3000);
+            const meal = gameState.dailyLog[mealIndex];
+            gameState.dailyLog.splice(mealIndex, 1);
+            
+            updateAllDisplays();
+            showMagicalToast(`${meal.name} removed from log`, 'success');
+            saveGameState();
         }
 
-        function saveGameState() {
-            // Load custom foods into catalog
-            gameState.customFoods.forEach(food => {
-                if (!FOODS_CATALOG.some(f => f.id === food.id)) {
-                    FOODS_CATALOG.push(food);
-                }
-            });
-        }
-
-        function loadGameState() {
-            // Initialize with custom foods if any
-            if (gameState.customFoods) {
-                gameState.customFoods.forEach(food => {
-                    if (!FOODS_CATALOG.some(f => f.id === food.id)) {
-                        FOODS_CATALOG.push(food);
-                    }
-                });
+        // Custom Food Creation
+        function createCustomFood() {
+            const name = document.getElementById('customName').value.trim();
+            const per = document.getElementById('customPer').value.trim() || '100g';
+            const cals = parseFloat(document.getElementById('customCals').value) || 0;
+            const protein = parseFloat(document.getElementById('customProtein').value) || 0;
+            const carbs = parseFloat(document.getElementById('customCarbs').value) || 0;
+            const fat = parseFloat(document.getElementById('customFat').value) || 0;
+            const aliasStr = document.getElementById('customAliases').value || '';
+            const aliases = aliasStr.split(',').map(s => s.trim()).filter(Boolean);
+            
+            if (!name) {
+                showMagicalToast('Please enter a food name! 📝', 'error');
+                return;
             }
-        }
-
-        // Close modals when clicking outside
-        window.onclick = function(event) {
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(modal => {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-        }
-
-        // Initialize the app when page loads
-        window.onload = init;
-    </script>
-</body>
-</html>
+            
+            const customFood = {
+                id: 'custom_' + Date.now(),
+                name,
+                per,
+                cals,
+                protein,
+                carbs,
+                fat,
+                aliases
+            };
+            
+            gameState.customFoods.push(customFood);
+            FOOD_CATALOG.push(customFood);
+            
+            // Clear form
+            document.getElementById('customName').value = '';
+            document.getElementById('customPer').value = '100g';
+            document.getElementById('customCals').value = '';
+            document.getElementById('customProtein').value = '';
+            document.getElementById('customCarbs').value = '';
+            document.getElementById('customFat').value =
