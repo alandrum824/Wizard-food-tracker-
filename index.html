@@ -184,9 +184,9 @@
 
         .tracker-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-            max-width: 1200px;
+            max-width: 1600px;
             margin: 0 auto;
         }
 
@@ -394,6 +394,72 @@
             position: relative;
         }
 
+        /* Game Board Styles */
+        .game-cell {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+            border: 2px solid rgba(255,215,0,0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+            user-select: none;
+        }
+
+        .game-cell:hover {
+            transform: scale(1.1);
+            border-color: var(--secondary);
+            box-shadow: 0 0 15px rgba(255,215,0,0.5);
+        }
+
+        .game-cell.selected {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            border-color: var(--secondary);
+            transform: scale(1.15);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 10px var(--secondary); }
+            50% { box-shadow: 0 0 20px var(--secondary); }
+        }
+
+        .game-cell.matched {
+            animation: matchAnimation 0.6s ease-in-out forwards;
+        }
+
+        @keyframes matchAnimation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); background: linear-gradient(45deg, #ffd700, #ff6b6b); }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        /* Activity tracking styles */
+        .activity-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            margin-bottom: 6px;
+            background: rgba(255,215,0,0.1);
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .activity-name {
+            font-weight: bold;
+        }
+
+        .activity-details {
+            color: var(--secondary);
+            font-size: 0.8rem;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .academy-logo {
@@ -406,6 +472,16 @@
             
             .tracker-content {
                 grid-template-columns: 1fr;
+            }
+
+            .game-cell {
+                width: 35px;
+                height: 35px;
+                font-size: 1.3rem;
+            }
+
+            #gameBoard {
+                grid-template-columns: repeat(6, 35px) !important;
             }
         }
 
@@ -485,7 +561,7 @@
                 </div>
                 
                 <div class="input-group">
-                    <input type="number" id="caloriesInput" class="magical-input" placeholder="Mana (calories) - auto-filled" readonly>
+                    <input type="number" id="caloriesInput" class="magical-input" placeholder="Calories (auto-filled)" readonly>
                 </div>
                 
                 <button class="magical-btn" onclick="addFood()">✨ Add to Spell Log</button>
@@ -494,12 +570,81 @@
                     <div class="mana-bar">
                         <div class="mana-fill" id="manaFill" style="width: 0%"></div>
                     </div>
-                    <div class="mana-text" id="manaText">0 / 1200 Mana</div>
+                    <div class="mana-text" id="manaText">0 / 1200 Calories (Mana)</div>
                 </div>
                 
                 <div class="food-log" id="foodLog"></div>
                 
                 <button class="magical-btn" onclick="clearDay()" style="background: linear-gradient(45deg, #8b0000, #dc2626); margin-top: 1rem;">🧹 Clear Today's Spells</button>
+            </div>
+
+            <!-- Fitness Tracker Section -->
+            <div class="magical-card">
+                <h2 class="card-title">⚔️ Training Grounds</h2>
+                
+                <div class="input-group">
+                    <select id="activityInput" class="magical-select">
+                        <option value="Quidditch Practice">🏆 Quidditch Practice</option>
+                        <option value="Defense Training">⚔️ Defense Against Dark Arts</option>
+                        <option value="Herbology Work">🌿 Herbology Garden Work</option>
+                        <option value="Castle Stairs">🏰 Castle Stairs Climbing</option>
+                        <option value="Flying Lessons">🧙‍♂️ Flying Lessons</option>
+                        <option value="Care of Creatures">🐉 Care of Magical Creatures</option>
+                        <option value="Forest Trek">🌲 Forbidden Forest Trek</option>
+                        <option value="Dueling Club">⚡ Dueling Club</option>
+                        <option value="Lake Swimming">🏊‍♂️ Black Lake Swimming</option>
+                        <option value="Other">🎯 Other Training</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <input type="number" id="durationInput" class="magical-input" placeholder="Duration (minutes)" min="1">
+                </div>
+                
+                <div class="input-group">
+                    <select id="intensityInput" class="magical-select">
+                        <option value="light">🌟 Light (3 cal/min)</option>
+                        <option value="moderate">⚡ Moderate (5 cal/min)</option>
+                        <option value="vigorous">🔥 Vigorous (8 cal/min)</option>
+                        <option value="extreme">💥 Extreme (12 cal/min)</option>
+                    </select>
+                </div>
+                
+                <button class="magical-btn" onclick="addActivity()">💪 Log Training Session</button>
+                
+                <div style="margin-top: 1rem; padding: 1rem; background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.3); border-radius: 10px;">
+                    <div style="text-align: center; margin-bottom: 0.5rem; color: var(--secondary); font-weight: bold;">Today's Training</div>
+                    <div style="text-align: center; font-size: 1.2rem; color: var(--secondary);" id="dailyBurn">0 calories burned</div>
+                    <div style="text-align: center; font-size: 1rem; color: #ccc;" id="dailyMinutes">0 minutes</div>
+                </div>
+                
+                <div class="food-log" id="activityLog" style="max-height: 200px;"></div>
+            </div>
+
+            <!-- Magical Game Section -->
+            <div class="magical-card">
+                <h2 class="card-title">🎮 Crystal Match Spells</h2>
+                <p style="text-align: center; margin-bottom: 1rem; color: #ccc;">Match 3+ crystals to earn bonus house points!</p>
+                
+                <div style="display: flex; justify-content: space-around; margin-bottom: 1rem; padding: 1rem; background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.3); border-radius: 10px;">
+                    <div style="text-align: center;">
+                        <div style="color: var(--secondary); margin-bottom: 0.25rem;">Score</div>
+                        <div style="font-weight: bold; color: var(--secondary);" id="gameScore">0</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="color: var(--secondary); margin-bottom: 0.25rem;">Moves</div>
+                        <div style="font-weight: bold; color: var(--secondary);" id="gameMoves">20</div>
+                    </div>
+                </div>
+                
+                <div id="gameBoard" style="display: grid; grid-template-columns: repeat(6, 40px); gap: 2px; justify-content: center; margin-bottom: 1rem; padding: 1rem; background: rgba(0,0,0,0.3); border-radius: 10px;"></div>
+                
+                <div style="display: flex; gap: 0.5rem;">
+                    <button class="magical-btn" onclick="startNewGame()" style="flex: 1;">🔮 New Game</button>
+                    <button class="magical-btn" onclick="getHint()" style="flex: 1;">💡 Hint</button>
+                </div>
+                
+                <div id="gameStatus" style="text-align: center; margin-top: 0.5rem; color: var(--secondary); font-weight: bold;"></div>
             </div>
 
             <!-- Stats and Runes Section -->
@@ -519,7 +664,7 @@
                     </div>
                     <div class="rune" id="rune2">
                         <div class="rune-icon">⚡</div>
-                        <div class="rune-name">Mana Master</div>
+                        <div class="rune-name">Calorie Master</div>
                     </div>
                     <div class="rune" id="rune3">
                         <div class="rune-icon">🔥</div>
@@ -530,10 +675,18 @@
                         <div class="rune-name">Daily Ritual</div>
                     </div>
                     <div class="rune" id="rune5">
+                        <div class="rune-icon">💪</div>
+                        <div class="rune-name">Warrior</div>
+                    </div>
+                    <div class="rune" id="rune6">
+                        <div class="rune-icon">🎮</div>
+                        <div class="rune-name">Game Master</div>
+                    </div>
+                    <div class="rune" id="rune7">
                         <div class="rune-icon">👑</div>
                         <div class="rune-name">Grand Master</div>
                     </div>
-                    <div class="rune" id="rune6">
+                    <div class="rune" id="rune8">
                         <div class="rune-icon">💎</div>
                         <div class="rune-name">Legend</div>
                     </div>
@@ -543,17 +696,19 @@
     </div>
 
     <script>
-        // Food Database
+        // Enhanced Food Database
         const foods = [
             {name: "Apple", calories: 95},
             {name: "Banana", calories: 105},
             {name: "Orange", calories: 62},
             {name: "Grapes", calories: 62},
             {name: "Strawberries", calories: 32},
+            {name: "Blueberries", calories: 57},
             {name: "Chicken Breast", calories: 165},
             {name: "Salmon", calories: 206},
             {name: "Beef", calories: 250},
-            {name: "Eggs", calories: 70},
+            {name: "Pork", calories: 242},
+            {name: "Eggs", calories: 155},
             {name: "Milk", calories: 42},
             {name: "Cheese", calories: 113},
             {name: "Yogurt", calories: 59},
@@ -561,9 +716,12 @@
             {name: "Rice", calories: 130},
             {name: "Pasta", calories: 131},
             {name: "Potato", calories: 161},
+            {name: "Sweet Potato", calories: 112},
             {name: "Broccoli", calories: 25},
             {name: "Carrots", calories: 25},
             {name: "Spinach", calories: 7},
+            {name: "Lettuce", calories: 5},
+            {name: "Tomato", calories: 18},
             {name: "Chocolate", calories: 546},
             {name: "Ice Cream", calories: 207},
             {name: "Pizza", calories: 285},
@@ -571,11 +729,24 @@
             {name: "French Fries", calories: 365},
             {name: "Salad", calories: 33},
             {name: "Oatmeal", calories: 68},
+            {name: "Cereal", calories: 101},
             {name: "Almonds", calories: 576},
             {name: "Peanut Butter", calories: 588},
             {name: "Avocado", calories: 234},
-            {name: "Sweet Potato", calories: 112}
+            {name: "Coffee", calories: 2},
+            {name: "Tea", calories: 2},
+            {name: "Soda", calories: 140},
+            {name: "Beer", calories: 154},
+            {name: "Wine", calories: 125}
         ];
+
+        // Game variables
+        let gameBoard = [];
+        let selectedCell = null;
+        let gameScore = 0;
+        let movesLeft = 20;
+        let gameActive = false;
+        const crystals = ['💎', '🔮', '⭐', '✨', '💫', '🌟'];
 
         // Initialize stars
         function createStars() {
@@ -608,27 +779,29 @@
             
             loadData();
             updateDisplay();
+            startNewGame();
         }
 
-        // Food auto-suggest
+        // Enhanced Food auto-suggest
         function setupAutoSuggest() {
             const input = document.getElementById('foodInput');
             const dropdown = document.getElementById('suggestDropdown');
 
             input.addEventListener('input', function() {
-                const value = this.value.toLowerCase();
+                const value = this.value.toLowerCase().trim();
                 if (value.length < 2) {
                     dropdown.style.display = 'none';
+                    document.getElementById('caloriesInput').value = '';
                     return;
                 }
 
                 const matches = foods.filter(food => 
                     food.name.toLowerCase().includes(value)
-                ).slice(0, 5);
+                ).slice(0, 6);
 
                 if (matches.length > 0) {
                     dropdown.innerHTML = matches.map(food => 
-                        `<div class="suggest-item" onclick="selectFood('${food.name}', ${food.calories})">${food.name} (${food.calories} cal)</div>`
+                        `<div class="suggest-item" onclick="selectFood('${food.name}', ${food.calories})">${food.name} <span style="color: var(--secondary);">(${food.calories} cal)</span></div>`
                     ).join('');
                     dropdown.style.display = 'block';
                 } else {
@@ -673,7 +846,7 @@
             // Get current data
             let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
             if (!data.foodsToday) data.foodsToday = [];
-            if (!data.dailyMana) data.dailyMana = 0;
+            if (!data.dailyCalories) data.dailyCalories = 0;
             if (!data.housePoints) data.housePoints = 0;
             if (!data.earnedRunes) data.earnedRunes = [];
 
@@ -685,14 +858,14 @@
                 timestamp: Date.now()
             });
 
-            data.dailyMana += totalCalories;
+            data.dailyCalories += totalCalories;
             data.housePoints += Math.floor(totalCalories / 10); // 1 point per 10 calories
 
             // Save data
             localStorage.setItem('wyrnwickData', JSON.stringify(data));
 
-            // Show mana gain animation
-            showManaGain(totalCalories);
+            // Show calorie gain animation
+            showCalorieGain(totalCalories);
 
             // Clear inputs
             document.getElementById('foodInput').value = '';
@@ -704,11 +877,63 @@
             checkRunes();
         }
 
-        // Show mana gain animation
-        function showManaGain(calories) {
+        // Add activity to fitness log
+        function addActivity() {
+            const activity = document.getElementById('activityInput').value;
+            const duration = parseInt(document.getElementById('durationInput').value);
+            const intensity = document.getElementById('intensityInput').value;
+
+            if (!duration || duration < 1) {
+                alert('Please enter a valid duration!');
+                return;
+            }
+
+            // Calculate calories burned based on intensity
+            const calorieRates = {
+                light: 3,
+                moderate: 5, 
+                vigorous: 8,
+                extreme: 12
+            };
+
+            const caloriesBurned = duration * calorieRates[intensity];
+
+            // Get current data
+            let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            if (!data.activitiesToday) data.activitiesToday = [];
+            if (!data.dailyBurn) data.dailyBurn = 0;
+            if (!data.dailyMinutes) data.dailyMinutes = 0;
+            if (!data.housePoints) data.housePoints = 0;
+
+            // Add activity
+            data.activitiesToday.push({
+                activity: activity,
+                duration: duration,
+                intensity: intensity,
+                caloriesBurned: caloriesBurned,
+                timestamp: Date.now()
+            });
+
+            data.dailyBurn += caloriesBurned;
+            data.dailyMinutes += duration;
+            data.housePoints += Math.floor(caloriesBurned / 5); // 1 point per 5 calories burned
+
+            // Save data
+            localStorage.setItem('wyrnwickData', JSON.stringify(data));
+
+            // Clear inputs
+            document.getElementById('durationInput').value = '';
+
+            // Update display
+            updateDisplay();
+            checkRunes();
+        }
+
+        // Show calorie gain animation
+        function showCalorieGain(calories) {
             const element = document.createElement('div');
             element.className = 'mana-gained';
-            element.textContent = `+${calories} Mana!`;
+            element.textContent = `+${calories} calories!`;
             element.style.left = '50%';
             element.style.top = '50%';
             document.body.appendChild(element);
@@ -721,24 +946,44 @@
         // Update display
         function updateDisplay() {
             const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            const dailyMana = data.dailyMana || 0;
+            const dailyCalories = data.dailyCalories || 0;
+            const dailyBurn = data.dailyBurn || 0;
+            const dailyMinutes = data.dailyMinutes || 0;
             const housePoints = data.housePoints || 0;
             const foodsToday = data.foodsToday || [];
+            const activitiesToday = data.activitiesToday || [];
 
-            // Update mana bar
-            const percentage = Math.min((dailyMana / 1200) * 100, 100);
+            // Update calorie bar
+            const netCalories = Math.max(0, dailyCalories - dailyBurn);
+            const percentage = Math.min((netCalories / 1200) * 100, 100);
             document.getElementById('manaFill').style.width = percentage + '%';
-            document.getElementById('manaText').textContent = `${dailyMana} / 1200 Mana`;
+            document.getElementById('manaText').textContent = `${netCalories} / 1200 Calories (Net: ${dailyCalories} eaten - ${dailyBurn} burned)`;
 
             // Update house points
             document.getElementById('housePoints').textContent = housePoints;
+
+            // Update fitness display
+            document.getElementById('dailyBurn').textContent = `${dailyBurn} calories burned`;
+            document.getElementById('dailyMinutes').textContent = `${dailyMinutes} minutes`;
 
             // Update food log
             const foodLog = document.getElementById('foodLog');
             foodLog.innerHTML = foodsToday.map(food => `
                 <div class="food-item">
                     <span class="food-name">${food.name} ${food.quantity > 1 ? `(×${food.quantity})` : ''}</span>
-                    <span class="food-calories">${food.calories} mana</span>
+                    <span class="food-calories">${food.calories} cal</span>
+                </div>
+            `).join('');
+
+            // Update activity log
+            const activityLog = document.getElementById('activityLog');
+            activityLog.innerHTML = activitiesToday.map(activity => `
+                <div class="activity-item">
+                    <div>
+                        <div class="activity-name">${activity.activity}</div>
+                        <div class="activity-details">${activity.duration}min • ${activity.intensity}</div>
+                    </div>
+                    <span style="color: var(--secondary); font-weight: bold;">-${activity.caloriesBurned} cal</span>
                 </div>
             `).join('');
 
@@ -746,21 +991,27 @@
             updateRunes();
         }
 
-        // Check and award runes
+        // Enhanced rune checking
         function checkRunes() {
             const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            const dailyMana = data.dailyMana || 0;
+            const dailyCalories = data.dailyCalories || 0;
+            const dailyBurn = data.dailyBurn || 0;
+            const dailyMinutes = data.dailyMinutes || 0;
             const housePoints = data.housePoints || 0;
             const foodsToday = data.foodsToday || [];
+            const activitiesToday = data.activitiesToday || [];
+            const gameHighScore = data.gameHighScore || 0;
             let earnedRunes = data.earnedRunes || [];
 
             const runes = [
                 {id: 'rune1', name: 'First Feast', condition: () => foodsToday.length >= 1},
-                {id: 'rune2', name: 'Mana Master', condition: () => dailyMana >= 1200},
-                {id: 'rune3', name: 'Power Surge', condition: () => dailyMana >= 1500},
-                {id: 'rune4', name: 'Daily Ritual', condition: () => dailyMana >= 1200 && dailyMana <= 1400},
-                {id: 'rune5', name: 'Grand Master', condition: () => housePoints >= 500},
-                {id: 'rune6', name: 'Legend', condition: () => housePoints >= 1000}
+                {id: 'rune2', name: 'Calorie Master', condition: () => dailyCalories >= 1200},
+                {id: 'rune3', name: 'Power Surge', condition: () => dailyCalories >= 1600},
+                {id: 'rune4', name: 'Daily Ritual', condition: () => dailyCalories >= 1200 && dailyCalories <= 1400},
+                {id: 'rune5', name: 'Warrior', condition: () => dailyMinutes >= 30},
+                {id: 'rune6', name: 'Game Master', condition: () => gameHighScore >= 500},
+                {id: 'rune7', name: 'Grand Master', condition: () => housePoints >= 500},
+                {id: 'rune8', name: 'Legend', condition: () => housePoints >= 1000}
             ];
 
             runes.forEach(rune => {
@@ -795,13 +1046,182 @@
 
         // Clear day
         function clearDay() {
-            if (confirm('Are you sure you want to clear today\'s spell log?')) {
+            if (confirm('Are you sure you want to clear today\'s logs?')) {
                 let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
                 data.foodsToday = [];
-                data.dailyMana = 0;
+                data.activitiesToday = [];
+                data.dailyCalories = 0;
+                data.dailyBurn = 0;
+                data.dailyMinutes = 0;
                 localStorage.setItem('wyrnwickData', JSON.stringify(data));
                 updateDisplay();
             }
+        }
+
+        // GAME FUNCTIONS
+        function startNewGame() {
+            gameBoard = [];
+            selectedCell = null;
+            gameScore = 0;
+            movesLeft = 20;
+            gameActive = true;
+
+            // Create 6x6 board
+            for (let i = 0; i < 36; i++) {
+                gameBoard.push(crystals[Math.floor(Math.random() * crystals.length)]);
+            }
+
+            renderBoard();
+            updateGameDisplay();
+        }
+
+        function renderBoard() {
+            const boardElement = document.getElementById('gameBoard');
+            boardElement.innerHTML = '';
+            
+            gameBoard.forEach((crystal, index) => {
+                const cell = document.createElement('div');
+                cell.className = 'game-cell';
+                cell.textContent = crystal;
+                cell.onclick = () => selectCell(index);
+                cell.id = `cell-${index}`;
+                boardElement.appendChild(cell);
+            });
+        }
+
+        function selectCell(index) {
+            if (!gameActive || movesLeft <= 0) return;
+
+            const cell = document.getElementById(`cell-${index}`);
+            
+            if (selectedCell === null) {
+                selectedCell = index;
+                cell.classList.add('selected');
+            } else if (selectedCell === index) {
+                selectedCell = null;
+                cell.classList.remove('selected');
+            } else {
+                // Try to swap
+                if (areAdjacent(selectedCell, index)) {
+                    swapCells(selectedCell, index);
+                    document.getElementById(`cell-${selectedCell}`).classList.remove('selected');
+                    selectedCell = null;
+                    movesLeft--;
+                    
+                    setTimeout(() => {
+                        checkMatches();
+                        updateGameDisplay();
+                        
+                        if (movesLeft <= 0) {
+                            endGame();
+                        }
+                    }, 300);
+                } else {
+                    document.getElementById(`cell-${selectedCell}`).classList.remove('selected');
+                    selectedCell = index;
+                    cell.classList.add('selected');
+                }
+            }
+        }
+
+        function areAdjacent(index1, index2) {
+            const row1 = Math.floor(index1 / 6);
+            const col1 = index1 % 6;
+            const row2 = Math.floor(index2 / 6);
+            const col2 = index2 % 6;
+            
+            const rowDiff = Math.abs(row1 - row2);
+            const colDiff = Math.abs(col1 - col2);
+            
+            return (rowDiff === 1 && colDiff === 0) || (rowDiff === 0 && colDiff === 1);
+        }
+
+        function swapCells(index1, index2) {
+            const temp = gameBoard[index1];
+            gameBoard[index1] = gameBoard[index2];
+            gameBoard[index2] = temp;
+            renderBoard();
+        }
+
+        function checkMatches() {
+            const matches = [];
+            
+            // Check horizontal matches
+            for (let row = 0; row < 6; row++) {
+                for (let col = 0; col < 4; col++) {
+                    const index = row * 6 + col;
+                    if (gameBoard[index] === gameBoard[index + 1] && gameBoard[index] === gameBoard[index + 2]) {
+                        matches.push(index, index + 1, index + 2);
+                    }
+                }
+            }
+            
+            // Check vertical matches
+            for (let row = 0; row < 4; row++) {
+                for (let col = 0; col < 6; col++) {
+                    const index = row * 6 + col;
+                    if (gameBoard[index] === gameBoard[index + 6] && gameBoard[index] === gameBoard[index + 12]) {
+                        matches.push(index, index + 6, index + 12);
+                    }
+                }
+            }
+            
+            if (matches.length > 0) {
+                const uniqueMatches = [...new Set(matches)];
+                gameScore += uniqueMatches.length * 10;
+                
+                // Animate matched cells
+                uniqueMatches.forEach(index => {
+                    document.getElementById(`cell-${index}`).classList.add('matched');
+                });
+                
+                setTimeout(() => {
+                    // Replace matched crystals with new ones
+                    uniqueMatches.forEach(index => {
+                        gameBoard[index] = crystals[Math.floor(Math.random() * crystals.length)];
+                    });
+                    renderBoard();
+                    
+                    // Check for more matches
+                    setTimeout(() => checkMatches(), 100);
+                }, 600);
+            }
+        }
+
+        function updateGameDisplay() {
+            document.getElementById('gameScore').textContent = gameScore;
+            document.getElementById('gameMoves').textContent = movesLeft;
+            
+            if (movesLeft <= 5) {
+                document.getElementById('gameStatus').textContent = 'Running out of moves!';
+                document.getElementById('gameStatus').style.color = '#ff4444';
+            } else {
+                document.getElementById('gameStatus').textContent = 'Match 3+ crystals to score!';
+                document.getElementById('gameStatus').style.color = 'var(--secondary)';
+            }
+        }
+
+        function endGame() {
+            gameActive = false;
+            
+            // Save high score and award house points
+            let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            if (!data.gameHighScore || gameScore > data.gameHighScore) {
+                data.gameHighScore = gameScore;
+            }
+            if (!data.housePoints) data.housePoints = 0;
+            data.housePoints += Math.floor(gameScore / 10);
+            localStorage.setItem('wyrnwickData', JSON.stringify(data));
+            
+            document.getElementById('gameStatus').textContent = `Game Over! Final Score: ${gameScore}`;
+            updateDisplay();
+            checkRunes();
+        }
+
+        function getHint() {
+            if (!gameActive) return;
+            
+            alert('Hint: Look for crystals that could form a line of 3 when swapped with adjacent crystals!');
         }
 
         // Load data
@@ -814,7 +1234,10 @@
             if (lastLogin !== today) {
                 // New day - reset daily stats but keep house points and runes
                 data.foodsToday = [];
-                data.dailyMana = 0;
+                data.activitiesToday = [];
+                data.dailyCalories = 0;
+                data.dailyBurn = 0;
+                data.dailyMinutes = 0;
                 data.lastLogin = today;
                 localStorage.setItem('wyrnwickData', JSON.stringify(data));
             }
