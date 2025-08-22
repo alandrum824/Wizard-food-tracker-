@@ -191,6 +191,20 @@
             font-size: 4rem;
             margin-bottom: 1rem;
             filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 80px;
+        }
+
+        .house-character {
+            font-size: 5rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .house-crest:hover .house-character {
+            transform: scale(1.1);
         }
 
         .house-name {
@@ -247,6 +261,16 @@
             font-size: 0.9rem;
             color: #ddd;
             margin-bottom: 1rem;
+        }
+
+        .streak-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            font-size: 1rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-weight: bold;
         }
 
         .customize-btn {
@@ -312,7 +336,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -372,6 +396,10 @@
         .magical-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .magical-btn.secondary {
+            background: linear-gradient(45deg, #4b5563, #6b7280);
         }
 
         /* Mana Bar */
@@ -445,6 +473,72 @@
         .food-calories {
             color: var(--secondary);
             font-weight: bold;
+        }
+
+        /* Weekly Challenges */
+        .challenge-list {
+            margin-top: 1rem;
+        }
+
+        .challenge-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: rgba(255,215,0,0.1);
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .challenge-item.completed {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            border-color: var(--secondary);
+        }
+
+        .challenge-text {
+            font-weight: bold;
+        }
+
+        .challenge-reward {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        /* House Tournament */
+        .leaderboard {
+            margin-top: 1rem;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: rgba(255,215,0,0.1);
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 8px;
+        }
+
+        .leaderboard-item.champion {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            border-color: #ffd700;
+            font-weight: bold;
+        }
+
+        .house-position {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .position-number {
+            font-size: 1.2rem;
+            font-weight: bold;
+            width: 30px;
         }
 
         /* Runes (Badges) */
@@ -550,6 +644,8 @@
             width: 90%;
             backdrop-filter: blur(10px);
             text-align: center;
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
         .modal-title {
@@ -604,6 +700,91 @@
             cursor: pointer;
         }
 
+        /* Potion Brewing Styles */
+        .brewing-stage {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .ingredient-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .ingredient-btn {
+            padding: 1rem;
+            border: 2px solid rgba(255,215,0,0.3);
+            border-radius: 10px;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .ingredient-btn:hover {
+            border-color: var(--secondary);
+            background: rgba(255,215,0,0.1);
+        }
+
+        .stir-button {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            border: 3px solid var(--secondary);
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin: 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .stir-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--secondary);
+        }
+
+        .potion-result {
+            margin: 2rem 0;
+            padding: 1rem;
+            background: rgba(255,215,0,0.1);
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 10px;
+        }
+
+        /* Study Hall Meditation */
+        .meditation-container {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .breathing-orb {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--secondary), var(--primary));
+            margin: 2rem auto;
+            animation: breathe 4s infinite ease-in-out;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        .meditation-timer {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin: 1rem 0;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .academy-logo {
@@ -622,9 +803,14 @@
                 flex-direction: column;
                 gap: 0.5rem;
             }
+
+            .streak-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
         }
 
-        /* Animation for mana gain */
+        /* Animations */
         @keyframes manaGain {
             0% { transform: translateY(0) scale(1); opacity: 1; }
             100% { transform: translateY(-50px) scale(1.2); opacity: 0; }
@@ -640,7 +826,6 @@
             animation: manaGain 1s ease-out forwards;
         }
 
-        /* Level up animation */
         @keyframes levelUp {
             0% { transform: translateY(0) scale(1); opacity: 1; }
             50% { transform: translateY(-30px) scale(1.5); }
@@ -655,6 +840,21 @@
             pointer-events: none;
             z-index: 1000;
             animation: levelUp 2s ease-out forwards;
+        }
+
+        @keyframes xpGain {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-30px) scale(1.1); opacity: 0; }
+        }
+
+        .xp-gained {
+            position: fixed;
+            color: #9333ea;
+            font-weight: bold;
+            font-size: 1rem;
+            pointer-events: none;
+            z-index: 1000;
+            animation: xpGain 1s ease-out forwards;
         }
     </style>
 </head>
@@ -683,25 +883,33 @@
         
         <div class="house-selection">
             <div class="house-crest viperthorn" onclick="selectHouse('viperthorn')">
-                <div class="house-icon">🐍</div>
+                <div class="house-icon">
+                    <div class="house-character">🐲</div>
+                </div>
                 <div class="house-name">VIPERTHORN</div>
                 <div class="house-motto">"Cunning guides the wise"</div>
             </div>
             
             <div class="house-crest braverun" onclick="selectHouse('braverun')">
-                <div class="house-icon">🦁</div>
+                <div class="house-icon">
+                    <div class="house-character">🦁</div>
+                </div>
                 <div class="house-name">BRAVERUN</div>
                 <div class="house-motto">"Courage conquers all"</div>
             </div>
             
             <div class="house-crest nightwing" onclick="selectHouse('nightwing')">
-                <div class="house-icon">🦅</div>
+                <div class="house-icon">
+                    <div class="house-character">🦅</div>
+                </div>
                 <div class="house-name">NIGHTWING</div>
                 <div class="house-motto">"Wisdom illuminates darkness"</div>
             </div>
             
             <div class="house-crest cinderglen" onclick="selectHouse('cinderglen')">
-                <div class="house-icon">🦡</div>
+                <div class="house-icon">
+                    <div class="house-character">🦔</div>
+                </div>
                 <div class="house-name">CINDERGLEN</div>
                 <div class="house-motto">"Loyalty burns eternal"</div>
             </div>
@@ -763,6 +971,63 @@
         </div>
     </div>
 
+    <!-- Potion Brewing Modal -->
+    <div class="modal" id="potionModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closePotionModal()">×</button>
+            <h2 class="modal-title">🧪 Potion Brewing</h2>
+            
+            <div id="brewingStage1" class="brewing-stage">
+                <h3 class="section-title">Step 1: Choose Your Ingredient</h3>
+                <div class="ingredient-grid">
+                    <div class="ingredient-btn" onclick="selectIngredient('apple')">🍎 Apple</div>
+                    <div class="ingredient-btn" onclick="selectIngredient('cheese')">🧀 Cheese</div>
+                    <div class="ingredient-btn" onclick="selectIngredient('egg')">🥚 Egg</div>
+                    <div class="ingredient-btn" onclick="selectIngredient('honey')">🍯 Honey</div>
+                    <div class="ingredient-btn" onclick="selectIngredient('mushroom')">🍄 Mushroom</div>
+                    <div class="ingredient-btn" onclick="selectIngredient('crystal')">💎 Crystal</div>
+                </div>
+            </div>
+
+            <div id="brewingStage2" class="brewing-stage" style="display: none;">
+                <h3 class="section-title">Step 2: Choose Your Rune Boost</h3>
+                <div class="option-grid">
+                    <div class="option-btn" onclick="selectBoost('speed')">⚡ Speed Boost</div>
+                    <div class="option-btn" onclick="selectBoost('mana')">💙 Mana Regen</div>
+                    <div class="option-btn" onclick="selectBoost('xp')">✨ XP Boost</div>
+                </div>
+            </div>
+
+            <div id="brewingStage3" class="brewing-stage" style="display: none;">
+                <h3 class="section-title">Step 3: Stir the Cauldron</h3>
+                <div class="stir-button" onclick="stirPotion()">
+                    🌀<br>STIR
+                </div>
+            </div>
+
+            <div id="potionResult" class="potion-result" style="display: none;">
+                <h3 class="section-title">Potion Complete!</h3>
+                <div id="potionResultText"></div>
+                <button class="magical-btn" onclick="closePotionModal()">Collect Reward</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Study Hall Modal -->
+    <div class="modal" id="studyModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeStudyModal()">×</button>
+            <h2 class="modal-title">📚 Study Hall Meditation</h2>
+            
+            <div class="meditation-container">
+                <p style="margin-bottom: 2rem;">Focus on the breathing orb and find your inner peace...</p>
+                <div class="breathing-orb" id="breathingOrb"></div>
+                <div class="meditation-timer" id="meditationTimer">1:00</div>
+                <button class="magical-btn" onclick="startMeditation()" id="meditationBtn">🧘 Begin Meditation</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Food Tracker Page -->
     <div class="tracker-page" id="trackerPage">
         <div class="tracker-header">
@@ -773,6 +1038,10 @@
                 <div>🪄 <span id="wandType">Phoenix Core</span></div>
                 <div>🐾 <span id="companionType">Wise Owl</span></div>
                 <div>👤 <span id="backgroundType">Royal Bloodline</span></div>
+            </div>
+            <div class="streak-info" id="streakInfo">
+                <div>🔥 <span id="streakCount">0</span> Day Streak</div>
+                <div>🏆 Champion: <span id="championHouse">Loading...</span></div>
             </div>
             <div class="xp-container">
                 <div class="xp-bar">
@@ -799,7 +1068,7 @@
                 </div>
                 
                 <div class="input-group">
-                    <input type="number" id="caloriesInput" class="magical-input" placeholder="Mana (calories) - auto-filled" readonly>
+                    <input type="number" id="caloriesInput" class="magical-input" placeholder="Calories - auto-filled" readonly>
                 </div>
                 
                 <button class="magical-btn" onclick="addFood()">✨ Add to Spell Log</button>
@@ -808,48 +1077,76 @@
                     <div class="mana-bar">
                         <div class="mana-fill" id="manaFill" style="width: 0%"></div>
                     </div>
-                    <div class="mana-text" id="manaText">0 / 1200 Mana</div>
+                    <div class="mana-text" id="manaText">0 / 1200 Calories (Mana)</div>
                 </div>
                 
                 <div class="food-log" id="foodLog"></div>
                 
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <button class="magical-btn" onclick="openPotionModal()" style="flex: 1;">🧪 Brew Potion</button>
+                    <button class="magical-btn" onclick="openStudyModal()" style="flex: 1;">📚 Study Hall</button>
+                </div>
+                
                 <button class="magical-btn" onclick="clearDay()" style="background: linear-gradient(45deg, #8b0000, #dc2626); margin-top: 1rem;">🧹 Clear Today's Spells</button>
             </div>
 
-            <!-- Stats and Runes Section -->
-            <div class="magical-card">
-                <h2 class="card-title">🏆 Magical Achievements</h2>
-                
-                <div style="text-align: center; margin-bottom: 2rem;">
-                    <div style="font-size: 1.2rem; color: var(--secondary); margin-bottom: 0.5rem;">House Points</div>
-                    <div style="font-size: 2rem; font-weight: bold; color: var(--secondary);" id="housePoints">0</div>
+            <!-- Stats and Features Section -->
+            <div style="display: grid; gap: 2rem;">
+                <!-- Weekly Challenges -->
+                <div class="magical-card">
+                    <h2 class="card-title">📅 Weekly Challenges</h2>
+                    <div class="challenge-list" id="challengeList"></div>
                 </div>
-                
-                <h3 style="color: var(--secondary); margin-bottom: 1rem; text-align: center;">Earned Runes</h3>
-                <div class="runes-container" id="runesContainer">
-                    <div class="rune" id="rune1">
-                        <div class="rune-icon">🍎</div>
-                        <div class="rune-name">First Feast</div>
+
+                <!-- House Tournament -->
+                <div class="magical-card">
+                    <h2 class="card-title">🏆 House Tournament</h2>
+                    <div class="leaderboard" id="houseLeaderboard"></div>
+                </div>
+
+                <!-- Runes -->
+                <div class="magical-card">
+                    <h2 class="card-title">🏆 Magical Achievements</h2>
+                    
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <div style="font-size: 1.2rem; color: var(--secondary); margin-bottom: 0.5rem;">House Points</div>
+                        <div style="font-size: 2rem; font-weight: bold; color: var(--secondary);" id="housePoints">0</div>
                     </div>
-                    <div class="rune" id="rune2">
-                        <div class="rune-icon">⚡</div>
-                        <div class="rune-name">Mana Master</div>
-                    </div>
-                    <div class="rune" id="rune3">
-                        <div class="rune-icon">🔥</div>
-                        <div class="rune-name">Power Surge</div>
-                    </div>
-                    <div class="rune" id="rune4">
-                        <div class="rune-icon">🌟</div>
-                        <div class="rune-name">Mana Manager</div>
-                    </div>
-                    <div class="rune" id="rune5">
-                        <div class="rune-icon">👑</div>
-                        <div class="rune-name">Level Master</div>
-                    </div>
-                    <div class="rune" id="rune6">
-                        <div class="rune-icon">💎</div>
-                        <div class="rune-name">Legend</div>
+                    
+                    <h3 style="color: var(--secondary); margin-bottom: 1rem; text-align: center;">Earned Runes</h3>
+                    <div class="runes-container" id="runesContainer">
+                        <div class="rune" id="rune1">
+                            <div class="rune-icon">🍎</div>
+                            <div class="rune-name">First Feast</div>
+                        </div>
+                        <div class="rune" id="rune2">
+                            <div class="rune-icon">⚡</div>
+                            <div class="rune-name">Mana Master</div>
+                        </div>
+                        <div class="rune" id="rune3">
+                            <div class="rune-icon">🔥</div>
+                            <div class="rune-name">Power Surge</div>
+                        </div>
+                        <div class="rune" id="rune4">
+                            <div class="rune-icon">🌟</div>
+                            <div class="rune-name">Mana Manager</div>
+                        </div>
+                        <div class="rune" id="rune5">
+                            <div class="rune-icon">👑</div>
+                            <div class="rune-name">Level Master</div>
+                        </div>
+                        <div class="rune" id="rune6">
+                            <div class="rune-icon">💎</div>
+                            <div class="rune-name">Legend</div>
+                        </div>
+                        <div class="rune" id="rune7">
+                            <div class="rune-icon">🔥</div>
+                            <div class="rune-name">Streak Master</div>
+                        </div>
+                        <div class="rune" id="rune8">
+                            <div class="rune-icon">✨</div>
+                            <div class="rune-name">Weekly Warrior</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -857,7 +1154,7 @@
     </div>
 
     <script>
-        // Valid student keys (you can customize these)
+        // Valid student keys
         const validKeys = ['WIZARD123', 'MAGIC456', 'ACADEMY789', 'STUDENT101'];
         
         // Character customization data
@@ -866,6 +1163,26 @@
             companion: 'owl',
             background: 'royal'
         };
+
+        // Potion brewing data
+        let potionData = {
+            ingredient: null,
+            boost: null,
+            dailyPotion: false
+        };
+
+        // Meditation data
+        let meditationActive = false;
+        let meditationTimer = null;
+
+        // Weekly challenges
+        const weeklyPrompts = [
+            { id: 'log_meals', text: 'Log 7 meals this week', reward: '50 XP + Weekly Rune', target: 7 },
+            { id: 'house_points', text: 'Earn 300 House Points', reward: '30 XP', target: 300 },
+            { id: 'brew_potions', text: 'Brew 5 potions', reward: '40 XP', target: 5 },
+            { id: 'meditation', text: 'Complete 3 meditation sessions', reward: '25 XP', target: 3 },
+            { id: 'streak_days', text: 'Maintain 5-day streak', reward: '60 XP + Streak Rune', target: 5 }
+        ];
 
         // Food Database
         const foods = [
@@ -905,10 +1222,24 @@
         function openCustomizeModal() {
             document.getElementById('customizeModal').style.display = 'flex';
             loadCustomizationData();
+            
+            // Add keyboard support
+            document.addEventListener('keydown', handleCustomizeKeydown);
         }
 
         function closeCustomizeModal() {
             document.getElementById('customizeModal').style.display = 'none';
+            
+            // Remove keyboard support
+            document.removeEventListener('keydown', handleCustomizeKeydown);
+        }
+
+        function handleCustomizeKeydown(e) {
+            if (e.key === 'Enter') {
+                saveCustomization();
+            } else if (e.key === 'Escape') {
+                closeCustomizeModal();
+            }
         }
 
         function selectOption(category, option) {
@@ -971,6 +1302,258 @@
             document.getElementById('backgroundType').textContent = backgroundTypes[characterData.background];
         }
 
+        // Potion Brewing Functions
+        function openPotionModal() {
+            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            const today = new Date().toDateString();
+            
+            if (data.lastPotionDate === today) {
+                alert('You have already brewed a potion today! Come back tomorrow.');
+                return;
+            }
+            
+            document.getElementById('potionModal').style.display = 'flex';
+            resetPotionBrewing();
+        }
+
+        function closePotionModal() {
+            document.getElementById('potionModal').style.display = 'none';
+        }
+
+        function resetPotionBrewing() {
+            potionData = { ingredient: null, boost: null, dailyPotion: false };
+            document.getElementById('brewingStage1').style.display = 'block';
+            document.getElementById('brewingStage2').style.display = 'none';
+            document.getElementById('brewingStage3').style.display = 'none';
+            document.getElementById('potionResult').style.display = 'none';
+        }
+
+        function selectIngredient(ingredient) {
+            potionData.ingredient = ingredient;
+            document.getElementById('brewingStage1').style.display = 'none';
+            document.getElementById('brewingStage2').style.display = 'block';
+        }
+
+        function selectBoost(boost) {
+            potionData.boost = boost;
+            document.getElementById('brewingStage2').style.display = 'none';
+            document.getElementById('brewingStage3').style.display = 'block';
+        }
+
+        function stirPotion() {
+            // Random success chance
+            const success = Math.random() > 0.3; // 70% success rate
+            const baseXP = 15;
+            let bonusXP = 0;
+            let resultText = '';
+
+            if (success) {
+                bonusXP = Math.floor(Math.random() * 20) + 10; // 10-30 bonus XP
+                resultText = `🎉 Success! Your ${potionData.ingredient} potion with ${potionData.boost} boost grants you ${baseXP + bonusXP} XP!`;
+            } else {
+                resultText = `💨 The potion fizzled... You still gain ${baseXP} XP for trying.`;
+            }
+
+            // Award XP
+            addXP(baseXP + bonusXP);
+
+            // Update challenges
+            updateChallengeProgress('brew_potions', 1);
+
+            // Mark daily potion as used
+            let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            data.lastPotionDate = new Date().toDateString();
+            localStorage.setItem('wyrnwickData', JSON.stringify(data));
+
+            // Show result
+            document.getElementById('brewingStage3').style.display = 'none';
+            document.getElementById('potionResult').style.display = 'block';
+            document.getElementById('potionResultText').innerHTML = resultText;
+        }
+
+        // Study Hall Functions
+        function openStudyModal() {
+            document.getElementById('studyModal').style.display = 'flex';
+        }
+
+        function closeStudyModal() {
+            document.getElementById('studyModal').style.display = 'none';
+            if (meditationTimer) {
+                clearInterval(meditationTimer);
+                meditationTimer = null;
+            }
+            meditationActive = false;
+        }
+
+        function startMeditation() {
+            if (meditationActive) return;
+            
+            meditationActive = true;
+            let timeLeft = 60; // 1 minute
+            
+            document.getElementById('meditationBtn').textContent = 'Meditating...';
+            document.getElementById('meditationBtn').disabled = true;
+            
+            meditationTimer = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                document.getElementById('meditationTimer').textContent = 
+                    `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(meditationTimer);
+                    completeMeditation();
+                }
+            }, 1000);
+        }
+
+        function completeMeditation() {
+            addXP(10);
+            updateChallengeProgress('meditation', 1);
+            
+            alert('🧘 Meditation complete! You feel refreshed and gain 10 XP.');
+            
+            document.getElementById('meditationBtn').textContent = '🧘 Begin Meditation';
+            document.getElementById('meditationBtn').disabled = false;
+            document.getElementById('meditationTimer').textContent = '1:00';
+            meditationActive = false;
+            
+            closeStudyModal();
+        }
+
+        // Weekly Challenges Functions
+        function getWeeklyPrompts() {
+            const weekStart = getWeekStart();
+            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            
+            if (!data.weeklyPrompts || data.weekStart !== weekStart) {
+                // New week, reset challenges
+                const shuffled = [...weeklyPrompts].sort(() => Math.random() - 0.5);
+                data.weeklyPrompts = shuffled.slice(0, 3); // Pick 3 random challenges
+                data.weekStart = weekStart;
+                data.challengeProgress = {};
+                localStorage.setItem('wyrnwickData', JSON.stringify(data));
+            }
+            
+            return data.weeklyPrompts;
+        }
+
+        function getWeekStart() {
+            const now = new Date();
+            const day = now.getDay(); // 0 = Sunday
+            const diff = now.getDate() - day; // Adjust to get Monday
+            const monday = new Date(now.setDate(diff));
+            return monday.toDateString();
+        }
+
+        function updateChallengeProgress(challengeId, amount) {
+            let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            if (!data.challengeProgress) data.challengeProgress = {};
+            
+            data.challengeProgress[challengeId] = (data.challengeProgress[challengeId] || 0) + amount;
+            localStorage.setItem('wyrnwickData', JSON.stringify(data));
+            
+            updateChallengesDisplay();
+        }
+
+        function updateChallengesDisplay() {
+            const challenges = getWeeklyPrompts();
+            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            const progress = data.challengeProgress || {};
+            
+            const challengeList = document.getElementById('challengeList');
+            challengeList.innerHTML = challenges.map(challenge => {
+                const currentProgress = progress[challenge.id] || 0;
+                const isCompleted = currentProgress >= challenge.target;
+                
+                return `
+                    <div class="challenge-item ${isCompleted ? 'completed' : ''}">
+                        <div>
+                            <div class="challenge-text">${challenge.text}</div>
+                            <div style="font-size: 0.9rem; color: #ccc;">Progress: ${currentProgress}/${challenge.target}</div>
+                        </div>
+                        <div class="challenge-reward">${challenge.reward}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // House Tournament Functions
+        function updateHouseTournament() {
+            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            const currentHouse = localStorage.getItem('wyrnwickHouse');
+            
+            // Initialize house points if not exists
+            if (!data.allHousePoints) {
+                data.allHousePoints = {
+                    viperthorn: Math.floor(Math.random() * 500) + 800,
+                    braverun: Math.floor(Math.random() * 500) + 800,
+                    nightwing: Math.floor(Math.random() * 500) + 800,
+                    cinderglen: Math.floor(Math.random() * 500) + 800
+                };
+            }
+            
+            // Update current house points
+            data.allHousePoints[currentHouse] = data.housePoints || 0;
+            localStorage.setItem('wyrnwickData', JSON.stringify(data));
+            
+            // Sort houses by points
+            const houses = [
+                { name: 'Viperthorn', emoji: '🐲', points: data.allHousePoints.viperthorn },
+                { name: 'Braverun', emoji: '🦁', points: data.allHousePoints.braverun },
+                { name: 'Nightwing', emoji: '🦅', points: data.allHousePoints.nightwing },
+                { name: 'Cinderglen', emoji: '🦔', points: data.allHousePoints.cinderglen }
+            ].sort((a, b) => b.points - a.points);
+            
+            // Update leaderboard display
+            const leaderboard = document.getElementById('houseLeaderboard');
+            leaderboard.innerHTML = houses.map((house, index) => `
+                <div class="leaderboard-item ${index === 0 ? 'champion' : ''}">
+                    <div class="house-position">
+                        <div class="position-number">${index + 1}</div>
+                        <div>${house.emoji} ${house.name}</div>
+                    </div>
+                    <div>${house.points} pts</div>
+                </div>
+            `).join('');
+            
+            // Update champion house display
+            document.getElementById('championHouse').textContent = houses[0].name;
+        }
+
+        // Streak Functions
+        function updateStreak() {
+            let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            const today = new Date().toDateString();
+            const yesterday = new Date(Date.now() - 86400000).toDateString();
+            
+            if (!data.lastActiveDate) {
+                // First time user
+                data.streak = 1;
+                data.lastActiveDate = today;
+            } else if (data.lastActiveDate === today) {
+                // Already active today, no change
+                return;
+            } else if (data.lastActiveDate === yesterday) {
+                // Consecutive day
+                data.streak = (data.streak || 0) + 1;
+                data.lastActiveDate = today;
+            } else {
+                // Streak broken
+                data.streak = 1;
+                data.lastActiveDate = today;
+            }
+            
+            localStorage.setItem('wyrnwickData', JSON.stringify(data));
+            updateStreakDisplay();
+        }
+
+        function updateStreakDisplay() {
+            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            document.getElementById('streakCount').textContent = data.streak || 0;
+        }
+
         // Student key functions
         function checkStudentKey() {
             const key = document.getElementById('studentKey').value.toUpperCase();
@@ -1029,6 +1612,9 @@
             loadData();
             updateDisplay();
             updateCharacterDisplay();
+            updateChallengesDisplay();
+            updateHouseTournament();
+            updateStreakDisplay();
         }
 
         // XP and leveling system
@@ -1038,6 +1624,9 @@
             if (!data.level) data.level = 1;
 
             data.xp += amount;
+            
+            // Show XP gain animation
+            showXPGain(amount);
             
             // Check for level up
             const xpNeeded = data.level * 100;
@@ -1076,6 +1665,19 @@
             setTimeout(() => {
                 element.remove();
             }, 2000);
+        }
+
+        function showXPGain(amount) {
+            const element = document.createElement('div');
+            element.className = 'xp-gained';
+            element.textContent = `+${amount} XP`;
+            element.style.left = '60%';
+            element.style.top = '60%';
+            document.body.appendChild(element);
+
+            setTimeout(() => {
+                element.remove();
+            }, 1000);
         }
 
         // Food auto-suggest
@@ -1159,8 +1761,15 @@
             // Save data
             localStorage.setItem('wyrnwickData', JSON.stringify(data));
 
+            // Update streak
+            updateStreak();
+
             // Add XP for logging food
             addXP(10);
+
+            // Update challenges
+            updateChallengeProgress('log_meals', 1);
+            updateChallengeProgress('house_points', Math.floor(totalCalories / 10));
 
             // Show mana gain animation
             showManaGain(totalCalories);
@@ -1173,13 +1782,14 @@
             // Update display
             updateDisplay();
             checkRunes();
+            updateHouseTournament();
         }
 
         // Show mana gain animation
         function showManaGain(calories) {
             const element = document.createElement('div');
             element.className = 'mana-gained';
-            element.textContent = `+${calories} Mana!`;
+            element.textContent = `+${calories} Calories!`;
             element.style.left = '50%';
             element.style.top = '50%';
             document.body.appendChild(element);
@@ -1199,7 +1809,7 @@
             // Update mana bar
             const percentage = Math.min((dailyMana / 1200) * 100, 100);
             document.getElementById('manaFill').style.width = percentage + '%';
-            document.getElementById('manaText').textContent = `${dailyMana} / 1200 Mana`;
+            document.getElementById('manaText').textContent = `${dailyMana} / 1200 Calories (Mana)`;
 
             // Update house points
             document.getElementById('housePoints').textContent = housePoints;
@@ -1209,7 +1819,7 @@
             foodLog.innerHTML = foodsToday.map(food => `
                 <div class="food-item">
                     <span class="food-name">${food.name} ${food.quantity > 1 ? `(×${food.quantity})` : ''}</span>
-                    <span class="food-calories">${food.calories} mana</span>
+                    <span class="food-calories">${food.calories} cal</span>
                 </div>
             `).join('');
 
@@ -1225,6 +1835,7 @@
             const housePoints = data.housePoints || 0;
             const foodsToday = data.foodsToday || [];
             const level = data.level || 1;
+            const streak = data.streak || 0;
             let earnedRunes = data.earnedRunes || [];
 
             const runes = [
@@ -1233,7 +1844,12 @@
                 {id: 'rune3', name: 'Power Surge', condition: () => dailyMana >= 1500},
                 {id: 'rune4', name: 'Mana Manager', condition: () => dailyMana >= 1200 && dailyMana <= 1400},
                 {id: 'rune5', name: 'Level Master', condition: () => level >= 5},
-                {id: 'rune6', name: 'Legend', condition: () => housePoints >= 1000}
+                {id: 'rune6', name: 'Legend', condition: () => housePoints >= 1000},
+                {id: 'rune7', name: 'Streak Master', condition: () => streak >= 7},
+                {id: 'rune8', name: 'Weekly Warrior', condition: () => {
+                    const progress = data.challengeProgress || {};
+                    return Object.values(progress).some(p => p >= 1);
+                }}
             ];
 
             runes.forEach(rune => {
@@ -1286,6 +1902,7 @@
                 data.dailyMana = 0;
                 localStorage.setItem('wyrnwickData', JSON.stringify(data));
                 updateDisplay();
+                updateHouseTournament();
             }
         }
 
@@ -1303,7 +1920,7 @@
             const lastLogin = data.lastLogin || '';
 
             if (lastLogin !== today) {
-                // New day - reset daily stats but keep house points, runes, XP, and level
+                // New day - reset daily stats but keep house points, runes, XP, level, and challenges
                 data.foodsToday = [];
                 data.dailyMana = 0;
                 data.lastLogin = today;
