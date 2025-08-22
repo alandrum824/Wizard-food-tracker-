@@ -53,6 +53,62 @@
         .nightwing { --primary: #1e3a8a; --secondary: #000000; --accent: #3b82f6; }
         .cinderglen { --primary: #fbbf24; --secondary: #92400e; --accent: #f59e0b; }
 
+        /* Student Key Gate */
+        .key-gate {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .admission-letter {
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border: 3px solid rgba(255,215,0,0.5);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            max-width: 500px;
+        }
+
+        .admission-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: #ffd700;
+            margin-bottom: 1rem;
+        }
+
+        .admission-text {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .key-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(255,215,0,0.3);
+            border-radius: 10px;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .skip-link {
+            color: rgba(255,215,0,0.7);
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
         /* Welcome Page Styles */
         .welcome-page {
             display: flex;
@@ -166,6 +222,7 @@
             background: linear-gradient(135deg, var(--primary), var(--accent));
             border-radius: 20px;
             border: 3px solid var(--secondary);
+            position: relative;
         }
 
         .tracker-title {
@@ -180,13 +237,82 @@
             font-size: 1.2rem;
             color: #fff;
             font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .character-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            font-size: 0.9rem;
+            color: #ddd;
+            margin-bottom: 1rem;
+        }
+
+        .customize-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        /* XP Bar */
+        .xp-container {
+            margin: 1rem 0;
+        }
+
+        .xp-bar {
+            height: 25px;
+            background: linear-gradient(90deg, #000, #333);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--secondary);
+            position: relative;
+        }
+
+        .xp-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #9333ea, #c084fc, #e879f9);
+            transition: width 0.8s ease;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .xp-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .xp-text {
+            text-align: center;
+            margin-top: 0.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+            font-size: 0.9rem;
         }
 
         .tracker-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 2rem;
-            max-width: 1600px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
@@ -281,11 +407,6 @@
             animation: shimmer 2s infinite;
         }
 
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
         .mana-text {
             text-align: center;
             margin-top: 0.5rem;
@@ -341,6 +462,8 @@
             border: 2px solid rgba(255,215,0,0.3);
             border-radius: 10px;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .rune.earned {
@@ -349,9 +472,19 @@
             animation: runeGlow 2s infinite;
         }
 
+        .rune.newly-earned {
+            animation: runeSparkle 1s ease;
+        }
+
         @keyframes runeGlow {
             0%, 100% { box-shadow: 0 0 10px var(--secondary); }
             50% { box-shadow: 0 0 20px var(--secondary); }
+        }
+
+        @keyframes runeSparkle {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2) rotate(5deg); }
+            100% { transform: scale(1); }
         }
 
         .rune-icon {
@@ -394,283 +527,81 @@
             position: relative;
         }
 
-        /* Game Board Styles */
-        .game-cell {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(145deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
-            border: 2px solid rgba(255,215,0,0.3);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1.5rem;
-            user-select: none;
-        }
-
-        .game-cell:hover {
-            transform: scale(1.1);
-            border-color: var(--secondary);
-            box-shadow: 0 0 15px rgba(255,215,0,0.5);
-        }
-
-        .game-cell.selected {
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            border-color: var(--secondary);
-            transform: scale(1.15);
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 10px var(--secondary); }
-            50% { box-shadow: 0 0 20px var(--secondary); }
-        }
-
-        .game-cell.matched {
-            animation: matchAnimation 0.6s ease-in-out forwards;
-        }
-
-        @keyframes matchAnimation {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.3); background: linear-gradient(45deg, #ffd700, #ff6b6b); }
-            100% { transform: scale(0); opacity: 0; }
-        }
-
-        /* Activity tracking styles */
-        .activity-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px;
-            margin-bottom: 6px;
-            background: rgba(255,215,0,0.1);
-            border: 1px solid rgba(255,215,0,0.3);
-            border-radius: 6px;
-            font-size: 0.9rem;
-        }
-
-        .activity-name {
-            font-weight: bold;
-        }
-
-        .activity-details {
-            color: var(--secondary);
-            font-size: 0.8rem;
-        }
-
-        /* Character Display */
-        .character-display {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: rgba(255,215,0,0.1);
-            border: 1px solid rgba(255,215,0,0.3);
-            border-radius: 10px;
-            margin-bottom: 1rem;
-        }
-
-        .character-item {
-            text-align: center;
-            padding: 0.5rem;
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
-            border: 1px solid rgba(255,215,0,0.2);
-        }
-
-        .character-icon {
-            font-size: 1.5rem;
-            display: block;
-            margin-bottom: 0.25rem;
-        }
-
-        .character-label {
-            font-size: 0.8rem;
-            color: var(--secondary);
-            font-weight: bold;
-        }
-
-        /* Streak Display */
-        .streak-display {
-            text-align: center;
-            padding: 1rem;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            border-radius: 10px;
-            margin-bottom: 1rem;
-        }
-
-        .streak-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--secondary);
-        }
-
-        .streak-text {
-            color: #fff;
-            font-size: 0.9rem;
-        }
-
-        /* Enhanced Button Glow */
-        .magical-btn {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .magical-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 20px var(--secondary);
-            animation: buttonGlow 1.5s infinite;
-        }
-
-        @keyframes buttonGlow {
-            0%, 100% { box-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 20px var(--secondary); }
-            50% { box-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 30px var(--secondary); }
-        }
-
-        /* Enhanced Rune Sparkles */
-        .rune.earned {
-            position: relative;
-        }
-
-        .rune.earned::before {
-            content: '✨';
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            font-size: 1rem;
-            animation: sparkleFloat 2s infinite;
-        }
-
-        @keyframes sparkleFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
-            50% { transform: translateY(-5px) rotate(180deg); opacity: 1; }
-        }
-
-        /* House Switch Button */
-        .house-switch-btn {
-            background: linear-gradient(45deg, #8b0000, #dc2626);
-            font-size: 0.9rem;
-            padding: 8px 16px;
-        }
-
-        /* Stats Dashboard */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-
-        .stat-card {
-            text-align: center;
-            padding: 1rem;
-            background: rgba(255,215,0,0.1);
-            border: 1px solid rgba(255,215,0,0.3);
-            border-radius: 10px;
-        }
-
-        .stat-number {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--secondary);
-            display: block;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: #ccc;
-            margin-top: 0.25rem;
-        }
-
-        /* Access Key Modal */
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
-            z-index: 2000;
-            left: 0;
             top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.8);
-            backdrop-filter: blur(5px);
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
         }
 
         .modal-content {
             background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-            margin: 10% auto;
-            padding: 2rem;
-            border: 2px solid rgba(255,215,0,0.3);
+            border: 3px solid rgba(255,215,0,0.5);
             border-radius: 20px;
-            width: 90%;
+            padding: 2rem;
             max-width: 500px;
-            text-align: center;
+            width: 90%;
             backdrop-filter: blur(10px);
-        }
-
-        /* Notification System */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            color: #fff;
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
-            border: 2px solid var(--secondary);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3), 0 0 20px var(--secondary);
-            transform: translateX(400px);
-            transition: transform 0.4s ease;
-            z-index: 1500;
-            max-width: 300px;
-            animation: notificationGlow 2s infinite;
-        }
-
-        @keyframes notificationGlow {
-            0%, 100% { box-shadow: 0 10px 25px rgba(0,0,0,0.3), 0 0 20px var(--secondary); }
-            50% { box-shadow: 0 10px 25px rgba(0,0,0,0.3), 0 0 30px var(--secondary); }
-        }
-
-        .notification.show {
-            transform: translateX(0);
-        }
-
-        .notification-title {
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        /* Character Customization Modal */
-        .customization-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-
-        .customize-option {
             text-align: center;
+        }
+
+        .modal-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: #ffd700;
+            margin-bottom: 2rem;
+        }
+
+        .customization-section {
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .option-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .option-btn {
             padding: 1rem;
-            background: rgba(255,215,0,0.1);
             border: 2px solid rgba(255,215,0,0.3);
             border-radius: 10px;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-align: center;
         }
 
-        .customize-option:hover, .customize-option.selected {
+        .option-btn.selected {
             border-color: var(--secondary);
-            background: rgba(255,215,0,0.2);
-            transform: scale(1.05);
+            background: linear-gradient(45deg, var(--primary), var(--accent));
         }
 
-        .customize-icon {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 0.5rem;
+        .close-modal {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            cursor: pointer;
         }
 
         /* Responsive */
@@ -687,23 +618,9 @@
                 grid-template-columns: 1fr;
             }
 
-            .game-cell {
-                width: 35px;
-                height: 35px;
-                font-size: 1.3rem;
-            }
-
-            #gameBoard {
-                grid-template-columns: repeat(6, 35px) !important;
-            }
-
-            .character-display {
-                flex-wrap: wrap;
+            .character-info {
+                flex-direction: column;
                 gap: 0.5rem;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -722,21 +639,47 @@
             z-index: 1000;
             animation: manaGain 1s ease-out forwards;
         }
+
+        /* Level up animation */
+        @keyframes levelUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            50% { transform: translateY(-30px) scale(1.5); }
+            100% { transform: translateY(-60px) scale(1.2); opacity: 0; }
+        }
+
+        .level-up {
+            position: fixed;
+            color: #9333ea;
+            font-weight: bold;
+            font-size: 1.5rem;
+            pointer-events: none;
+            z-index: 1000;
+            animation: levelUp 2s ease-out forwards;
+        }
     </style>
 </head>
 <body>
     <div class="stars" id="stars"></div>
 
+    <!-- Student Key Gate -->
+    <div class="key-gate" id="keyGate">
+        <div class="admission-letter">
+            <h1 class="admission-title">🏰 Wyrnwick Academy</h1>
+            <p class="admission-text">
+                Dear Student,<br><br>
+                You have been selected to join our prestigious academy of magical wellness. 
+                Please present your admission key to begin your journey.
+            </p>
+            <input type="text" id="studentKey" class="key-input magical-input" placeholder="Enter your Student Key">
+            <button class="magical-btn" onclick="checkStudentKey()">🔮 Enter Academy</button>
+            <div class="skip-link" onclick="skipKeyCheck()">Continue as Guest Student</div>
+        </div>
+    </div>
+
     <!-- Welcome/House Selection Page -->
     <div class="welcome-page" id="welcomePage">
         <h1 class="academy-logo">WYRNWICK ACADEMY</h1>
         <p class="academy-subtitle">Begin your magical wellness journey</p>
-        
-        <!-- Access Key Input -->
-        <div style="margin-bottom: 2rem;">
-            <input type="text" id="accessKey" class="magical-input" placeholder="Enter your magical access key (optional)" style="max-width: 300px; margin: 0 auto; display: block;">
-            <p style="font-size: 0.9rem; color: #ccc; margin-top: 0.5rem; text-align: center;">Leave empty for public access</p>
-        </div>
         
         <div class="house-selection">
             <div class="house-crest viperthorn" onclick="selectHouse('viperthorn')">
@@ -765,37 +708,77 @@
         </div>
     </div>
 
+    <!-- Character Customization Modal -->
+    <div class="modal" id="customizeModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeCustomizeModal()">×</button>
+            <h2 class="modal-title">⚡ Character Customization</h2>
+            
+            <div class="customization-section">
+                <h3 class="section-title">🪄 Choose Your Wand</h3>
+                <div class="option-grid">
+                    <div class="option-btn" onclick="selectOption('wand', 'phoenix')" id="wand-phoenix">
+                        🔥 Phoenix Core
+                    </div>
+                    <div class="option-btn" onclick="selectOption('wand', 'dragon')" id="wand-dragon">
+                        🐉 Dragon Heartstring
+                    </div>
+                    <div class="option-btn" onclick="selectOption('wand', 'unicorn')" id="wand-unicorn">
+                        🦄 Unicorn Hair
+                    </div>
+                </div>
+            </div>
+
+            <div class="customization-section">
+                <h3 class="section-title">🐾 Choose Your Companion</h3>
+                <div class="option-grid">
+                    <div class="option-btn" onclick="selectOption('companion', 'owl')" id="companion-owl">
+                        🦉 Wise Owl
+                    </div>
+                    <div class="option-btn" onclick="selectOption('companion', 'cat')" id="companion-cat">
+                        🐱 Shadow Cat
+                    </div>
+                    <div class="option-btn" onclick="selectOption('companion', 'toad')" id="companion-toad">
+                        🐸 Ancient Toad
+                    </div>
+                </div>
+            </div>
+
+            <div class="customization-section">
+                <h3 class="section-title">👑 Choose Your Background</h3>
+                <div class="option-grid">
+                    <div class="option-btn" onclick="selectOption('background', 'royal')" id="background-royal">
+                        👑 Royal Bloodline
+                    </div>
+                    <div class="option-btn" onclick="selectOption('background', 'forest')" id="background-forest">
+                        🌲 Forest Folk
+                    </div>
+                    <div class="option-btn" onclick="selectOption('background', 'shadow')" id="background-shadow">
+                        🌙 Shadow Walker
+                    </div>
+                </div>
+            </div>
+
+            <button class="magical-btn" onclick="saveCustomization()">✨ Save Character</button>
+        </div>
+    </div>
+
     <!-- Food Tracker Page -->
     <div class="tracker-page" id="trackerPage">
         <div class="tracker-header">
+            <button class="customize-btn" onclick="openCustomizeModal()">⚙️ Customize</button>
             <h1 class="tracker-title">Wyrnwick Academy</h1>
             <p class="house-welcome" id="houseWelcome">Welcome, Student!</p>
-            
-            <!-- Character Display -->
-            <div class="character-display" id="characterDisplay">
-                <div class="character-item">
-                    <div class="character-icon" id="wandIcon">🪄</div>
-                    <div class="character-label">Wand</div>
-                </div>
-                <div class="character-item">
-                    <div class="character-icon" id="petIcon">🦉</div>
-                    <div class="character-label">Companion</div>
-                </div>
-                <div class="character-item">
-                    <div class="character-icon" id="titleIcon">⭐</div>
-                    <div class="character-label" id="titleText">Student</div>
-                </div>
+            <div class="character-info" id="characterInfo">
+                <div>🪄 <span id="wandType">Phoenix Core</span></div>
+                <div>🐾 <span id="companionType">Wise Owl</span></div>
+                <div>👤 <span id="backgroundType">Royal Bloodline</span></div>
             </div>
-            
-            <!-- Daily Streak -->
-            <div class="streak-display">
-                <div class="streak-number" id="streakNumber">1</div>
-                <div class="streak-text">Day Streak</div>
-            </div>
-            
-            <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem;">
-                <button class="magical-btn house-switch-btn" onclick="switchHouse()">🔄 Switch House</button>
-                <button class="magical-btn" onclick="openCustomization()">✨ Customize Character</button>
+            <div class="xp-container">
+                <div class="xp-bar">
+                    <div class="xp-fill" id="xpFill" style="width: 0%"></div>
+                </div>
+                <div class="xp-text" id="xpText">Level 1 - 0 / 100 XP</div>
             </div>
         </div>
 
@@ -816,7 +799,7 @@
                 </div>
                 
                 <div class="input-group">
-                    <input type="number" id="caloriesInput" class="magical-input" placeholder="Calories (auto-filled)" readonly>
+                    <input type="number" id="caloriesInput" class="magical-input" placeholder="Mana (calories) - auto-filled" readonly>
                 </div>
                 
                 <button class="magical-btn" onclick="addFood()">✨ Add to Spell Log</button>
@@ -825,7 +808,7 @@
                     <div class="mana-bar">
                         <div class="mana-fill" id="manaFill" style="width: 0%"></div>
                     </div>
-                    <div class="mana-text" id="manaText">0 / 1200 Calories (Mana)</div>
+                    <div class="mana-text" id="manaText">0 / 1200 Mana</div>
                 </div>
                 
                 <div class="food-log" id="foodLog"></div>
@@ -833,100 +816,11 @@
                 <button class="magical-btn" onclick="clearDay()" style="background: linear-gradient(45deg, #8b0000, #dc2626); margin-top: 1rem;">🧹 Clear Today's Spells</button>
             </div>
 
-            <!-- Fitness Tracker Section -->
+            <!-- Stats and Runes Section -->
             <div class="magical-card">
-                <h2 class="card-title">⚔️ Training Grounds</h2>
+                <h2 class="card-title">🏆 Magical Achievements</h2>
                 
-                <div class="input-group">
-                    <select id="activityInput" class="magical-select">
-                        <option value="Quidditch Practice">🏆 Quidditch Practice</option>
-                        <option value="Defense Training">⚔️ Defense Against Dark Arts</option>
-                        <option value="Herbology Work">🌿 Herbology Garden Work</option>
-                        <option value="Castle Stairs">🏰 Castle Stairs Climbing</option>
-                        <option value="Flying Lessons">🧙‍♂️ Flying Lessons</option>
-                        <option value="Care of Creatures">🐉 Care of Magical Creatures</option>
-                        <option value="Forest Trek">🌲 Forbidden Forest Trek</option>
-                        <option value="Dueling Club">⚡ Dueling Club</option>
-                        <option value="Lake Swimming">🏊‍♂️ Black Lake Swimming</option>
-                        <option value="Potion Brewing">🧪 Intensive Potion Brewing</option>
-                        <option value="Other">🎯 Other Training</option>
-                    </select>
-                </div>
-                
-                <div class="input-group">
-                    <input type="number" id="durationInput" class="magical-input" placeholder="Duration (minutes)" min="1">
-                </div>
-                
-                <div class="input-group">
-                    <select id="intensityInput" class="magical-select">
-                        <option value="light">🌟 Light (3 cal/min)</option>
-                        <option value="moderate">⚡ Moderate (5 cal/min)</option>
-                        <option value="vigorous">🔥 Vigorous (8 cal/min)</option>
-                        <option value="extreme">💥 Extreme (12 cal/min)</option>
-                    </select>
-                </div>
-                
-                <button class="magical-btn" onclick="addActivity()">💪 Log Training Session</button>
-                
-                <div style="margin-top: 1rem; padding: 1rem; background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.3); border-radius: 10px;">
-                    <div style="text-align: center; margin-bottom: 0.5rem; color: var(--secondary); font-weight: bold;">Today's Training</div>
-                    <div style="text-align: center; font-size: 1.2rem; color: var(--secondary);" id="dailyBurn">0 calories burned</div>
-                    <div style="text-align: center; font-size: 1rem; color: #ccc;" id="dailyMinutes">0 minutes</div>
-                </div>
-                
-                <div class="food-log" id="activityLog" style="max-height: 200px;"></div>
-            </div>
-
-            <!-- Magical Game Section -->
-            <div class="magical-card">
-                <h2 class="card-title">🎮 Crystal Match Spells</h2>
-                <p style="text-align: center; margin-bottom: 1rem; color: #ccc;">Match 3+ crystals to earn bonus house points!</p>
-                
-                <div style="display: flex; justify-content: space-around; margin-bottom: 1rem; padding: 1rem; background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.3); border-radius: 10px;">
-                    <div style="text-align: center;">
-                        <div style="color: var(--secondary); margin-bottom: 0.25rem;">Score</div>
-                        <div style="font-weight: bold; color: var(--secondary);" id="gameScore">0</div>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="color: var(--secondary); margin-bottom: 0.25rem;">Moves</div>
-                        <div style="font-weight: bold; color: var(--secondary);" id="gameMoves">20</div>
-                    </div>
-                </div>
-                
-                <div id="gameBoard" style="display: grid; grid-template-columns: repeat(6, 40px); gap: 2px; justify-content: center; margin-bottom: 1rem; padding: 1rem; background: rgba(0,0,0,0.3); border-radius: 10px;"></div>
-                
-                <div style="display: flex; gap: 0.5rem;">
-                    <button class="magical-btn" onclick="startNewGame()" style="flex: 1;">🔮 New Game</button>
-                    <button class="magical-btn" onclick="getHint()" style="flex: 1;">💡 Hint</button>
-                </div>
-                
-                <div id="gameStatus" style="text-align: center; margin-top: 0.5rem; color: var(--secondary); font-weight: bold;"></div>
-            </div>
-
-            <!-- Stats and Achievements -->
-            <div class="magical-card">
-                <h2 class="card-title">📊 Weekly Progress</h2>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <span class="stat-number" id="weeklyCalories">0</span>
-                        <div class="stat-label">Weekly Calories</div>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number" id="weeklyBurn">0</span>
-                        <div class="stat-label">Calories Burned</div>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number" id="weeklyPoints">0</span>
-                        <div class="stat-label">House Points</div>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number" id="totalRunes">0</span>
-                        <div class="stat-label">Runes Earned</div>
-                    </div>
-                </div>
-                
-                <div style="text-align: center; margin: 1rem 0;">
+                <div style="text-align: center; margin-bottom: 2rem;">
                     <div style="font-size: 1.2rem; color: var(--secondary); margin-bottom: 0.5rem;">House Points</div>
                     <div style="font-size: 2rem; font-weight: bold; color: var(--secondary);" id="housePoints">0</div>
                 </div>
@@ -939,7 +833,7 @@
                     </div>
                     <div class="rune" id="rune2">
                         <div class="rune-icon">⚡</div>
-                        <div class="rune-name">Calorie Master</div>
+                        <div class="rune-name">Mana Master</div>
                     </div>
                     <div class="rune" id="rune3">
                         <div class="rune-icon">🔥</div>
@@ -947,37 +841,13 @@
                     </div>
                     <div class="rune" id="rune4">
                         <div class="rune-icon">🌟</div>
-                        <div class="rune-name">Daily Ritual</div>
+                        <div class="rune-name">Mana Manager</div>
                     </div>
                     <div class="rune" id="rune5">
-                        <div class="rune-icon">💪</div>
-                        <div class="rune-name">Warrior</div>
+                        <div class="rune-icon">👑</div>
+                        <div class="rune-name">Level Master</div>
                     </div>
                     <div class="rune" id="rune6">
-                        <div class="rune-icon">🎮</div>
-                        <div class="rune-name">Game Master</div>
-                    </div>
-                    <div class="rune" id="rune7">
-                        <div class="rune-icon">🏆</div>
-                        <div class="rune-name">Consistent Caster</div>
-                    </div>
-                    <div class="rune" id="rune8">
-                        <div class="rune-icon">📚</div>
-                        <div class="rune-name">Full Spellbook</div>
-                    </div>
-                    <div class="rune" id="rune9">
-                        <div class="rune-icon">⚖️</div>
-                        <div class="rune-name">Dual Training</div>
-                    </div>
-                    <div class="rune" id="rune10">
-                        <div class="rune-icon">🧘</div>
-                        <div class="rune-name">Mindful Monday</div>
-                    </div>
-                    <div class="rune" id="rune11">
-                        <div class="rune-icon">👑</div>
-                        <div class="rune-name">Grand Master</div>
-                    </div>
-                    <div class="rune" id="rune12">
                         <div class="rune-icon">💎</div>
                         <div class="rune-name">Legend</div>
                     </div>
@@ -986,90 +856,28 @@
         </div>
     </div>
 
-    <!-- Character Customization Modal -->
-    <div class="modal" id="customizationModal">
-        <div class="modal-content">
-            <h2 style="color: var(--secondary); margin-bottom: 1rem;">Customize Your Character</h2>
-            
-            <h3 style="color: #fff; margin-bottom: 0.5rem;">Choose Your Wand</h3>
-            <div class="customization-grid" id="wandOptions">
-                <div class="customize-option" onclick="selectCustomization('wand', '🪄')">
-                    <div class="customize-icon">🪄</div>
-                    <div>Classic</div>
-                </div>
-                <div class="customize-option" onclick="selectCustomization('wand', '⚡')">
-                    <div class="customize-icon">⚡</div>
-                    <div>Lightning</div>
-                </div>
-                <div class="customize-option" onclick="selectCustomization('wand', '🌟')">
-                    <div class="customize-icon">🌟</div>
-                    <div>Stellar</div>
-                </div>
-                <div class="customize-option" onclick="selectCustomization('wand', '🔮')">
-                    <div class="customize-icon">🔮</div>
-                    <div>Crystal</div>
-                </div>
-            </div>
-            
-            <h3 style="color: #fff; margin: 1rem 0 0.5rem;">Choose Your Companion</h3>
-            <div class="customization-grid" id="petOptions">
-                <div class="customize-option" onclick="selectCustomization('pet', '🦉')">
-                    <div class="customize-icon">🦉</div>
-                    <div>Owl</div>
-                </div>
-                <div class="customize-option" onclick="selectCustomization('pet', '🐱')">
-                    <div class="customize-icon">🐱</div>
-                    <div>Cat</div>
-                </div>
-                <div class="customize-option" onclick="selectCustomization('pet', '🐸')">
-                    <div class="customize-icon">🐸</div>
-                    <div>Toad</div>
-                </div>
-                <div class="customize-option" onclick="selectCustomization('pet', '🐉')">
-                    <div class="customize-icon">🐉</div>
-                    <div>Dragon</div>
-                </div>
-            </div>
-            
-            <h3 style="color: #fff; margin: 1rem 0 0.5rem;">Choose Your Title</h3>
-            <div class="customization-grid" id="titleOptions">
-                <div class="customize-option" onclick="selectCustomization('title', '⭐', 'Student')">
-                    <div class="customize-icon">⭐</div>
-                    <div>Student</div>
-                </div>
-                <div class="customize-option" onclick="selectCustomization('title', '🎓', 'Scholar')">
-                    <div class="customize-icon">🎓</div>
-                    <div>Scholar</div>
-                </div>
-                <div class="customize-option" onclick="selectCustomization('title', '⚔️', 'Warrior')">
-                    <div class="customize-icon">⚔️</div>
-                    <div>Warrior</div>
-                </div>
-                <div class="customize-option" onclick="selectCustomization('title', '🔮', 'Mystic')">
-                    <div class="customize-icon">🔮</div>
-                    <div>Mystic</div>
-                </div>
-            </div>
-            
-            <button class="magical-btn" onclick="closeCustomization()" style="margin-top: 1rem;">✨ Save Changes</button>
-        </div>
-    </div>
-
     <script>
-        // Enhanced Food Database with magical foods
+        // Valid student keys (you can customize these)
+        const validKeys = ['WIZARD123', 'MAGIC456', 'ACADEMY789', 'STUDENT101'];
+        
+        // Character customization data
+        let characterData = {
+            wand: 'phoenix',
+            companion: 'owl',
+            background: 'royal'
+        };
+
+        // Food Database
         const foods = [
-            // Regular foods
             {name: "Apple", calories: 95},
             {name: "Banana", calories: 105},
             {name: "Orange", calories: 62},
             {name: "Grapes", calories: 62},
             {name: "Strawberries", calories: 32},
-            {name: "Blueberries", calories: 57},
             {name: "Chicken Breast", calories: 165},
             {name: "Salmon", calories: 206},
             {name: "Beef", calories: 250},
-            {name: "Pork", calories: 242},
-            {name: "Eggs", calories: 155},
+            {name: "Eggs", calories: 70},
             {name: "Milk", calories: 42},
             {name: "Cheese", calories: 113},
             {name: "Yogurt", calories: 59},
@@ -1077,12 +885,9 @@
             {name: "Rice", calories: 130},
             {name: "Pasta", calories: 131},
             {name: "Potato", calories: 161},
-            {name: "Sweet Potato", calories: 112},
             {name: "Broccoli", calories: 25},
             {name: "Carrots", calories: 25},
             {name: "Spinach", calories: 7},
-            {name: "Lettuce", calories: 5},
-            {name: "Tomato", calories: 18},
             {name: "Chocolate", calories: 546},
             {name: "Ice Cream", calories: 207},
             {name: "Pizza", calories: 285},
@@ -1090,43 +895,107 @@
             {name: "French Fries", calories: 365},
             {name: "Salad", calories: 33},
             {name: "Oatmeal", calories: 68},
-            {name: "Cereal", calories: 101},
             {name: "Almonds", calories: 576},
             {name: "Peanut Butter", calories: 588},
             {name: "Avocado", calories: 234},
-            {name: "Coffee", calories: 2},
-            {name: "Tea", calories: 2},
-            {name: "Soda", calories: 140},
-            {name: "Beer", calories: 154},
-            {name: "Wine", calories: 125},
-            // Magical foods
-            {name: "Pumpkin Pastry", calories: 320},
-            {name: "Wyrnwick Porridge", calories: 180},
-            {name: "Enchanted Berries", calories: 45},
-            {name: "Mystical Mushroom Stew", calories: 240},
-            {name: "Golden Honey Cakes", calories: 290},
-            {name: "Elven Bread", calories: 150},
-            {name: "Dragon Spice Soup", calories: 200},
-            {name: "Phoenix Feather Tea", calories: 5},
-            {name: "Starlight Smoothie", calories: 120},
-            {name: "Academy Feast Platter", calories: 450}
+            {name: "Sweet Potato", calories: 112}
         ];
 
-        // Game variables
-        let gameBoard = [];
-        let selectedCell = null;
-        let gameScore = 0;
-        let movesLeft = 20;
-        let gameActive = false;
-        const crystals = ['💎', '🔮', '⭐', '✨', '💫', '🌟', '🧊', '🌌']; // Added 2 new crystals
+        // Character customization functions
+        function openCustomizeModal() {
+            document.getElementById('customizeModal').style.display = 'flex';
+            loadCustomizationData();
+        }
 
-        // Character customization
-        let currentCustomization = {
-            wand: '🪄',
-            pet: '🦉', 
-            title: '⭐',
-            titleText: 'Student'
-        };
+        function closeCustomizeModal() {
+            document.getElementById('customizeModal').style.display = 'none';
+        }
+
+        function selectOption(category, option) {
+            // Remove selected class from all options in this category
+            document.querySelectorAll(`[id^="${category}-"]`).forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            // Add selected class to chosen option
+            document.getElementById(`${category}-${option}`).classList.add('selected');
+            characterData[category] = option;
+        }
+
+        function loadCustomizationData() {
+            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            if (data.character) {
+                characterData = data.character;
+                
+                // Update UI to show selected options
+                Object.keys(characterData).forEach(category => {
+                    const option = characterData[category];
+                    document.querySelectorAll(`[id^="${category}-"]`).forEach(el => {
+                        el.classList.remove('selected');
+                    });
+                    document.getElementById(`${category}-${option}`).classList.add('selected');
+                });
+            }
+        }
+
+        function saveCustomization() {
+            let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            data.character = characterData;
+            localStorage.setItem('wyrnwickData', JSON.stringify(data));
+            
+            updateCharacterDisplay();
+            closeCustomizeModal();
+        }
+
+        function updateCharacterDisplay() {
+            const wandTypes = {
+                phoenix: 'Phoenix Core',
+                dragon: 'Dragon Heartstring',
+                unicorn: 'Unicorn Hair'
+            };
+            
+            const companionTypes = {
+                owl: 'Wise Owl',
+                cat: 'Shadow Cat',
+                toad: 'Ancient Toad'
+            };
+            
+            const backgroundTypes = {
+                royal: 'Royal Bloodline',
+                forest: 'Forest Folk',
+                shadow: 'Shadow Walker'
+            };
+
+            document.getElementById('wandType').textContent = wandTypes[characterData.wand];
+            document.getElementById('companionType').textContent = companionTypes[characterData.companion];
+            document.getElementById('backgroundType').textContent = backgroundTypes[characterData.background];
+        }
+
+        // Student key functions
+        function checkStudentKey() {
+            const key = document.getElementById('studentKey').value.toUpperCase();
+            if (validKeys.includes(key)) {
+                localStorage.setItem('wyrnwickKeyAccess', 'premium');
+                proceedToAcademy();
+            } else {
+                alert('Invalid student key. Please check your admission letter.');
+            }
+        }
+
+        function skipKeyCheck() {
+            localStorage.setItem('wyrnwickKeyAccess', 'guest');
+            proceedToAcademy();
+        }
+
+        function proceedToAcademy() {
+            document.getElementById('keyGate').style.display = 'none';
+            const savedHouse = localStorage.getItem('wyrnwickHouse');
+            if (savedHouse) {
+                showTracker();
+            } else {
+                document.getElementById('welcomePage').style.display = 'flex';
+            }
+        }
 
         // Initialize stars
         function createStars() {
@@ -1141,121 +1010,10 @@
             }
         }
 
-        // Show notification
-        function showNotification(title, message) {
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.innerHTML = `
-                <div class="notification-title">${title}</div>
-                <div>${message}</div>
-            `;
-            document.body.appendChild(notification);
-
-            setTimeout(() => notification.classList.add('show'), 100);
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => notification.remove(), 400);
-            }, 3000);
-        }
-
-        // House selection with access key
+        // House selection
         function selectHouse(house) {
-            const accessKey = document.getElementById('accessKey').value.trim();
-            
-            // Optional access key validation (can be extended for premium features)
-            if (accessKey && !validateAccessKey(accessKey)) {
-                alert('Invalid access key! Continuing with public access.');
-            }
-            
             localStorage.setItem('wyrnwickHouse', house);
-            localStorage.setItem('accessKey', accessKey || 'public');
             showTracker();
-        }
-
-        function validateAccessKey(key) {
-            // Simple validation - can be extended
-            const validKeys = ['PREMIUM2024', 'WIZARD123', 'ACADEMY'];
-            return validKeys.includes(key.toUpperCase());
-        }
-
-        // Switch house functionality
-        function switchHouse() {
-            if (confirm('Are you sure you want to switch houses? Your progress will be kept.')) {
-                document.getElementById('welcomePage').style.display = 'block';
-                document.getElementById('trackerPage').style.display = 'none';
-                document.body.className = '';
-            }
-        }
-
-        // Character customization
-        function openCustomization() {
-            document.getElementById('customizationModal').style.display = 'block';
-            loadCustomizationChoices();
-        }
-
-        function closeCustomization() {
-            document.getElementById('customizationModal').style.display = 'none';
-            saveCustomization();
-            updateCharacterDisplay();
-        }
-
-        function selectCustomization(type, icon, text = null) {
-            currentCustomization[type] = icon;
-            if (text) currentCustomization.titleText = text;
-            
-            // Update UI selection
-            const container = document.getElementById(type + 'Options');
-            container.querySelectorAll('.customize-option').forEach(opt => opt.classList.remove('selected'));
-            event.target.closest('.customize-option').classList.add('selected');
-        }
-
-        function loadCustomizationChoices() {
-            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            if (data.customization) {
-                currentCustomization = {...currentCustomization, ...data.customization};
-            }
-        }
-
-        function saveCustomization() {
-            let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            data.customization = currentCustomization;
-            localStorage.setItem('wyrnwickData', JSON.stringify(data));
-        }
-
-        function updateCharacterDisplay() {
-            document.getElementById('wandIcon').textContent = currentCustomization.wand;
-            document.getElementById('petIcon').textContent = currentCustomization.pet;
-            document.getElementById('titleIcon').textContent = currentCustomization.title;
-            document.getElementById('titleText').textContent = currentCustomization.titleText;
-        }
-
-        // Daily streak system
-        function updateStreak() {
-            let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            const today = new Date().toDateString();
-            const yesterday = new Date(Date.now() - 86400000).toDateString();
-            
-            if (!data.lastLoginDate) {
-                // First time
-                data.streak = 1;
-                data.lastLoginDate = today;
-                showNotification('🎉 Welcome!', 'Your magical journey begins!');
-            } else if (data.lastLoginDate === yesterday) {
-                // Consecutive day
-                data.streak = (data.streak || 1) + 1;
-                data.lastLoginDate = today;
-                showNotification('🔥 Streak Continued!', `${data.streak} days in a row!`);
-            } else if (data.lastLoginDate !== today) {
-                // Streak broken
-                if (data.streak && data.streak > 1) {
-                    showNotification('💔 Streak Broken', 'But every day is a new beginning!');
-                }
-                data.streak = 1;
-                data.lastLoginDate = today;
-            }
-            
-            localStorage.setItem('wyrnwickData', JSON.stringify(data));
-            document.getElementById('streakNumber').textContent = data.streak || 1;
         }
 
         // Show tracker page
@@ -1269,32 +1027,76 @@
             document.getElementById('houseWelcome').textContent = `Welcome, ${house.charAt(0).toUpperCase() + house.slice(1)} student!`;
             
             loadData();
-            updateStreak();
-            updateCharacterDisplay();
             updateDisplay();
-            startNewGame();
+            updateCharacterDisplay();
         }
 
-        // Enhanced Food auto-suggest
+        // XP and leveling system
+        function addXP(amount) {
+            let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            if (!data.xp) data.xp = 0;
+            if (!data.level) data.level = 1;
+
+            data.xp += amount;
+            
+            // Check for level up
+            const xpNeeded = data.level * 100;
+            if (data.xp >= xpNeeded) {
+                data.level++;
+                data.xp = data.xp - xpNeeded;
+                showLevelUp(data.level);
+                
+                // Award house points for leveling up
+                data.housePoints = (data.housePoints || 0) + 50;
+            }
+
+            localStorage.setItem('wyrnwickData', JSON.stringify(data));
+            updateXPDisplay();
+        }
+
+        function updateXPDisplay() {
+            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            const xp = data.xp || 0;
+            const level = data.level || 1;
+            const xpNeeded = level * 100;
+            
+            const percentage = (xp / xpNeeded) * 100;
+            document.getElementById('xpFill').style.width = percentage + '%';
+            document.getElementById('xpText').textContent = `Level ${level} - ${xp} / ${xpNeeded} XP`;
+        }
+
+        function showLevelUp(level) {
+            const element = document.createElement('div');
+            element.className = 'level-up';
+            element.textContent = `🎉 LEVEL ${level}! 🎉`;
+            element.style.left = '50%';
+            element.style.top = '40%';
+            document.body.appendChild(element);
+
+            setTimeout(() => {
+                element.remove();
+            }, 2000);
+        }
+
+        // Food auto-suggest
         function setupAutoSuggest() {
             const input = document.getElementById('foodInput');
             const dropdown = document.getElementById('suggestDropdown');
 
             input.addEventListener('input', function() {
-                const value = this.value.toLowerCase().trim();
+                const value = this.value.toLowerCase();
                 if (value.length < 2) {
                     dropdown.style.display = 'none';
-                    document.getElementById('caloriesInput').value = '';
                     return;
                 }
 
                 const matches = foods.filter(food => 
                     food.name.toLowerCase().includes(value)
-                ).slice(0, 6);
+                ).slice(0, 5);
 
                 if (matches.length > 0) {
                     dropdown.innerHTML = matches.map(food => 
-                        `<div class="suggest-item" onclick="selectFood('${food.name}', ${food.calories})">${food.name} <span style="color: var(--secondary);">(${food.calories} cal)</span></div>`
+                        `<div class="suggest-item" onclick="selectFood('${food.name}', ${food.calories})">${food.name} (${food.calories} cal)</div>`
                     ).join('');
                     dropdown.style.display = 'block';
                 } else {
@@ -1324,7 +1126,7 @@
             let calories = parseInt(document.getElementById('caloriesInput').value);
 
             if (!foodName) {
-                showNotification('⚠️ Missing Info', 'Please enter a food name!');
+                alert('Please enter a food name!');
                 return;
             }
 
@@ -1339,10 +1141,9 @@
             // Get current data
             let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
             if (!data.foodsToday) data.foodsToday = [];
-            if (!data.dailyCalories) data.dailyCalories = 0;
+            if (!data.dailyMana) data.dailyMana = 0;
             if (!data.housePoints) data.housePoints = 0;
             if (!data.earnedRunes) data.earnedRunes = [];
-            if (!data.weeklyStats) data.weeklyStats = {};
 
             // Add food
             data.foodsToday.push({
@@ -1352,21 +1153,17 @@
                 timestamp: Date.now()
             });
 
-            data.dailyCalories += totalCalories;
+            data.dailyMana += totalCalories;
             data.housePoints += Math.floor(totalCalories / 10); // 1 point per 10 calories
-
-            // Update weekly stats
-            const weekKey = getWeekKey();
-            if (!data.weeklyStats[weekKey]) data.weeklyStats[weekKey] = {calories: 0, burned: 0, points: 0};
-            data.weeklyStats[weekKey].calories += totalCalories;
-            data.weeklyStats[weekKey].points += Math.floor(totalCalories / 10);
 
             // Save data
             localStorage.setItem('wyrnwickData', JSON.stringify(data));
 
-            // Show calorie gain animation
-            showCalorieGain(totalCalories);
-            showNotification('✨ Feast Added!', `+${totalCalories} calories logged`);
+            // Add XP for logging food
+            addXP(10);
+
+            // Show mana gain animation
+            showManaGain(totalCalories);
 
             // Clear inputs
             document.getElementById('foodInput').value = '';
@@ -1378,78 +1175,11 @@
             checkRunes();
         }
 
-        // Add activity to fitness log
-        function addActivity() {
-            const activity = document.getElementById('activityInput').value;
-            const duration = parseInt(document.getElementById('durationInput').value);
-            const intensity = document.getElementById('intensityInput').value;
-
-            if (!duration || duration < 1) {
-                showNotification('⚠️ Missing Info', 'Please enter a valid duration!');
-                return;
-            }
-
-            // Calculate calories burned based on intensity
-            const calorieRates = {
-                light: 3,
-                moderate: 5, 
-                vigorous: 8,
-                extreme: 12
-            };
-
-            const caloriesBurned = duration * calorieRates[intensity];
-
-            // Get current data
-            let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            if (!data.activitiesToday) data.activitiesToday = [];
-            if (!data.dailyBurn) data.dailyBurn = 0;
-            if (!data.dailyMinutes) data.dailyMinutes = 0;
-            if (!data.housePoints) data.housePoints = 0;
-            if (!data.weeklyStats) data.weeklyStats = {};
-
-            // Add activity
-            data.activitiesToday.push({
-                activity: activity,
-                duration: duration,
-                intensity: intensity,
-                caloriesBurned: caloriesBurned,
-                timestamp: Date.now()
-            });
-
-            data.dailyBurn += caloriesBurned;
-            data.dailyMinutes += duration;
-            data.housePoints += Math.floor(caloriesBurned / 5); // 1 point per 5 calories burned
-
-            // Update weekly stats
-            const weekKey = getWeekKey();
-            if (!data.weeklyStats[weekKey]) data.weeklyStats[weekKey] = {calories: 0, burned: 0, points: 0};
-            data.weeklyStats[weekKey].burned += caloriesBurned;
-            data.weeklyStats[weekKey].points += Math.floor(caloriesBurned / 5);
-
-            // Save data
-            localStorage.setItem('wyrnwickData', JSON.stringify(data));
-
-            // Clear inputs
-            document.getElementById('durationInput').value = '';
-
-            showNotification('💪 Training Logged!', `${duration} minutes, -${caloriesBurned} calories`);
-
-            // Update display
-            updateDisplay();
-            checkRunes();
-        }
-
-        function getWeekKey() {
-            const now = new Date();
-            const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
-            return startOfWeek.toISOString().split('T')[0];
-        }
-
-        // Show calorie gain animation
-        function showCalorieGain(calories) {
+        // Show mana gain animation
+        function showManaGain(calories) {
             const element = document.createElement('div');
             element.className = 'mana-gained';
-            element.textContent = `+${calories} calories!`;
+            element.textContent = `+${calories} Mana!`;
             element.style.left = '50%';
             element.style.top = '50%';
             document.body.appendChild(element);
@@ -1459,92 +1189,51 @@
             }, 1000);
         }
 
-        // Enhanced update display with weekly stats
+        // Update display
         function updateDisplay() {
             const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            const dailyCalories = data.dailyCalories || 0;
-            const dailyBurn = data.dailyBurn || 0;
-            const dailyMinutes = data.dailyMinutes || 0;
+            const dailyMana = data.dailyMana || 0;
             const housePoints = data.housePoints || 0;
             const foodsToday = data.foodsToday || [];
-            const activitiesToday = data.activitiesToday || [];
-            const earnedRunes = data.earnedRunes || [];
 
-            // Update calorie bar
-            const netCalories = Math.max(0, dailyCalories - dailyBurn);
-            const percentage = Math.min((netCalories / 1200) * 100, 100);
+            // Update mana bar
+            const percentage = Math.min((dailyMana / 1200) * 100, 100);
             document.getElementById('manaFill').style.width = percentage + '%';
-            document.getElementById('manaText').textContent = `${netCalories} / 1200 Calories (${dailyCalories} eaten - ${dailyBurn} burned)`;
+            document.getElementById('manaText').textContent = `${dailyMana} / 1200 Mana`;
 
             // Update house points
             document.getElementById('housePoints').textContent = housePoints;
-
-            // Update fitness display
-            document.getElementById('dailyBurn').textContent = `${dailyBurn} calories burned`;
-            document.getElementById('dailyMinutes').textContent = `${dailyMinutes} minutes`;
-
-            // Update weekly stats
-            const weekKey = getWeekKey();
-            const weeklyStats = data.weeklyStats?.[weekKey] || {calories: 0, burned: 0, points: 0};
-            document.getElementById('weeklyCalories').textContent = weeklyStats.calories;
-            document.getElementById('weeklyBurn').textContent = weeklyStats.burned;
-            document.getElementById('weeklyPoints').textContent = weeklyStats.points;
-            document.getElementById('totalRunes').textContent = earnedRunes.length;
 
             // Update food log
             const foodLog = document.getElementById('foodLog');
             foodLog.innerHTML = foodsToday.map(food => `
                 <div class="food-item">
                     <span class="food-name">${food.name} ${food.quantity > 1 ? `(×${food.quantity})` : ''}</span>
-                    <span class="food-calories">${food.calories} cal</span>
-                </div>
-            `).join('');
-
-            // Update activity log
-            const activityLog = document.getElementById('activityLog');
-            activityLog.innerHTML = activitiesToday.map(activity => `
-                <div class="activity-item">
-                    <div>
-                        <div class="activity-name">${activity.activity}</div>
-                        <div class="activity-details">${activity.duration}min • ${activity.intensity}</div>
-                    </div>
-                    <span style="color: var(--secondary); font-weight: bold;">-${activity.caloriesBurned} cal</span>
+                    <span class="food-calories">${food.calories} mana</span>
                 </div>
             `).join('');
 
             // Update runes
             updateRunes();
+            updateXPDisplay();
         }
 
-        // Enhanced rune checking with new achievements
+        // Check and award runes
         function checkRunes() {
             const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            const dailyCalories = data.dailyCalories || 0;
-            const dailyBurn = data.dailyBurn || 0;
-            const dailyMinutes = data.dailyMinutes || 0;
+            const dailyMana = data.dailyMana || 0;
             const housePoints = data.housePoints || 0;
             const foodsToday = data.foodsToday || [];
-            const activitiesToday = data.activitiesToday || [];
-            const gameHighScore = data.gameHighScore || 0;
-            const streak = data.streak || 1;
+            const level = data.level || 1;
             let earnedRunes = data.earnedRunes || [];
-
-            const today = new Date();
-            const isMonday = today.getDay() === 1;
 
             const runes = [
                 {id: 'rune1', name: 'First Feast', condition: () => foodsToday.length >= 1},
-                {id: 'rune2', name: 'Calorie Master', condition: () => dailyCalories >= 1200},
-                {id: 'rune3', name: 'Power Surge', condition: () => dailyCalories >= 1600},
-                {id: 'rune4', name: 'Daily Ritual', condition: () => dailyCalories >= 1200 && dailyCalories <= 1400},
-                {id: 'rune5', name: 'Warrior', condition: () => dailyMinutes >= 30},
-                {id: 'rune6', name: 'Game Master', condition: () => gameHighScore >= 500},
-                {id: 'rune7', name: 'Consistent Caster', condition: () => streak >= 5},
-                {id: 'rune8', name: 'Full Spellbook', condition: () => foodsToday.length >= 10},
-                {id: 'rune9', name: 'Dual Training', condition: () => foodsToday.length >= 1 && activitiesToday.length >= 1},
-                {id: 'rune10', name: 'Mindful Monday', condition: () => isMonday && dailyCalories < 1000},
-                {id: 'rune11', name: 'Grand Master', condition: () => housePoints >= 500},
-                {id: 'rune12', name: 'Legend', condition: () => housePoints >= 1000}
+                {id: 'rune2', name: 'Mana Master', condition: () => dailyMana >= 1200},
+                {id: 'rune3', name: 'Power Surge', condition: () => dailyMana >= 1500},
+                {id: 'rune4', name: 'Mana Manager', condition: () => dailyMana >= 1200 && dailyMana <= 1400},
+                {id: 'rune5', name: 'Level Master', condition: () => level >= 5},
+                {id: 'rune6', name: 'Legend', condition: () => housePoints >= 1000}
             ];
 
             runes.forEach(rune => {
@@ -1560,7 +1249,19 @@
 
         // Show rune earned notification
         function showRuneEarned(runeName) {
-            showNotification('🏆 Rune Earned!', `${runeName} unlocked!`);
+            // Add sparkle animation to the rune
+            const runeElements = document.querySelectorAll('.rune');
+            runeElements.forEach(element => {
+                const nameElement = element.querySelector('.rune-name');
+                if (nameElement.textContent === runeName) {
+                    element.classList.add('newly-earned');
+                    setTimeout(() => {
+                        element.classList.remove('newly-earned');
+                    }, 1000);
+                }
+            });
+            
+            alert(`🎉 Rune Earned: ${runeName}! 🎉`);
         }
 
         // Update runes display
@@ -1579,220 +1280,34 @@
 
         // Clear day
         function clearDay() {
-            if (confirm('Are you sure you want to clear today\'s logs?')) {
+            if (confirm('Are you sure you want to clear today\'s spell log?')) {
                 let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
                 data.foodsToday = [];
-                data.activitiesToday = [];
-                data.dailyCalories = 0;
-                data.dailyBurn = 0;
-                data.dailyMinutes = 0;
+                data.dailyMana = 0;
                 localStorage.setItem('wyrnwickData', JSON.stringify(data));
                 updateDisplay();
-                showNotification('🧹 Day Cleared', 'Fresh start for today!');
             }
-        }
-
-        // ENHANCED GAME FUNCTIONS
-        function startNewGame() {
-            gameBoard = [];
-            selectedCell = null;
-            gameScore = 0;
-            movesLeft = 20;
-            gameActive = true;
-
-            // Create 6x6 board
-            for (let i = 0; i < 36; i++) {
-                gameBoard.push(crystals[Math.floor(Math.random() * crystals.length)]);
-            }
-
-            renderBoard();
-            updateGameDisplay();
-        }
-
-        function renderBoard() {
-            const boardElement = document.getElementById('gameBoard');
-            boardElement.innerHTML = '';
-            
-            gameBoard.forEach((crystal, index) => {
-                const cell = document.createElement('div');
-                cell.className = 'game-cell';
-                cell.textContent = crystal;
-                cell.onclick = () => selectCell(index);
-                cell.id = `cell-${index}`;
-                boardElement.appendChild(cell);
-            });
-        }
-
-        function selectCell(index) {
-            if (!gameActive || movesLeft <= 0) return;
-
-            const cell = document.getElementById(`cell-${index}`);
-            
-            if (selectedCell === null) {
-                selectedCell = index;
-                cell.classList.add('selected');
-            } else if (selectedCell === index) {
-                selectedCell = null;
-                cell.classList.remove('selected');
-            } else {
-                // Try to swap
-                if (areAdjacent(selectedCell, index)) {
-                    swapCells(selectedCell, index);
-                    document.getElementById(`cell-${selectedCell}`).classList.remove('selected');
-                    selectedCell = null;
-                    movesLeft--;
-                    
-                    setTimeout(() => {
-                        checkMatches();
-                        updateGameDisplay();
-                        
-                        if (movesLeft <= 0) {
-                            endGame();
-                        }
-                    }, 300);
-                } else {
-                    document.getElementById(`cell-${selectedCell}`).classList.remove('selected');
-                    selectedCell = index;
-                    cell.classList.add('selected');
-                }
-            }
-        }
-
-        function areAdjacent(index1, index2) {
-            const row1 = Math.floor(index1 / 6);
-            const col1 = index1 % 6;
-            const row2 = Math.floor(index2 / 6);
-            const col2 = index2 % 6;
-            
-            const rowDiff = Math.abs(row1 - row2);
-            const colDiff = Math.abs(col1 - col2);
-            
-            return (rowDiff === 1 && colDiff === 0) || (rowDiff === 0 && colDiff === 1);
-        }
-
-        function swapCells(index1, index2) {
-            const temp = gameBoard[index1];
-            gameBoard[index1] = gameBoard[index2];
-            gameBoard[index2] = temp;
-            renderBoard();
-        }
-
-        function checkMatches() {
-            const matches = [];
-            
-            // Check horizontal matches
-            for (let row = 0; row < 6; row++) {
-                for (let col = 0; col < 4; col++) {
-                    const index = row * 6 + col;
-                    if (gameBoard[index] === gameBoard[index + 1] && gameBoard[index] === gameBoard[index + 2]) {
-                        matches.push(index, index + 1, index + 2);
-                    }
-                }
-            }
-            
-            // Check vertical matches
-            for (let row = 0; row < 4; row++) {
-                for (let col = 0; col < 6; col++) {
-                    const index = row * 6 + col;
-                    if (gameBoard[index] === gameBoard[index + 6] && gameBoard[index] === gameBoard[index + 12]) {
-                        matches.push(index, index + 6, index + 12);
-                    }
-                }
-            }
-            
-            if (matches.length > 0) {
-                const uniqueMatches = [...new Set(matches)];
-                gameScore += uniqueMatches.length * 10;
-                
-                // Bonus points for large matches
-                if (uniqueMatches.length >= 6) {
-                    gameScore += 50;
-                    showNotification('✨ Epic Match!', '+50 bonus points!');
-                }
-                
-                // Animate matched cells
-                uniqueMatches.forEach(index => {
-                    document.getElementById(`cell-${index}`).classList.add('matched');
-                });
-                
-                setTimeout(() => {
-                    // Replace matched crystals with new ones
-                    uniqueMatches.forEach(index => {
-                        gameBoard[index] = crystals[Math.floor(Math.random() * crystals.length)];
-                    });
-                    renderBoard();
-                    
-                    // Check for more matches
-                    setTimeout(() => checkMatches(), 100);
-                }, 600);
-            }
-        }
-
-        function updateGameDisplay() {
-            document.getElementById('gameScore').textContent = gameScore;
-            document.getElementById('gameMoves').textContent = movesLeft;
-            
-            if (movesLeft <= 5) {
-                document.getElementById('gameStatus').textContent = 'Running out of moves!';
-                document.getElementById('gameStatus').style.color = '#ff4444';
-            } else {
-                document.getElementById('gameStatus').textContent = 'Match 3+ crystals to score!';
-                document.getElementById('gameStatus').style.color = 'var(--secondary)';
-            }
-        }
-
-        function endGame() {
-            gameActive = false;
-            
-            // Save high score and award house points
-            let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            if (!data.gameHighScore || gameScore > data.gameHighScore) {
-                data.gameHighScore = gameScore;
-                showNotification('🎮 New High Score!', `${gameScore} points!`);
-            }
-            if (!data.housePoints) data.housePoints = 0;
-            
-            // Bonus points for high scores
-            let bonusPoints = Math.floor(gameScore / 10);
-            if (gameScore >= 600) {
-                bonusPoints += 50; // Extra bonus for 600+
-                showNotification('👑 Master Player!', '+50 bonus house points!');
-            }
-            
-            data.housePoints += bonusPoints;
-            localStorage.setItem('wyrnwickData', JSON.stringify(data));
-            
-            document.getElementById('gameStatus').textContent = `Game Over! Score: ${gameScore} (+${bonusPoints} house points)`;
-            updateDisplay();
-            checkRunes();
-        }
-
-        function getHint() {
-            if (!gameActive) return;
-            showNotification('💡 Hint', 'Look for crystals that could form a line of 3 when swapped with adjacent crystals!');
         }
 
         // Load data
         function loadData() {
             const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            
+            // Load character data
+            if (data.character) {
+                characterData = data.character;
+            }
+            
             // Check if it's a new day
             const today = new Date().toDateString();
             const lastLogin = data.lastLogin || '';
 
             if (lastLogin !== today) {
-                // New day - reset daily stats but keep house points and runes
+                // New day - reset daily stats but keep house points, runes, XP, and level
                 data.foodsToday = [];
-                data.activitiesToday = [];
-                data.dailyCalories = 0;
-                data.dailyBurn = 0;
-                data.dailyMinutes = 0;
+                data.dailyMana = 0;
                 data.lastLogin = today;
                 localStorage.setItem('wyrnwickData', JSON.stringify(data));
-            }
-
-            // Load customization
-            if (data.customization) {
-                currentCustomization = {...currentCustomization, ...data.customization};
             }
         }
 
@@ -1801,17 +1316,19 @@
             createStars();
             setupAutoSuggest();
 
+            // Check if user has key access
+            const keyAccess = localStorage.getItem('wyrnwickKeyAccess');
+            if (!keyAccess) {
+                document.getElementById('keyGate').style.display = 'flex';
+                return;
+            }
+
             const savedHouse = localStorage.getItem('wyrnwickHouse');
             if (savedHouse) {
                 showTracker();
-            }
-
-            // Close modal when clicking outside
-            window.onclick = function(event) {
-                const modal = document.getElementById('customizationModal');
-                if (event.target === modal) {
-                    closeCustomization();
-                }
+            } else {
+                document.getElementById('keyGate').style.display = 'none';
+                document.getElementById('welcomePage').style.display = 'flex';
             }
         }
 
