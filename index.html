@@ -672,6 +672,50 @@
             color: #ccc;
         }
 
+        /* Food Search Suggestions */
+        .suggest-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: linear-gradient(145deg, rgba(0,0,0,0.9), rgba(0,0,0,0.8));
+            border: 2px solid rgba(255,215,0,0.4);
+            border-radius: 12px;
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .suggest-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255,215,0,0.2);
+        }
+
+        .suggest-item:hover {
+            background: rgba(255,215,0,0.2);
+        }
+
+        .suggest-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggest-food-name {
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 0.2rem;
+        }
+
+        .suggest-food-info {
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+
         /* Enhanced Goals & Macros */
         .goals-container {
             margin: 2rem 0;
@@ -686,24 +730,21 @@
             margin: 0 auto 1rem;
         }
 
-        .ring-bg, .ring-fill {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 10px solid;
-        }
-
         .ring-bg {
-            border-color: rgba(255,255,255,0.2);
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle 56px, #0a0a0a 56px, transparent 57px),
+                radial-gradient(circle 68px, rgba(255,255,255,.15) 68px, transparent 69px),
+                conic-gradient(rgba(255,255,255,.18) 0 360deg);
         }
 
         .ring-fill {
-            border-color: var(--secondary);
-            border-top-color: transparent;
-            border-right-color: transparent;
-            transform: rotate(-90deg);
-            transition: transform 1s ease;
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            transition: background 1s ease;
         }
 
         .ring-text {
@@ -1042,8 +1083,10 @@
                                class="magical-input" 
                                id="foodSearch" 
                                placeholder="Search food (e.g., chicken, apple, oats)"
-                               onkeyup="searchFood()">
+                               onkeyup="searchFood()"
+                               aria-live="polite">
                     </div>
+                    <div class="suggest-dropdown" id="suggestDropdown" style="display: none;"></div>
                 </div>
 
                 <div class="input-group">
@@ -1067,7 +1110,7 @@
                     </div>
                 </div>
 
-                <div class="nutrition-preview" id="nutritionPreview">
+                <div class="nutrition-preview" id="nutritionPreview" aria-live="polite">
                     <div class="preview-title">🔮 Nutrition Preview</div>
                     <div class="preview-macros">
                         <div class="preview-macro">
@@ -1089,7 +1132,10 @@
                     </div>
                 </div>
 
-                <button class="magical-btn" onclick="addFood()">⚡ Add to Log</button>
+                <div class="input-row">
+                    <button class="magical-btn" onclick="addFood()">⚡ Add to Log</button>
+                    <button class="magical-btn secondary" onclick="openCustomFood()" style="margin-left: 0.5rem;">➕ Custom</button>
+                </div>
 
                 <div class="food-log" id="foodLog">
                     <!-- Food items will appear here -->
@@ -1257,8 +1303,61 @@
         </div>
     </div>
 
+    <!-- Edit Meal Modal -->
+    <div class="modal" id="editMealModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">✏️ Edit Entry</h2>
+                <button class="close-btn" onclick="closeEditMeal()">&times;</button>
+            </div>
+            <div id="editMealName" style="text-align:center;color:var(--secondary);font-size:1.2rem;margin-bottom:1rem;"></div>
+            <div class="input-group">
+                <input id="editQty" type="number" class="magical-input" step="0.1" min="0.1" placeholder="Quantity">
+            </div>
+            <div class="input-group">
+                <select id="editUnit" class="magical-select" style="width: 100%;">
+                    <option value="g">grams</option>
+                    <option value="oz">oz</option>
+                    <option value="cup">cup</option>
+                    <option value="tbsp">tbsp</option>
+                    <option value="slice">slice</option>
+                    <option value="piece">piece</option>
+                </select>
+            </div>
+            <button class="magical-btn" onclick="saveMealEdit()">💾 Save Changes</button>
+        </div>
+    </div>
+
+    <!-- Custom Food Modal -->
+    <div class="modal" id="customFoodModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">🍽️ Create Custom Food</h2>
+                <button class="close-btn" onclick="closeCustomFood()">&times;</button>
+            </div>
+            <div class="input-group">
+                <input id="cfName" class="magical-input" placeholder="Food Name">
+            </div>
+            <div class="input-row">
+                <input id="cfPer" class="magical-input" value="100g" placeholder="Per (e.g., 100g)">
+                <input id="cfKcal" class="magical-input" type="number" placeholder="Calories">
+            </div>
+            <div class="input-row">
+                <input id="cfP" class="magical-input" type="number" placeholder="Protein (g)">
+                <input id="cfC" class="magical-input" type="number" placeholder="Carbs (g)">
+            </div>
+            <div class="input-row">
+                <input id="cfF" class="magical-input" type="number" placeholder="Fat (g)">
+            </div>
+            <div class="input-group">
+                <input id="cfAlias" class="magical-input" placeholder="Aliases (comma-separated)">
+            </div>
+            <button class="magical-btn" onclick="saveCustomFood()">⚡ Create Food</button>
+        </div>
+    </div>
+
     <script>
-        // Game State Management
+        // Enhanced Game State Management
         let gameState = {
             currentHouse: '',
             level: 1,
@@ -1273,63 +1372,64 @@
                 carbs: 250,
                 fat: 67
             },
-            weeklyData: []
+            weeklyData: [],
+            customFoods: [],
+            favoriteFoods: [],
+            recentFoods: []
         };
 
-        // Enhanced Food Database with more foods and precise macros
-        const foodDatabase = {
+        // Enhanced Food Database with IDs and more foods
+        let FOODS_CATALOG = [
             // Proteins
-            'chicken breast': { cals: 165, protein: 31, carbs: 0, fat: 3.6, unit: 'g' },
-            'chicken': { cals: 165, protein: 31, carbs: 0, fat: 3.6, unit: 'g' },
-            'salmon': { cals: 208, protein: 22, carbs: 0, fat: 12, unit: 'g' },
-            'tuna': { cals: 132, protein: 28, carbs: 0, fat: 1, unit: 'g' },
-            'eggs': { cals: 155, protein: 13, carbs: 1.1, fat: 11, unit: 'g', aliases: ['egg'] },
-            'greek yogurt': { cals: 59, protein: 10, carbs: 3.6, fat: 0.4, unit: 'g' },
-            'cottage cheese': { cals: 98, protein: 11, carbs: 3.4, fat: 4.3, unit: 'g' },
-            'lean beef': { cals: 250, protein: 26, carbs: 0, fat: 15, unit: 'g' },
-            'turkey': { cals: 135, protein: 30, carbs: 0, fat: 1, unit: 'g' },
-            'tofu': { cals: 76, protein: 8, carbs: 1.9, fat: 4.8, unit: 'g' },
+            { id: 'chicken_breast', name: 'Chicken Breast', cals: 165, protein: 31, carbs: 0, fat: 3.6, per: '100g', aliases: ['chicken'] },
+            { id: 'salmon', name: 'Salmon', cals: 208, protein: 22, carbs: 0, fat: 12, per: '100g' },
+            { id: 'tuna', name: 'Tuna', cals: 132, protein: 28, carbs: 0, fat: 1, per: '100g' },
+            { id: 'eggs', name: 'Eggs', cals: 155, protein: 13, carbs: 1.1, fat: 11, per: '100g', aliases: ['egg'] },
+            { id: 'greek_yogurt', name: 'Greek Yogurt', cals: 59, protein: 10, carbs: 3.6, fat: 0.4, per: '100g' },
+            { id: 'cottage_cheese', name: 'Cottage Cheese', cals: 98, protein: 11, carbs: 3.4, fat: 4.3, per: '100g' },
+            { id: 'lean_beef', name: 'Lean Beef', cals: 250, protein: 26, carbs: 0, fat: 15, per: '100g' },
+            { id: 'turkey', name: 'Turkey', cals: 135, protein: 30, carbs: 0, fat: 1, per: '100g' },
+            { id: 'tofu', name: 'Tofu', cals: 76, protein: 8, carbs: 1.9, fat: 4.8, per: '100g' },
             
             // Carbs
-            'brown rice': { cals: 111, protein: 2.6, carbs: 23, fat: 0.9, unit: 'g' },
-            'rice': { cals: 130, protein: 2.7, carbs: 28, fat: 0.3, unit: 'g' },
-            'oats': { cals: 389, protein: 16.9, carbs: 66, fat: 6.9, unit: 'g' },
-            'oatmeal': { cals: 68, protein: 2.4, carbs: 12, fat: 1.4, unit: 'g' },
-            'quinoa': { cals: 120, protein: 4.4, carbs: 22, fat: 1.9, unit: 'g' },
-            'sweet potato': { cals: 86, protein: 1.6, carbs: 20, fat: 0.1, unit: 'g' },
-            'potato': { cals: 77, protein: 2, carbs: 17, fat: 0.1, unit: 'g' },
-            'pasta': { cals: 131, protein: 5, carbs: 25, fat: 1.1, unit: 'g' },
-            'bread': { cals: 265, protein: 9, carbs: 49, fat: 3.2, unit: 'g' },
-            'banana': { cals: 89, protein: 1.1, carbs: 23, fat: 0.3, unit: 'g' },
+            { id: 'brown_rice', name: 'Brown Rice', cals: 111, protein: 2.6, carbs: 23, fat: 0.9, per: '100g' },
+            { id: 'white_rice', name: 'White Rice', cals: 130, protein: 2.7, carbs: 28, fat: 0.3, per: '100g', aliases: ['rice'] },
+            { id: 'oats', name: 'Oats', cals: 389, protein: 16.9, carbs: 66, fat: 6.9, per: '100g' },
+            { id: 'oatmeal', name: 'Oatmeal', cals: 68, protein: 2.4, carbs: 12, fat: 1.4, per: '100g' },
+            { id: 'quinoa', name: 'Quinoa', cals: 120, protein: 4.4, carbs: 22, fat: 1.9, per: '100g' },
+            { id: 'sweet_potato', name: 'Sweet Potato', cals: 86, protein: 1.6, carbs: 20, fat: 0.1, per: '100g' },
+            { id: 'potato', name: 'Potato', cals: 77, protein: 2, carbs: 17, fat: 0.1, per: '100g' },
+            { id: 'pasta', name: 'Pasta', cals: 131, protein: 5, carbs: 25, fat: 1.1, per: '100g' },
+            { id: 'bread', name: 'Bread', cals: 265, protein: 9, carbs: 49, fat: 3.2, per: '100g' },
+            { id: 'banana', name: 'Banana', cals: 89, protein: 1.1, carbs: 23, fat: 0.3, per: '100g' },
             
             // Fats
-            'avocado': { cals: 160, protein: 2, carbs: 9, fat: 15, unit: 'g' },
-            'almonds': { cals: 579, protein: 21, carbs: 22, fat: 50, unit: 'g' },
-            'nuts': { cals: 579, protein: 21, carbs: 22, fat: 50, unit: 'g' },
-            'olive oil': { cals: 884, protein: 0, carbs: 0, fat: 100, unit: 'g' },
-            'peanut butter': { cals: 588, protein: 25, carbs: 20, fat: 50, unit: 'g', aliases: ['pb'] },
-            'walnuts': { cals: 654, protein: 15, carbs: 14, fat: 65, unit: 'g' },
-            'coconut oil': { cals: 862, protein: 0, carbs: 0, fat: 100, unit: 'g' },
-            'butter': { cals: 717, protein: 0.9, carbs: 0.1, fat: 81, unit: 'g' },
+            { id: 'avocado', name: 'Avocado', cals: 160, protein: 2, carbs: 9, fat: 15, per: '100g' },
+            { id: 'almonds', name: 'Almonds', cals: 579, protein: 21, carbs: 22, fat: 50, per: '100g', aliases: ['nuts'] },
+            { id: 'olive_oil', name: 'Olive Oil', cals: 884, protein: 0, carbs: 0, fat: 100, per: '100g' },
+            { id: 'peanut_butter', name: 'Peanut Butter', cals: 588, protein: 25, carbs: 20, fat: 50, per: '100g', aliases: ['pb'] },
+            { id: 'walnuts', name: 'Walnuts', cals: 654, protein: 15, carbs: 14, fat: 65, per: '100g' },
+            { id: 'coconut_oil', name: 'Coconut Oil', cals: 862, protein: 0, carbs: 0, fat: 100, per: '100g' },
+            { id: 'butter', name: 'Butter', cals: 717, protein: 0.9, carbs: 0.1, fat: 81, per: '100g' },
             
             // Vegetables
-            'broccoli': { cals: 34, protein: 2.8, carbs: 7, fat: 0.4, unit: 'g' },
-            'spinach': { cals: 23, protein: 2.9, carbs: 3.6, fat: 0.4, unit: 'g' },
-            'carrots': { cals: 41, protein: 0.9, carbs: 10, fat: 0.2, unit: 'g' },
-            'tomato': { cals: 18, protein: 0.9, carbs: 3.9, fat: 0.2, unit: 'g' },
-            'cucumber': { cals: 16, protein: 0.7, carbs: 4, fat: 0.1, unit: 'g' },
+            { id: 'broccoli', name: 'Broccoli', cals: 34, protein: 2.8, carbs: 7, fat: 0.4, per: '100g' },
+            { id: 'spinach', name: 'Spinach', cals: 23, protein: 2.9, carbs: 3.6, fat: 0.4, per: '100g' },
+            { id: 'carrots', name: 'Carrots', cals: 41, protein: 0.9, carbs: 10, fat: 0.2, per: '100g' },
+            { id: 'tomato', name: 'Tomato', cals: 18, protein: 0.9, carbs: 3.9, fat: 0.2, per: '100g' },
+            { id: 'cucumber', name: 'Cucumber', cals: 16, protein: 0.7, carbs: 4, fat: 0.1, per: '100g' },
             
             // Fruits
-            'apple': { cals: 52, protein: 0.3, carbs: 14, fat: 0.2, unit: 'g' },
-            'orange': { cals: 47, protein: 0.9, carbs: 12, fat: 0.1, unit: 'g' },
-            'strawberries': { cals: 32, protein: 0.7, carbs: 8, fat: 0.3, unit: 'g' },
-            'blueberries': { cals: 57, protein: 0.7, carbs: 14, fat: 0.3, unit: 'g' },
+            { id: 'apple', name: 'Apple', cals: 52, protein: 0.3, carbs: 14, fat: 0.2, per: '100g' },
+            { id: 'orange', name: 'Orange', cals: 47, protein: 0.9, carbs: 12, fat: 0.1, per: '100g' },
+            { id: 'strawberries', name: 'Strawberries', cals: 32, protein: 0.7, carbs: 8, fat: 0.3, per: '100g' },
+            { id: 'blueberries', name: 'Blueberries', cals: 57, protein: 0.7, carbs: 14, fat: 0.3, per: '100g' },
             
             // Dairy
-            'milk': { cals: 42, protein: 3.4, carbs: 5, fat: 1, unit: 'g' },
-            'cheese': { cals: 402, protein: 25, carbs: 1.3, fat: 33, unit: 'g' },
-            'yogurt': { cals: 59, protein: 10, carbs: 3.6, fat: 0.4, unit: 'g' }
-        };
+            { id: 'milk', name: 'Milk', cals: 42, protein: 3.4, carbs: 5, fat: 1, per: '100g' },
+            { id: 'cheese', name: 'Cheese', cals: 402, protein: 25, carbs: 1.3, fat: 33, per: '100g' },
+            { id: 'yogurt', name: 'Yogurt', cals: 59, protein: 10, carbs: 3.6, fat: 0.4, per: '100g' }
+        ];
 
         // Trophy System
         const trophySystem = {
@@ -1357,11 +1457,28 @@
             'piece': 50
         };
 
+        // Global Variables
+        let selectedFood = null;
+        let editingMealId = null;
+        let selectedFoodId = null;
+
+        // Utility Functions
+        const debounce = (fn, ms = 150) => {
+            let t;
+            return (...a) => {
+                clearTimeout(t);
+                t = setTimeout(() => fn(...a), ms);
+            }
+        };
+
+        const iso = (d = new Date()) => d.toISOString().slice(0, 10);
+
         // Initialize the app
         function init() {
             createStars();
             createFloatingSparkles();
             loadGameState();
+            setupFoodSearch();
             document.getElementById('studentKey').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     enterAcademy();
@@ -1392,6 +1509,165 @@
                 sparkle.style.animationDuration = (4 + Math.random() * 4) + 's';
                 sparklesContainer.appendChild(sparkle);
             }
+        }
+
+        // Enhanced Food Search System
+        function setupFoodSearch() {
+            const input = document.getElementById('foodSearch');
+            const dropdown = document.getElementById('suggestDropdown');
+            
+            input.addEventListener('input', debounce(function() {
+                const value = input.value.toLowerCase().trim();
+                if (value.length < 2) {
+                    dropdown.style.display = 'none';
+                    return;
+                }
+                
+                showSuggestions(value);
+            }, 160));
+            
+            input.addEventListener('keydown', e => {
+                if (e.key === 'Enter' && selectedFoodId) {
+                    addFood();
+                    e.preventDefault();
+                }
+            });
+            
+            // Hide dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.style.display = 'none';
+                }
+            });
+        }
+
+        function showSuggestions(query) {
+            const dropdown = document.getElementById('suggestDropdown');
+            
+            // Get favorites first, then recent foods, then all foods
+            const favorites = gameState.favoriteFoods.map(id => FOODS_CATALOG.find(f => f.id === id)).filter(Boolean);
+            const recents = gameState.recentFoods.map(id => FOODS_CATALOG.find(f => f.id === id)).filter(Boolean);
+            const allFoods = FOODS_CATALOG;
+            
+            // Create ordered list prioritizing favorites and recents
+            const orderedFoods = [
+                ...favorites.filter(food => matchesQuery(food, query)),
+                ...recents.filter(food => matchesQuery(food, query) && !favorites.some(f => f.id === food.id)),
+                ...allFoods.filter(food => matchesQuery(food, query) && !favorites.some(f => f.id === food.id) && !recents.some(r => r.id === food.id))
+            ];
+            
+            const suggestions = orderedFoods.slice(0, 8);
+            
+            if (suggestions.length === 0) {
+                dropdown.style.display = 'none';
+                return;
+            }
+            
+            dropdown.innerHTML = suggestions.map(food => `
+                <div class="suggest-item">
+                    <div onclick="selectFood('${food.id}')" style="flex: 1;">
+                        <div class="suggest-food-name">${food.name} ${isFavorite(food.id) ? '⭐' : ''}</div>
+                        <div class="suggest-food-info">${food.cals} cal • ${food.protein}p • ${food.carbs}c • ${food.fat}f per ${food.per}</div>
+                    </div>
+                    <div style="margin-left: 10px;">
+                        <button class="action-btn" onclick="event.stopPropagation(); toggleFavorite('${food.id}'); updateSuggestionsList();">${isFavorite(food.id) ? '★' : '☆'}</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            dropdown.style.display = 'block';
+        }
+
+        function matchesQuery(food, query) {
+            const searchTerms = [food.name.toLowerCase(), ...(food.aliases || [])];
+            return searchTerms.some(term => term.includes(query));
+        }
+
+        function selectFood(foodId) {
+            selectedFoodId = foodId;
+            const food = FOODS_CATALOG.find(f => f.id === foodId);
+            if (food) {
+                document.getElementById('foodSearch').value = food.name;
+                document.getElementById('suggestDropdown').style.display = 'none';
+                updateNutritionPreview();
+                
+                // Add to recent foods
+                addToRecents(foodId);
+            }
+        }
+
+        function addToRecents(foodId) {
+            gameState.recentFoods = gameState.recentFoods.filter(id => id !== foodId);
+            gameState.recentFoods.unshift(foodId);
+            gameState.recentFoods = gameState.recentFoods.slice(0, 10);
+            saveGameState();
+        }
+
+        // Favorites System
+        function toggleFavorite(foodId) {
+            const index = gameState.favoriteFoods.indexOf(foodId);
+            if (index > -1) {
+                gameState.favoriteFoods.splice(index, 1);
+            } else {
+                gameState.favoriteFoods.unshift(foodId);
+                gameState.favoriteFoods = gameState.favoriteFoods.slice(0, 50);
+            }
+            saveGameState();
+        }
+
+        function isFavorite(foodId) {
+            return gameState.favoriteFoods.includes(foodId);
+        }
+
+        function updateSuggestionsList() {
+            const query = document.getElementById('foodSearch').value.toLowerCase().trim();
+            if (query.length >= 2) {
+                showSuggestions(query);
+            }
+        }
+
+        // Custom Food System
+        function openCustomFood() {
+            document.getElementById('customFoodModal').style.display = 'block';
+        }
+
+        function closeCustomFood() {
+            document.getElementById('customFoodModal').style.display = 'none';
+            // Clear form
+            document.getElementById('cfName').value = '';
+            document.getElementById('cfPer').value = '100g';
+            document.getElementById('cfKcal').value = '';
+            document.getElementById('cfP').value = '';
+            document.getElementById('cfC').value = '';
+            document.getElementById('cfF').value = '';
+            document.getElementById('cfAlias').value = '';
+        }
+
+        function saveCustomFood() {
+            const name = document.getElementById('cfName').value.trim();
+            const per = document.getElementById('cfPer').value.trim() || '100g';
+            const cals = parseFloat(document.getElementById('cfKcal').value) || 0;
+            const protein = parseFloat(document.getElementById('cfP').value) || 0;
+            const carbs = parseFloat(document.getElementById('cfC').value) || 0;
+            const fat = parseFloat(document.getElementById('cfF').value) || 0;
+            const aliasStr = document.getElementById('cfAlias').value || '';
+            const aliases = aliasStr.split(',').map(s => s.trim()).filter(Boolean);
+            
+            if (!name || !per) {
+                showToast('Please fill in name and per fields!', 'error');
+                return;
+            }
+            
+            const id = 'custom_' + Date.now();
+            const customFood = { id, name, per, cals, protein, carbs, fat, aliases };
+            
+            // Add to game state and catalog
+            gameState.customFoods.push(customFood);
+            FOODS_CATALOG.push(customFood);
+            
+            closeCustomFood();
+            showToast(`Created ${name}! You can now search for it. ✨`, 'success');
+            saveGameState();
         }
 
         // Entry system functions
@@ -1492,11 +1768,10 @@
             const currentCarbs = getCurrentCarbs();
             const currentFat = getCurrentFat();
             
-            // Update calorie ring
-            const calorieProgress = Math.min((currentCals / gameState.goals.calories) * 100, 100);
+            // Update calorie ring with smooth conic gradient
+            const pct = Math.min(currentCals / gameState.goals.calories, 1);
             const calorieRing = document.getElementById('calorieRing');
-            const rotation = (calorieProgress / 100) * 360;
-            calorieRing.style.transform = `rotate(${rotation - 90}deg)`;
+            calorieRing.style.background = `conic-gradient(var(--secondary) ${pct * 360}deg, rgba(255,255,255,.18) 0deg)`;
             
             document.getElementById('currentCals').textContent = Math.round(currentCals);
             document.getElementById('remainingCals').textContent = Math.max(0, Math.round(gameState.goals.calories - currentCals)) + ' left';
@@ -1517,62 +1792,55 @@
 
         // Food tracking functions
         function searchFood() {
-            const searchTerm = document.getElementById('foodSearch').value.toLowerCase();
-            updateNutritionPreview(searchTerm);
+            // This is now handled by the enhanced search system
+            updateNutritionPreview();
         }
 
-        function updateNutritionPreview(searchTerm = '') {
-            if (!searchTerm) {
-                searchTerm = document.getElementById('foodSearch').value.toLowerCase();
-            }
-            
-            const amount = parseFloat(document.getElementById('foodAmount').value) || 0;
-            const unit = document.getElementById('foodUnit').value;
-            
-            // Find matching food (including aliases)
-            let foodData = null;
-            let matchedFood = '';
-            
-            for (const [food, data] of Object.entries(foodDatabase)) {
-                if (food.includes(searchTerm) || (data.aliases && data.aliases.some(alias => alias.includes(searchTerm)))) {
-                    foodData = data;
-                    matchedFood = food;
-                    break;
-                }
-            }
-            
-            if (foodData && amount > 0) {
-                // Convert to grams
-                const gramsAmount = amount * unitConversions[unit];
-                const multiplier = gramsAmount / 100;
-                
-                const calories = Math.round(foodData.cals * multiplier);
-                const protein = Math.round(foodData.protein * multiplier * 10) / 10;
-                const carbs = Math.round(foodData.carbs * multiplier * 10) / 10;
-                const fat = Math.round(foodData.fat * multiplier * 10) / 10;
-                
-                document.getElementById('previewCals').textContent = calories;
-                document.getElementById('previewProtein').textContent = protein + 'g';
-                document.getElementById('previewCarbs').textContent = carbs + 'g';
-                document.getElementById('previewFat').textContent = fat + 'g';
-                
-                // Store current food data for adding
-                window.currentFoodPreview = {
-                    name: matchedFood,
-                    amount: amount,
-                    unit: unit,
-                    calories: calories,
-                    protein: protein,
-                    carbs: carbs,
-                    fat: fat
-                };
-            } else {
+        function updateNutritionPreview() {
+            if (!selectedFoodId) {
                 document.getElementById('previewCals').textContent = '0';
                 document.getElementById('previewProtein').textContent = '0g';
                 document.getElementById('previewCarbs').textContent = '0g';
                 document.getElementById('previewFat').textContent = '0g';
-                window.currentFoodPreview = null;
+                return;
             }
+            
+            const food = FOODS_CATALOG.find(f => f.id === selectedFoodId);
+            const amount = parseFloat(document.getElementById('foodAmount').value) || 0;
+            const unit = document.getElementById('foodUnit').value;
+            
+            if (food && amount > 0) {
+                const nutrition = calculateNutrition(food, amount, unit);
+                
+                document.getElementById('previewCals').textContent = Math.round(nutrition.calories);
+                document.getElementById('previewProtein').textContent = nutrition.protein.toFixed(1) + 'g';
+                document.getElementById('previewCarbs').textContent = nutrition.carbs.toFixed(1) + 'g';
+                document.getElementById('previewFat').textContent = nutrition.fat.toFixed(1) + 'g';
+                
+                // Store current food data for adding
+                window.currentFoodPreview = {
+                    foodId: selectedFoodId,
+                    name: food.name,
+                    amount: amount,
+                    unit: unit,
+                    nutrition: nutrition
+                };
+            }
+        }
+
+        function calculateNutrition(food, quantity, unit) {
+            // Convert to grams first
+            const gramsAmount = quantity * unitConversions[unit];
+            
+            // Calculate per 100g
+            const multiplier = gramsAmount / 100;
+            
+            return {
+                calories: food.cals * multiplier,
+                protein: food.protein * multiplier,
+                carbs: food.carbs * multiplier,
+                fat: food.fat * multiplier
+            };
         }
 
         function addFood() {
@@ -1584,13 +1852,17 @@
             const foodEntry = {
                 ...window.currentFoodPreview,
                 id: Date.now(),
-                timestamp: new Date().toISOString()
+                timestamp: new Date().toISOString(),
+                date: iso()
             };
             
             gameState.dailyLog.push(foodEntry);
             
             // Award XP and check for level up
             addXP(10);
+            
+            // Add to recent foods
+            addToRecents(foodEntry.foodId);
             
             // Check for trophies
             checkAndAwardTrophies();
@@ -1602,6 +1874,7 @@
             document.getElementById('foodSearch').value = '';
             document.getElementById('foodAmount').value = '100';
             document.getElementById('foodUnit').value = 'g';
+            selectedFoodId = null;
             updateNutritionPreview();
             
             showToast(`Added ${foodEntry.name}! +10 XP 🎉`, 'success');
@@ -1621,10 +1894,10 @@
                 foodItem.innerHTML = `
                     <div class="food-details">
                         <div class="food-name">${food.name} (${food.amount}${food.unit})</div>
-                        <div class="food-macros">${food.calories} cal • ${food.protein}g protein • ${food.carbs}g carbs • ${food.fat}g fat</div>
+                        <div class="food-macros">${Math.round(food.nutrition.calories)} cal • ${food.nutrition.protein.toFixed(1)}g protein • ${food.nutrition.carbs.toFixed(1)}g carbs • ${food.nutrition.fat.toFixed(1)}g fat</div>
                     </div>
                     <div class="food-actions">
-                        <button class="action-btn" onclick="editFood(${food.id})">✏️</button>
+                        <button class="action-btn" onclick="openEditMeal(${food.id})">✏️</button>
                         <button class="action-btn" onclick="deleteFood(${food.id})">🗑️</button>
                     </div>
                 `;
@@ -1634,6 +1907,54 @@
             if (todaysFoods.length === 0) {
                 foodLog.innerHTML = '<div style="text-align: center; color: #ccc; padding: 2rem;">No foods logged today. Start tracking! 🍽️</div>';
             }
+        }
+
+        // Edit Meal System
+        function openEditMeal(mealId) {
+            const meal = gameState.dailyLog.find(m => m.id === mealId);
+            if (!meal) return;
+            
+            editingMealId = mealId;
+            document.getElementById('editMealName').textContent = meal.name;
+            document.getElementById('editQty').value = meal.amount;
+            document.getElementById('editUnit').value = meal.unit;
+            document.getElementById('editMealModal').style.display = 'block';
+        }
+
+        function closeEditMeal() {
+            document.getElementById('editMealModal').style.display = 'none';
+            editingMealId = null;
+        }
+
+        function saveMealEdit() {
+            if (!editingMealId) return;
+            
+            const mealIndex = gameState.dailyLog.findIndex(m => m.id === editingMealId);
+            if (mealIndex === -1) return;
+            
+            const meal = gameState.dailyLog[mealIndex];
+            const newQuantity = parseFloat(document.getElementById('editQty').value) || meal.amount;
+            const newUnit = document.getElementById('editUnit').value || meal.unit;
+            
+            // Get food from catalog
+            const food = FOODS_CATALOG.find(f => f.id === meal.foodId);
+            if (!food) return;
+            
+            // Calculate new nutrition
+            const newNutrition = calculateNutrition(food, newQuantity, newUnit);
+            
+            // Update meal
+            gameState.dailyLog[mealIndex] = {
+                ...meal,
+                amount: newQuantity,
+                unit: newUnit,
+                nutrition: newNutrition
+            };
+            
+            updateDisplay();
+            closeEditMeal();
+            showToast('Meal updated! ✨', 'success');
+            saveGameState();
         }
 
         function deleteFood(foodId) {
@@ -1647,40 +1968,26 @@
             }
         }
 
-        function editFood(foodId) {
-            const food = gameState.dailyLog.find(f => f.id === foodId);
-            if (food) {
-                document.getElementById('foodSearch').value = food.name;
-                document.getElementById('foodAmount').value = food.amount;
-                document.getElementById('foodUnit').value = food.unit;
-                updateNutritionPreview(food.name);
-                deleteFood(foodId);
-                showToast('Food loaded for editing!', 'success');
-            }
-        }
-
-        // Calculation functions
+        // Calculation functions with ISO dates
         function getCurrentCals() {
-            return getTodaysFoods().reduce((total, food) => total + food.calories, 0);
+            return getTodaysFoods().reduce((total, food) => total + food.nutrition.calories, 0);
         }
 
         function getCurrentProtein() {
-            return getTodaysFoods().reduce((total, food) => total + food.protein, 0);
+            return getTodaysFoods().reduce((total, food) => total + food.nutrition.protein, 0);
         }
 
         function getCurrentCarbs() {
-            return getTodaysFoods().reduce((total, food) => total + food.carbs, 0);
+            return getTodaysFoods().reduce((total, food) => total + food.nutrition.carbs, 0);
         }
 
         function getCurrentFat() {
-            return getTodaysFoods().reduce((total, food) => total + food.fat, 0);
+            return getTodaysFoods().reduce((total, food) => total + food.nutrition.fat, 0);
         }
 
         function getTodaysFoods() {
-            const today = new Date().toDateString();
-            return gameState.dailyLog.filter(food => 
-                new Date(food.timestamp).toDateString() === today
-            );
+            const today = iso();
+            return gameState.dailyLog.filter(food => food.date === today);
         }
 
         function getTotalMealsLogged() {
@@ -1735,18 +2042,14 @@
         }
 
         function checkFoodVariety() {
-            const categories = ['protein', 'carbs', 'fat', 'vegetable', 'fruit'];
-            // Simplified check - would need more sophisticated categorization
-            return gameState.dailyLog.length >= 20; // Placeholder
+            return gameState.dailyLog.length >= 20;
         }
 
         function checkPerfectWeek() {
-            // Simplified check for perfect week
             return gameState.streak >= 7;
         }
 
         function getChallengesCompleted() {
-            // Placeholder - would track weekly challenges
             return Math.floor(gameState.dailyLog.length / 10);
         }
 
@@ -1857,14 +2160,23 @@
         }
 
         function saveGameState() {
-            const savedState = JSON.stringify(gameState);
-            // Note: localStorage not available in Claude.ai artifacts
-            // Data will persist during session only
+            // Load custom foods into catalog
+            gameState.customFoods.forEach(food => {
+                if (!FOODS_CATALOG.some(f => f.id === food.id)) {
+                    FOODS_CATALOG.push(food);
+                }
+            });
         }
 
         function loadGameState() {
-            // Note: localStorage not available in Claude.ai artifacts
-            // Starting with default state
+            // Initialize with custom foods if any
+            if (gameState.customFoods) {
+                gameState.customFoods.forEach(food => {
+                    if (!FOODS_CATALOG.some(f => f.id === food.id)) {
+                        FOODS_CATALOG.push(food);
+                    }
+                });
+            }
         }
 
         // Close modals when clicking outside
