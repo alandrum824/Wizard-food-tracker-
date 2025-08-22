@@ -47,11 +47,35 @@
             50% { opacity: 1; }
         }
 
-        /* House Color Themes */
-        .viperthorn { --primary: #2d5a3d; --secondary: #c0c0c0; --accent: #4a7c59; }
-        .braverun { --primary: #8b0000; --secondary: #ffd700; --accent: #cd212a; }
-        .nightwing { --primary: #1e3a8a; --secondary: #000000; --accent: #3b82f6; }
-        .cinderglen { --primary: #fbbf24; --secondary: #92400e; --accent: #f59e0b; }
+        /* Harry Potter House Themes */
+        .viperthorn { 
+            --primary: #1a4d2e; 
+            --secondary: #c0c0c0; 
+            --accent: #2d5a3d;
+            --house-main: #1a4d2e;
+            --house-accent: #c0c0c0;
+        }
+        .braverun { 
+            --primary: #740001; 
+            --secondary: #ffd700; 
+            --accent: #ae0001;
+            --house-main: #740001;
+            --house-accent: #ffd700;
+        }
+        .nightwing { 
+            --primary: #0e1a40; 
+            --secondary: #946b2d; 
+            --accent: #222f5b;
+            --house-main: #0e1a40;
+            --house-accent: #946b2d;
+        }
+        .cinderglen { 
+            --primary: #ecb939; 
+            --secondary: #372e29; 
+            --accent: #f0c75e;
+            --house-main: #ecb939;
+            --house-accent: #372e29;
+        }
 
         /* Student Key Gate */
         .key-gate {
@@ -144,9 +168,9 @@
 
         .house-selection {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
-            max-width: 1000px;
+            max-width: 1200px;
             width: 100%;
         }
 
@@ -161,6 +185,26 @@
             backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
+        }
+
+        .house-crest.viperthorn {
+            border-color: #1a4d2e;
+            background: linear-gradient(145deg, rgba(26,77,46,0.2), rgba(26,77,46,0.1));
+        }
+
+        .house-crest.braverun {
+            border-color: #740001;
+            background: linear-gradient(145deg, rgba(116,0,1,0.2), rgba(116,0,1,0.1));
+        }
+
+        .house-crest.nightwing {
+            border-color: #0e1a40;
+            background: linear-gradient(145deg, rgba(14,26,64,0.2), rgba(14,26,64,0.1));
+        }
+
+        .house-crest.cinderglen {
+            border-color: #ecb939;
+            background: linear-gradient(145deg, rgba(236,185,57,0.2), rgba(236,185,57,0.1));
         }
 
         .house-crest::before {
@@ -183,8 +227,7 @@
 
         .house-crest:hover {
             transform: translateY(-10px) scale(1.05);
-            border-color: var(--secondary);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px var(--secondary);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
         .house-icon {
@@ -212,8 +255,12 @@
             font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            color: var(--secondary);
         }
+
+        .house-crest.viperthorn .house-name { color: #c0c0c0; }
+        .house-crest.braverun .house-name { color: #ffd700; }
+        .house-crest.nightwing .house-name { color: #946b2d; }
+        .house-crest.cinderglen .house-name { color: #372e29; }
 
         .house-motto {
             font-style: italic;
@@ -273,10 +320,8 @@
             font-weight: bold;
         }
 
-        .customize-btn {
+        .customize-btn, .goals-btn, .week-btn, .chest-btn {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
             background: rgba(0,0,0,0.3);
             border: 1px solid var(--secondary);
             color: var(--secondary);
@@ -285,6 +330,11 @@
             cursor: pointer;
             font-size: 0.9rem;
         }
+
+        .customize-btn { top: 1rem; right: 1rem; }
+        .goals-btn { top: 1rem; left: 1rem; }
+        .week-btn { top: 3rem; right: 1rem; }
+        .chest-btn { top: 3rem; left: 1rem; }
 
         /* XP Bar */
         .xp-container {
@@ -361,8 +411,12 @@
             margin-bottom: 1rem;
         }
 
+        .input-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+
         .magical-input, .magical-select {
-            width: 100%;
             padding: 12px 15px;
             border: 2px solid rgba(255,215,0,0.3);
             border-radius: 10px;
@@ -370,6 +424,14 @@
             color: #fff;
             font-size: 1rem;
             font-family: 'Crimson Text', serif;
+        }
+
+        .magical-input {
+            width: 100%;
+        }
+
+        .magical-select {
+            min-width: 80px;
         }
 
         .magical-input:focus, .magical-select:focus {
@@ -402,49 +464,111 @@
             background: linear-gradient(45deg, #4b5563, #6b7280);
         }
 
-        /* Mana Bar */
-        .mana-container {
+        /* Nutrition Preview */
+        .nutrition-preview {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 1rem 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Goals & Macros */
+        .goals-container {
             margin: 2rem 0;
         }
 
-        .mana-bar {
-            height: 30px;
-            background: linear-gradient(90deg, #000, #333);
-            border-radius: 15px;
-            overflow: hidden;
-            border: 2px solid var(--secondary);
+        .calorie-ring {
             position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem;
         }
 
-        .mana-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
-            transition: width 0.8s ease;
-            border-radius: 15px;
-            position: relative;
-        }
-
-        .mana-fill::after {
-            content: '';
+        .ring-bg, .ring-fill {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s infinite;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 8px solid;
         }
 
-        .mana-text {
+        .ring-bg {
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .ring-fill {
+            border-color: var(--secondary);
+            border-top-color: transparent;
+            border-right-color: transparent;
+            transform: rotate(-90deg);
+            transition: transform 0.8s ease;
+        }
+
+        .ring-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             text-align: center;
-            margin-top: 0.5rem;
+        }
+
+        .ring-calories {
+            font-size: 1.2rem;
             font-weight: bold;
             color: var(--secondary);
         }
 
+        .ring-remaining {
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+
+        .macro-bars {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .macro-bar {
+            text-align: center;
+        }
+
+        .macro-name {
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .macro-progress {
+            height: 8px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .macro-fill {
+            height: 100%;
+            transition: width 0.8s ease;
+            border-radius: 4px;
+        }
+
+        .protein-fill { background: #ef4444; }
+        .carbs-fill { background: #3b82f6; }
+        .fat-fill { background: #f59e0b; }
+
+        .macro-text {
+            font-size: 0.7rem;
+            color: #ccc;
+        }
+
         /* Food Log */
         .food-log {
-            max-height: 300px;
+            max-height: 400px;
             overflow-y: auto;
             margin-top: 1rem;
         }
@@ -453,12 +577,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px;
+            padding: 12px;
             margin-bottom: 8px;
             background: rgba(255,215,0,0.1);
             border: 1px solid rgba(255,215,0,0.3);
             border-radius: 8px;
             animation: foodAppear 0.5s ease;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .food-item:hover {
+            background: rgba(255,215,0,0.2);
         }
 
         @keyframes foodAppear {
@@ -466,13 +596,37 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .food-name {
-            font-weight: bold;
+        .food-details {
+            flex: 1;
         }
 
-        .food-calories {
-            color: var(--secondary);
+        .food-name {
             font-weight: bold;
+            margin-bottom: 0.2rem;
+        }
+
+        .food-macros {
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+
+        .food-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--secondary);
+            cursor: pointer;
+            padding: 0.2rem;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: rgba(255,215,0,0.2);
         }
 
         /* Weekly Challenges */
@@ -541,55 +695,61 @@
             width: 30px;
         }
 
-        /* Runes (Badges) */
-        .runes-container {
+        /* Wizard Chest (Trophy Case) */
+        .chest-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 1rem;
             margin-top: 1rem;
         }
 
-        .rune {
+        .trophy {
             text-align: center;
             padding: 1rem;
             background: rgba(255,215,0,0.1);
             border: 2px solid rgba(255,215,0,0.3);
-            border-radius: 10px;
+            border-radius: 15px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .rune.earned {
+        .trophy.earned {
             background: linear-gradient(45deg, var(--primary), var(--accent));
             border-color: var(--secondary);
-            animation: runeGlow 2s infinite;
+            animation: trophyGlow 3s infinite;
         }
 
-        .rune.newly-earned {
-            animation: runeSparkle 1s ease;
+        .trophy.newly-earned {
+            animation: trophySparkle 1.5s ease;
         }
 
-        @keyframes runeGlow {
-            0%, 100% { box-shadow: 0 0 10px var(--secondary); }
-            50% { box-shadow: 0 0 20px var(--secondary); }
+        @keyframes trophyGlow {
+            0%, 100% { box-shadow: 0 0 15px var(--secondary); }
+            50% { box-shadow: 0 0 25px var(--secondary); }
         }
 
-        @keyframes runeSparkle {
+        @keyframes trophySparkle {
             0% { transform: scale(1); }
             50% { transform: scale(1.2) rotate(5deg); }
             100% { transform: scale(1); }
         }
 
-        .rune-icon {
-            font-size: 2rem;
+        .trophy-icon {
+            font-size: 2.5rem;
             display: block;
             margin-bottom: 0.5rem;
         }
 
-        .rune-name {
+        .trophy-name {
             font-size: 0.8rem;
             font-weight: bold;
+        }
+
+        .trophy-desc {
+            font-size: 0.7rem;
+            color: #ccc;
+            margin-top: 0.3rem;
         }
 
         /* Auto-suggest dropdown */
@@ -608,13 +768,23 @@
         }
 
         .suggest-item {
-            padding: 10px;
+            padding: 12px;
             cursor: pointer;
             transition: background 0.2s ease;
+            border-bottom: 1px solid rgba(255,215,0,0.1);
         }
 
         .suggest-item:hover {
             background: rgba(255,215,0,0.2);
+        }
+
+        .suggest-food-name {
+            font-weight: bold;
+        }
+
+        .suggest-food-info {
+            font-size: 0.8rem;
+            color: #ccc;
         }
 
         .input-container {
@@ -640,7 +810,7 @@
             border: 3px solid rgba(255,215,0,0.5);
             border-radius: 20px;
             padding: 2rem;
-            max-width: 500px;
+            max-width: 600px;
             width: 90%;
             backdrop-filter: blur(10px);
             text-align: center;
@@ -698,6 +868,66 @@
             top: 1rem;
             right: 1rem;
             cursor: pointer;
+        }
+
+        /* Goals Modal */
+        .goals-form {
+            text-align: left;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        /* Week View */
+        .week-view {
+            margin-top: 2rem;
+        }
+
+        .week-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .day-card {
+            background: rgba(255,215,0,0.1);
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .day-name {
+            font-size: 0.8rem;
+            color: #ccc;
+            margin-bottom: 0.5rem;
+        }
+
+        .day-calories {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        .day-net {
+            font-size: 0.8rem;
+            color: #ccc;
         }
 
         /* Potion Brewing Styles */
@@ -785,6 +1015,27 @@
             margin: 1rem 0;
         }
 
+        /* Undo Toast */
+        .undo-toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            border: 1px solid var(--secondary);
+            z-index: 1001;
+            display: none;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translate(-50%, 100px); opacity: 0; }
+            to { transform: translate(-50%, 0); opacity: 1; }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .academy-logo {
@@ -799,14 +1050,25 @@
                 grid-template-columns: 1fr;
             }
 
-            .character-info {
+            .character-info, .streak-info {
                 flex-direction: column;
                 gap: 0.5rem;
             }
 
-            .streak-info {
+            .input-row {
                 flex-direction: column;
-                gap: 0.5rem;
+            }
+
+            .macro-bars {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .week-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -884,7 +1146,7 @@
         <div class="house-selection">
             <div class="house-crest viperthorn" onclick="selectHouse('viperthorn')">
                 <div class="house-icon">
-                    <div class="house-character">🐲</div>
+                    <div class="house-character">🐍</div>
                 </div>
                 <div class="house-name">VIPERTHORN</div>
                 <div class="house-motto">"Cunning guides the wise"</div>
@@ -908,7 +1170,7 @@
             
             <div class="house-crest cinderglen" onclick="selectHouse('cinderglen')">
                 <div class="house-icon">
-                    <div class="house-character">🦔</div>
+                    <div class="house-character">🦡</div>
                 </div>
                 <div class="house-name">CINDERGLEN</div>
                 <div class="house-motto">"Loyalty burns eternal"</div>
@@ -971,6 +1233,106 @@
         </div>
     </div>
 
+    <!-- Goals Modal -->
+    <div class="modal" id="goalsModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeGoalsModal()">×</button>
+            <h2 class="modal-title">🎯 Set Your Goals</h2>
+            
+            <div class="goals-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Sex</label>
+                        <select id="profileSex" class="magical-select" style="width: 100%;">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Age</label>
+                        <input type="number" id="profileAge" class="magical-input" value="25" min="13" max="120">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Height (cm)</label>
+                        <input type="number" id="profileHeight" class="magical-input" value="175" min="100" max="250">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Weight (kg)</label>
+                        <input type="number" id="profileWeight" class="magical-input" value="70" min="30" max="300">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Activity Level</label>
+                    <select id="profileActivity" class="magical-select" style="width: 100%;">
+                        <option value="sedentary">Sedentary (little/no exercise)</option>
+                        <option value="light">Light (1-3 days/week)</option>
+                        <option value="moderate">Moderate (3-5 days/week)</option>
+                        <option value="active">Active (6-7 days/week)</option>
+                        <option value="very_active">Very Active (2x/day, intense)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Goal</label>
+                    <select id="profileGoal" class="magical-select" style="width: 100%;">
+                        <option value="fat_loss">Fat Loss (-500 cal/day)</option>
+                        <option value="maintenance">Maintenance</option>
+                        <option value="muscle_gain">Muscle Gain (+300 cal/day)</option>
+                    </select>
+                </div>
+
+                <div id="calculatedGoals" style="margin: 2rem 0; padding: 1rem; background: rgba(255,215,0,0.1); border-radius: 8px; display: none;">
+                    <h4 style="color: var(--secondary); margin-bottom: 1rem;">Calculated Targets:</h4>
+                    <div id="goalsDisplay"></div>
+                </div>
+            </div>
+
+            <button class="magical-btn" onclick="calculateGoals()">📊 Calculate Goals</button>
+            <button class="magical-btn" onclick="saveGoals()" style="margin-top: 0.5rem;">✨ Save Goals</button>
+        </div>
+    </div>
+
+    <!-- Week View Modal -->
+    <div class="modal" id="weekModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeWeekModal()">×</button>
+            <h2 class="modal-title">📊 Week Overview</h2>
+            
+            <div class="week-view">
+                <div class="week-grid" id="weekGrid"></div>
+                
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2rem;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; font-weight: bold; color: var(--secondary);" id="weekAvgCalories">0</div>
+                        <div style="color: #ccc;">Avg Calories</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; font-weight: bold; color: #ef4444;" id="weekAvgProtein">0</div>
+                        <div style="color: #ccc;">Avg Protein</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; font-weight: bold; color: var(--secondary);" id="weekStreak">0</div>
+                        <div style="color: #ccc;">Current Streak</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wizard Chest Modal -->
+    <div class="modal" id="chestModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeChestModal()">×</button>
+            <h2 class="modal-title">🏆 Wizard's Trophy Chest</h2>
+            
+            <div class="chest-grid" id="chestGrid"></div>
+        </div>
+    </div>
+
     <!-- Potion Brewing Modal -->
     <div class="modal" id="potionModal">
         <div class="modal-content">
@@ -1028,21 +1390,34 @@
         </div>
     </div>
 
+    <!-- Undo Toast -->
+    <div class="undo-toast" id="undoToast">
+        <span id="undoText">Food item deleted</span>
+        <button onclick="undoLastAction()" style="background: none; border: none; color: var(--secondary); margin-left: 1rem; cursor: pointer;">UNDO</button>
+    </div>
+
     <!-- Food Tracker Page -->
     <div class="tracker-page" id="trackerPage">
         <div class="tracker-header">
+            <button class="goals-btn" onclick="openGoalsModal()">🎯 Goals</button>
             <button class="customize-btn" onclick="openCustomizeModal()">⚙️ Customize</button>
+            <button class="chest-btn" onclick="openChestModal()">🏆 Chest</button>
+            <button class="week-btn" onclick="openWeekModal()">📊 Week</button>
+            
             <h1 class="tracker-title">Wyrnwick Academy</h1>
             <p class="house-welcome" id="houseWelcome">Welcome, Student!</p>
+            
             <div class="character-info" id="characterInfo">
                 <div>🪄 <span id="wandType">Phoenix Core</span></div>
                 <div>🐾 <span id="companionType">Wise Owl</span></div>
                 <div>👤 <span id="backgroundType">Royal Bloodline</span></div>
             </div>
+            
             <div class="streak-info" id="streakInfo">
                 <div>🔥 <span id="streakCount">0</span> Day Streak</div>
                 <div>🏆 Champion: <span id="championHouse">Loading...</span></div>
             </div>
+            
             <div class="xp-container">
                 <div class="xp-bar">
                     <div class="xp-fill" id="xpFill" style="width: 0%"></div>
@@ -1054,30 +1429,69 @@
         <div class="tracker-content">
             <!-- Food Input Section -->
             <div class="magical-card">
-                <h2 class="card-title">🪄 Spellbinder Logbook</h2>
+                <h2 class="card-title">🪄 Nutrition Tracker</h2>
                 
                 <div class="input-group">
                     <div class="input-container">
-                        <input type="text" id="foodInput" class="magical-input" placeholder="What magical feast did you enjoy?" autocomplete="off">
+                        <input type="text" id="foodInput" class="magical-input" placeholder="Search for food..." autocomplete="off">
                         <div class="suggest-dropdown" id="suggestDropdown"></div>
                     </div>
                 </div>
                 
                 <div class="input-group">
-                    <input type="number" id="quantityInput" class="magical-input" placeholder="Quantity (e.g., 1, 2, 0.5)" value="1" step="0.1" min="0.1">
-                </div>
-                
-                <div class="input-group">
-                    <input type="number" id="caloriesInput" class="magical-input" placeholder="Calories - auto-filled" readonly>
-                </div>
-                
-                <button class="magical-btn" onclick="addFood()">✨ Add to Spell Log</button>
-                
-                <div class="mana-container">
-                    <div class="mana-bar">
-                        <div class="mana-fill" id="manaFill" style="width: 0%"></div>
+                    <div class="input-row">
+                        <input type="number" id="quantityInput" class="magical-input" placeholder="Quantity" value="1" step="0.1" min="0.1">
+                        <select id="unitSelect" class="magical-select">
+                            <option value="g">grams</option>
+                            <option value="oz">oz</option>
+                            <option value="cup">cup</option>
+                            <option value="tbsp">tbsp</option>
+                            <option value="slice">slice</option>
+                            <option value="piece">piece</option>
+                        </select>
                     </div>
-                    <div class="mana-text" id="manaText">0 / 1200 Calories (Mana)</div>
+                </div>
+
+                <div class="nutrition-preview" id="nutritionPreview" style="display: none;">
+                    <div id="previewText">Select a food to see nutrition info</div>
+                </div>
+                
+                <button class="magical-btn" onclick="addMeal()" id="addMealBtn">✨ Add to Log</button>
+                
+                <!-- Goals Display -->
+                <div class="goals-container">
+                    <div class="calorie-ring">
+                        <div class="ring-bg"></div>
+                        <div class="ring-fill" id="calorieRing"></div>
+                        <div class="ring-text">
+                            <div class="ring-calories" id="ringCalories">0</div>
+                            <div class="ring-remaining" id="ringRemaining">remaining</div>
+                        </div>
+                    </div>
+                    
+                    <div class="macro-bars">
+                        <div class="macro-bar">
+                            <div class="macro-name" style="color: #ef4444;">Protein</div>
+                            <div class="macro-progress">
+                                <div class="macro-fill protein-fill" id="proteinFill"></div>
+                            </div>
+                            <div class="macro-text" id="proteinText">0g / 0g</div>
+                        </div>
+                        <div class="macro-bar">
+                            <div class="macro-name" style="color: #3b82f6;">Carbs</div>
+                            <div class="macro-progress">
+                                <div class="macro-fill carbs-fill" id="carbsFill"></div>
+                            </div>
+                            <div class="macro-text" id="carbsText">0g / 0g</div>
+                        </div>
+                        <div class="macro-bar">
+                            <div class="macro-name" style="color: #f59e0b;">Fat</div>
+                            <div class="macro-progress">
+                                <div class="macro-fill fat-fill" id="fatFill"></div>
+                            </div>
+                            <div class="macro-text" id="fatText">0g / 0g</div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="food-log" id="foodLog"></div>
@@ -1087,7 +1501,7 @@
                     <button class="magical-btn" onclick="openStudyModal()" style="flex: 1;">📚 Study Hall</button>
                 </div>
                 
-                <button class="magical-btn" onclick="clearDay()" style="background: linear-gradient(45deg, #8b0000, #dc2626); margin-top: 1rem;">🧹 Clear Today's Spells</button>
+                <button class="magical-btn" onclick="clearDay()" style="background: linear-gradient(45deg, #8b0000, #dc2626); margin-top: 1rem;">🧹 Clear Today's Log</button>
             </div>
 
             <!-- Stats and Features Section -->
@@ -1103,57 +1517,70 @@
                     <h2 class="card-title">🏆 House Tournament</h2>
                     <div class="leaderboard" id="houseLeaderboard"></div>
                 </div>
-
-                <!-- Runes -->
-                <div class="magical-card">
-                    <h2 class="card-title">🏆 Magical Achievements</h2>
-                    
-                    <div style="text-align: center; margin-bottom: 2rem;">
-                        <div style="font-size: 1.2rem; color: var(--secondary); margin-bottom: 0.5rem;">House Points</div>
-                        <div style="font-size: 2rem; font-weight: bold; color: var(--secondary);" id="housePoints">0</div>
-                    </div>
-                    
-                    <h3 style="color: var(--secondary); margin-bottom: 1rem; text-align: center;">Earned Runes</h3>
-                    <div class="runes-container" id="runesContainer">
-                        <div class="rune" id="rune1">
-                            <div class="rune-icon">🍎</div>
-                            <div class="rune-name">First Feast</div>
-                        </div>
-                        <div class="rune" id="rune2">
-                            <div class="rune-icon">⚡</div>
-                            <div class="rune-name">Mana Master</div>
-                        </div>
-                        <div class="rune" id="rune3">
-                            <div class="rune-icon">🔥</div>
-                            <div class="rune-name">Power Surge</div>
-                        </div>
-                        <div class="rune" id="rune4">
-                            <div class="rune-icon">🌟</div>
-                            <div class="rune-name">Mana Manager</div>
-                        </div>
-                        <div class="rune" id="rune5">
-                            <div class="rune-icon">👑</div>
-                            <div class="rune-name">Level Master</div>
-                        </div>
-                        <div class="rune" id="rune6">
-                            <div class="rune-icon">💎</div>
-                            <div class="rune-name">Legend</div>
-                        </div>
-                        <div class="rune" id="rune7">
-                            <div class="rune-icon">🔥</div>
-                            <div class="rune-name">Streak Master</div>
-                        </div>
-                        <div class="rune" id="rune8">
-                            <div class="rune-icon">✨</div>
-                            <div class="rune-name">Weekly Warrior</div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 
     <script>
+        // Enhanced Food Database with Macros
+        const FOODS_CATALOG = [
+            // Fruits
+            { id: 'apple', name: 'Apple, raw', per: '100g', kcal: 52, protein: 0.3, carbs: 14, fat: 0.2, aliases: ['apple', 'red apple', 'green apple'] },
+            { id: 'banana', name: 'Banana, raw', per: '100g', kcal: 89, protein: 1.1, carbs: 23, fat: 0.3, aliases: ['banana'] },
+            { id: 'orange', name: 'Orange, raw', per: '100g', kcal: 47, protein: 0.9, carbs: 12, fat: 0.1, aliases: ['orange'] },
+            { id: 'grapes', name: 'Grapes, raw', per: '100g', kcal: 62, protein: 0.6, carbs: 16, fat: 0.2, aliases: ['grapes', 'grape'] },
+            { id: 'strawberries', name: 'Strawberries, raw', per: '100g', kcal: 32, protein: 0.7, carbs: 8, fat: 0.3, aliases: ['strawberry', 'strawberries'] },
+            { id: 'avocado', name: 'Avocado, raw', per: '100g', kcal: 160, protein: 2, carbs: 9, fat: 15, aliases: ['avocado'] },
+            
+            // Proteins
+            { id: 'chicken_breast', name: 'Chicken Breast, skinless', per: '100g', kcal: 165, protein: 31, carbs: 0, fat: 3.6, aliases: ['chicken', 'chicken breast', 'grilled chicken'] },
+            { id: 'salmon', name: 'Salmon, cooked', per: '100g', kcal: 206, protein: 22, carbs: 0, fat: 12, aliases: ['salmon', 'fish'] },
+            { id: 'eggs', name: 'Eggs, whole, cooked', per: '100g', kcal: 155, protein: 13, carbs: 1.1, fat: 11, aliases: ['egg', 'eggs', 'scrambled eggs'] },
+            { id: 'beef', name: 'Beef, lean, cooked', per: '100g', kcal: 250, protein: 26, carbs: 0, fat: 15, aliases: ['beef', 'steak'] },
+            { id: 'tuna', name: 'Tuna, canned in water', per: '100g', kcal: 116, protein: 26, carbs: 0, fat: 1, aliases: ['tuna'] },
+            
+            // Dairy
+            { id: 'milk', name: 'Milk, whole', per: '100g', kcal: 61, protein: 3.2, carbs: 4.8, fat: 3.3, aliases: ['milk'] },
+            { id: 'cheese_cheddar', name: 'Cheese, cheddar', per: '100g', kcal: 403, protein: 25, carbs: 1.3, fat: 33, aliases: ['cheese', 'cheddar'] },
+            { id: 'yogurt', name: 'Yogurt, plain', per: '100g', kcal: 59, protein: 10, carbs: 3.6, fat: 0.4, aliases: ['yogurt', 'greek yogurt'] },
+            
+            // Grains & Carbs
+            { id: 'rice_white', name: 'Rice, white, cooked', per: '100g', kcal: 130, protein: 2.7, carbs: 28, fat: 0.3, aliases: ['rice', 'white rice'] },
+            { id: 'pasta', name: 'Pasta, cooked', per: '100g', kcal: 131, protein: 5, carbs: 25, fat: 1.1, aliases: ['pasta', 'spaghetti'] },
+            { id: 'bread_whole', name: 'Bread, whole wheat', per: '100g', kcal: 247, protein: 13, carbs: 41, fat: 4.2, aliases: ['bread', 'whole wheat bread'] },
+            { id: 'oats', name: 'Oats, cooked', per: '100g', kcal: 68, protein: 2.4, carbs: 12, fat: 1.4, aliases: ['oats', 'oatmeal'] },
+            { id: 'potato', name: 'Potato, baked', per: '100g', kcal: 161, protein: 4.3, carbs: 37, fat: 0.1, aliases: ['potato', 'baked potato'] },
+            
+            // Vegetables
+            { id: 'broccoli', name: 'Broccoli, cooked', per: '100g', kcal: 35, protein: 2.4, carbs: 7, fat: 0.4, aliases: ['broccoli'] },
+            { id: 'spinach', name: 'Spinach, raw', per: '100g', kcal: 23, protein: 2.9, carbs: 3.6, fat: 0.4, aliases: ['spinach'] },
+            { id: 'carrots', name: 'Carrots, raw', per: '100g', kcal: 41, protein: 0.9, carbs: 10, fat: 0.2, aliases: ['carrot', 'carrots'] },
+            
+            // Nuts & Seeds
+            { id: 'almonds', name: 'Almonds, raw', per: '100g', kcal: 579, protein: 21, carbs: 22, fat: 50, aliases: ['almond', 'almonds'] },
+            { id: 'peanut_butter', name: 'Peanut Butter, smooth', per: '15g', kcal: 94, protein: 4, carbs: 3.1, fat: 8, aliases: ['peanut butter', 'pb'] },
+            { id: 'walnuts', name: 'Walnuts, raw', per: '100g', kcal: 654, protein: 15, carbs: 14, fat: 65, aliases: ['walnut', 'walnuts'] },
+            
+            // Treats
+            { id: 'chocolate', name: 'Chocolate, dark 70%', per: '100g', kcal: 546, protein: 7.8, carbs: 45, fat: 31, aliases: ['chocolate', 'dark chocolate'] },
+            { id: 'ice_cream', name: 'Ice Cream, vanilla', per: '100g', kcal: 207, protein: 3.5, carbs: 24, fat: 11, aliases: ['ice cream'] },
+            
+            // Fast Food
+            { id: 'pizza', name: 'Pizza, cheese', per: '100g', kcal: 285, protein: 12, carbs: 35, fat: 10, aliases: ['pizza'] },
+            { id: 'burger', name: 'Hamburger, fast food', per: '100g', kcal: 295, protein: 17, carbs: 28, fat: 14, aliases: ['burger', 'hamburger'] },
+            { id: 'fries', name: 'French Fries', per: '100g', kcal: 365, protein: 4, carbs: 63, fat: 17, aliases: ['fries', 'french fries'] }
+        ];
+
+        // Unit Conversion Map (to grams)
+        const UNIT_MAP = {
+            'g': 1,
+            'oz': 28.3495,
+            'cup': { 'rice_white': 185, 'pasta': 140, 'milk': 240, 'flour': 120, 'default': 240 },
+            'tbsp': { 'peanut_butter': 16, 'oil': 14, 'default': 15 },
+            'slice': { 'bread_whole': 28, 'cheese_cheddar': 28, 'default': 25 },
+            'piece': { 'apple': 180, 'banana': 120, 'orange': 150, 'default': 100 }
+        };
+
         // Valid student keys
         const validKeys = ['WIZARD123', 'MAGIC456', 'ACADEMY789', 'STUDENT101'];
         
@@ -1163,6 +1590,12 @@
             companion: 'owl',
             background: 'royal'
         };
+
+        // Global app state
+        let selectedFood = null;
+        let lastDeletedMeal = null;
+        let recentFoods = [];
+        let favoriteFoods = [];
 
         // Potion brewing data
         let potionData = {
@@ -1181,42 +1614,231 @@
             { id: 'house_points', text: 'Earn 300 House Points', reward: '30 XP', target: 300 },
             { id: 'brew_potions', text: 'Brew 5 potions', reward: '40 XP', target: 5 },
             { id: 'meditation', text: 'Complete 3 meditation sessions', reward: '25 XP', target: 3 },
-            { id: 'streak_days', text: 'Maintain 5-day streak', reward: '60 XP + Streak Rune', target: 5 }
+            { id: 'streak_days', text: 'Maintain 5-day streak', reward: '60 XP + Streak Rune', target: 5 },
+            { id: 'hit_protein', text: 'Hit protein goal 5 days', reward: '35 XP', target: 5 },
+            { id: 'stay_under_cal', text: 'Stay under calorie goal 4 days', reward: '25 XP', target: 4 }
         ];
 
-        // Food Database
-        const foods = [
-            {name: "Apple", calories: 95},
-            {name: "Banana", calories: 105},
-            {name: "Orange", calories: 62},
-            {name: "Grapes", calories: 62},
-            {name: "Strawberries", calories: 32},
-            {name: "Chicken Breast", calories: 165},
-            {name: "Salmon", calories: 206},
-            {name: "Beef", calories: 250},
-            {name: "Eggs", calories: 70},
-            {name: "Milk", calories: 42},
-            {name: "Cheese", calories: 113},
-            {name: "Yogurt", calories: 59},
-            {name: "Bread", calories: 79},
-            {name: "Rice", calories: 130},
-            {name: "Pasta", calories: 131},
-            {name: "Potato", calories: 161},
-            {name: "Broccoli", calories: 25},
-            {name: "Carrots", calories: 25},
-            {name: "Spinach", calories: 7},
-            {name: "Chocolate", calories: 546},
-            {name: "Ice Cream", calories: 207},
-            {name: "Pizza", calories: 285},
-            {name: "Hamburger", calories: 354},
-            {name: "French Fries", calories: 365},
-            {name: "Salad", calories: 33},
-            {name: "Oatmeal", calories: 68},
-            {name: "Almonds", calories: 576},
-            {name: "Peanut Butter", calories: 588},
-            {name: "Avocado", calories: 234},
-            {name: "Sweet Potato", calories: 112}
+        // Trophy definitions
+        const TROPHIES = [
+            { id: 'first_meal', name: 'First Feast', icon: '🍎', desc: 'Log your first meal', condition: (data) => (data.mealsLogged || 0) >= 1 },
+            { id: 'macro_master', name: 'Macro Master', icon: '💪', desc: 'Hit all macro goals in one day', condition: (data) => data.hitAllMacros },
+            { id: 'calorie_king', name: 'Calorie King', icon: '👑', desc: 'Stay within calorie goal for 7 days', condition: (data) => (data.calorieGoalDays || 0) >= 7 },
+            { id: 'protein_power', name: 'Protein Power', icon: '🥩', desc: 'Hit protein goal 10 times', condition: (data) => (data.proteinGoalHits || 0) >= 10 },
+            { id: 'streak_star', name: 'Streak Star', icon: '⭐', desc: 'Maintain 14-day streak', condition: (data) => (data.streak || 0) >= 14 },
+            { id: 'level_legend', name: 'Level Legend', icon: '🏆', desc: 'Reach level 10', condition: (data) => (data.level || 1) >= 10 },
+            { id: 'house_hero', name: 'House Hero', icon: '🛡️', desc: 'Earn 2000 house points', condition: (data) => (data.housePoints || 0) >= 2000 },
+            { id: 'nutrition_ninja', name: 'Nutrition Ninja', icon: '🥷', desc: 'Log 100 meals', condition: (data) => (data.mealsLogged || 0) >= 100 },
+            { id: 'potion_master', name: 'Potion Master', icon: '🧪', desc: 'Brew 20 potions', condition: (data) => (data.potionsBrewed || 0) >= 20 },
+            { id: 'zen_master', name: 'Zen Master', icon: '🧘', desc: 'Complete 25 meditation sessions', condition: (data) => (data.meditationSessions || 0) >= 25 },
+            { id: 'challenge_champ', name: 'Challenge Champion', icon: '🎯', desc: 'Complete 10 weekly challenges', condition: (data) => (data.challengesCompleted || 0) >= 10 },
+            { id: 'ultimate_wizard', name: 'Ultimate Wizard', icon: '🔮', desc: 'Unlock all other trophies', condition: (data) => {
+                const otherTrophies = TROPHIES.filter(t => t.id !== 'ultimate_wizard');
+                const earned = data.earnedTrophies || [];
+                return otherTrophies.every(t => earned.includes(t.id));
+            }}
         ];
+
+        // Data Management Functions
+        function loadData() {
+            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            
+            // Load character data
+            if (data.character) {
+                characterData = data.character;
+            }
+            
+            // Load recent and favorite foods
+            recentFoods = data.recentFoods || [];
+            favoriteFoods = data.favoriteFoods || [];
+            
+            // Check if it's a new day
+            const today = new Date().toDateString();
+            const lastLogin = data.lastLogin || '';
+
+            if (lastLogin !== today) {
+                // New day - reset daily stats but keep everything else
+                if (!data.days) data.days = {};
+                if (data.mealsToday && data.mealsToday.length > 0) {
+                    // Save yesterday's data
+                    data.days[lastLogin] = {
+                        meals: data.mealsToday || [],
+                        totals: data.dailyTotals || { kcal: 0, protein: 0, carbs: 0, fat: 0 }
+                    };
+                }
+                
+                data.mealsToday = [];
+                data.dailyTotals = { kcal: 0, protein: 0, carbs: 0, fat: 0 };
+                data.lastLogin = today;
+                localStorage.setItem('wyrnwickData', JSON.stringify(data));
+            }
+
+            return data;
+        }
+
+        function saveData(data) {
+            localStorage.setItem('wyrnwickData', JSON.stringify(data));
+        }
+
+        // Unit Conversion Functions
+        function convertToGrams(quantity, unit, foodId) {
+            if (unit === 'g') return quantity;
+            
+            if (typeof UNIT_MAP[unit] === 'object') {
+                return quantity * (UNIT_MAP[unit][foodId] || UNIT_MAP[unit].default);
+            }
+            
+            return quantity * (UNIT_MAP[unit] || 1);
+        }
+
+        function calculateNutrition(food, quantity, unit) {
+            const grams = convertToGrams(quantity, unit, food.id);
+            const factor = grams / 100; // Most foods are per 100g
+            
+            if (food.per !== '100g') {
+                // Handle foods with different base serving
+                const baseGrams = parseFloat(food.per.replace('g', ''));
+                const baseFactor = grams / baseGrams;
+                return {
+                    kcal: Math.round(food.kcal * baseFactor),
+                    protein: Math.round(food.protein * baseFactor * 10) / 10,
+                    carbs: Math.round(food.carbs * baseFactor * 10) / 10,
+                    fat: Math.round(food.fat * baseFactor * 10) / 10,
+                    grams: grams
+                };
+            }
+            
+            return {
+                kcal: Math.round(food.kcal * factor),
+                protein: Math.round(food.protein * factor * 10) / 10,
+                carbs: Math.round(food.carbs * factor * 10) / 10,
+                fat: Math.round(food.fat * factor * 10) / 10,
+                grams: grams
+            };
+        }
+
+        // Goals Calculation Functions
+        function calculateBMR(profile) {
+            const { sex, age, height_cm, weight_kg } = profile;
+            
+            if (sex === 'male') {
+                return 10 * weight_kg + 6.25 * height_cm - 5 * age + 5;
+            } else {
+                return 10 * weight_kg + 6.25 * height_cm - 5 * age - 161;
+            }
+        }
+
+        function calculateTDEE(profile) {
+            const bmr = calculateBMR(profile);
+            const activityFactors = {
+                sedentary: 1.2,
+                light: 1.375,
+                moderate: 1.55,
+                active: 1.725,
+                very_active: 1.9
+            };
+            
+            return Math.round(bmr * activityFactors[profile.activity]);
+        }
+
+        function calculateGoalCalories(profile) {
+            const tdee = calculateTDEE(profile);
+            
+            switch (profile.goal) {
+                case 'fat_loss': return tdee - 500;
+                case 'muscle_gain': return tdee + 300;
+                default: return tdee;
+            }
+        }
+
+        function calculateMacroTargets(profile, calories) {
+            const { weight_kg } = profile;
+            
+            // Default macro targets
+            const proteinTarget = Math.round(weight_kg * 1.8); // 1.8g per kg
+            const fatTarget = Math.round(weight_kg * 0.8); // 0.8g per kg
+            const proteinCals = proteinTarget * 4;
+            const fatCals = fatTarget * 9;
+            const carbCals = calories - proteinCals - fatCals;
+            const carbTarget = Math.round(carbCals / 4);
+            
+            return {
+                protein: proteinTarget,
+                carbs: Math.max(0, carbTarget),
+                fat: fatTarget
+            };
+        }
+
+        // Search Functions
+        function fuzzySearch(query, foods) {
+            if (!query || query.length < 2) return [];
+            
+            const lowerQuery = query.toLowerCase();
+            const results = [];
+            
+            foods.forEach(food => {
+                let score = 0;
+                
+                // Exact name match gets highest score
+                if (food.name.toLowerCase().includes(lowerQuery)) {
+                    score += 100;
+                }
+                
+                // Alias matches
+                if (food.aliases) {
+                    food.aliases.forEach(alias => {
+                        if (alias.toLowerCase().includes(lowerQuery)) {
+                            score += 80;
+                        }
+                    });
+                }
+                
+                // Fuzzy matching for typos
+                if (score === 0) {
+                    const distance = levenshteinDistance(lowerQuery, food.name.toLowerCase());
+                    if (distance <= 2) {
+                        score += 50 - (distance * 10);
+                    }
+                }
+                
+                if (score > 0) {
+                    results.push({ food, score });
+                }
+            });
+            
+            return results
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 8)
+                .map(r => r.food);
+        }
+
+        function levenshteinDistance(str1, str2) {
+            const matrix = [];
+            
+            for (let i = 0; i <= str2.length; i++) {
+                matrix[i] = [i];
+            }
+            
+            for (let j = 0; j <= str1.length; j++) {
+                matrix[0][j] = j;
+            }
+            
+            for (let i = 1; i <= str2.length; i++) {
+                for (let j = 1; j <= str1.length; j++) {
+                    if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
+                        matrix[i][j] = matrix[i - 1][j - 1];
+                    } else {
+                        matrix[i][j] = Math.min(
+                            matrix[i - 1][j - 1] + 1,
+                            matrix[i][j - 1] + 1,
+                            matrix[i - 1][j] + 1
+                        );
+                    }
+                }
+            }
+            
+            return matrix[str2.length][str1.length];
+        }
 
         // Character customization functions
         function openCustomizeModal() {
@@ -1254,7 +1876,7 @@
         }
 
         function loadCustomizationData() {
-            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            const data = loadData();
             if (data.character) {
                 characterData = data.character;
                 
@@ -1264,15 +1886,17 @@
                     document.querySelectorAll(`[id^="${category}-"]`).forEach(el => {
                         el.classList.remove('selected');
                     });
-                    document.getElementById(`${category}-${option}`).classList.add('selected');
+                    if (document.getElementById(`${category}-${option}`)) {
+                        document.getElementById(`${category}-${option}`).classList.add('selected');
+                    }
                 });
             }
         }
 
         function saveCustomization() {
-            let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+            let data = loadData();
             data.character = characterData;
-            localStorage.setItem('wyrnwickData', JSON.stringify(data));
+            saveData(data);
             
             updateCharacterDisplay();
             closeCustomizeModal();
@@ -1302,409 +1926,144 @@
             document.getElementById('backgroundType').textContent = backgroundTypes[characterData.background];
         }
 
-        // Potion Brewing Functions
-        function openPotionModal() {
-            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            const today = new Date().toDateString();
-            
-            if (data.lastPotionDate === today) {
-                alert('You have already brewed a potion today! Come back tomorrow.');
-                return;
-            }
-            
-            document.getElementById('potionModal').style.display = 'flex';
-            resetPotionBrewing();
+        // Goals Modal Functions
+        function openGoalsModal() {
+            document.getElementById('goalsModal').style.display = 'flex';
+            loadGoalsData();
         }
 
-        function closePotionModal() {
-            document.getElementById('potionModal').style.display = 'none';
+        function closeGoalsModal() {
+            document.getElementById('goalsModal').style.display = 'none';
         }
 
-        function resetPotionBrewing() {
-            potionData = { ingredient: null, boost: null, dailyPotion: false };
-            document.getElementById('brewingStage1').style.display = 'block';
-            document.getElementById('brewingStage2').style.display = 'none';
-            document.getElementById('brewingStage3').style.display = 'none';
-            document.getElementById('potionResult').style.display = 'none';
+        function loadGoalsData() {
+            const data = loadData();
+            const profile = data.profile || {
+                sex: 'male',
+                age: 25,
+                height_cm: 175,
+                weight_kg: 70,
+                activity: 'moderate',
+                goal: 'maintenance'
+            };
+
+            document.getElementById('profileSex').value = profile.sex;
+            document.getElementById('profileAge').value = profile.age;
+            document.getElementById('profileHeight').value = profile.height_cm;
+            document.getElementById('profileWeight').value = profile.weight_kg;
+            document.getElementById('profileActivity').value = profile.activity;
+            document.getElementById('profileGoal').value = profile.goal;
         }
 
-        function selectIngredient(ingredient) {
-            potionData.ingredient = ingredient;
-            document.getElementById('brewingStage1').style.display = 'none';
-            document.getElementById('brewingStage2').style.display = 'block';
-        }
+        function calculateGoals() {
+            const profile = {
+                sex: document.getElementById('profileSex').value,
+                age: parseInt(document.getElementById('profileAge').value),
+                height_cm: parseInt(document.getElementById('profileHeight').value),
+                weight_kg: parseInt(document.getElementById('profileWeight').value),
+                activity: document.getElementById('profileActivity').value,
+                goal: document.getElementById('profileGoal').value
+            };
 
-        function selectBoost(boost) {
-            potionData.boost = boost;
-            document.getElementById('brewingStage2').style.display = 'none';
-            document.getElementById('brewingStage3').style.display = 'block';
-        }
+            const bmr = calculateBMR(profile);
+            const tdee = calculateTDEE(profile);
+            const goalCalories = calculateGoalCalories(profile);
+            const macros = calculateMacroTargets(profile, goalCalories);
 
-        function stirPotion() {
-            // Random success chance
-            const success = Math.random() > 0.3; // 70% success rate
-            const baseXP = 15;
-            let bonusXP = 0;
-            let resultText = '';
-
-            if (success) {
-                bonusXP = Math.floor(Math.random() * 20) + 10; // 10-30 bonus XP
-                resultText = `🎉 Success! Your ${potionData.ingredient} potion with ${potionData.boost} boost grants you ${baseXP + bonusXP} XP!`;
-            } else {
-                resultText = `💨 The potion fizzled... You still gain ${baseXP} XP for trying.`;
-            }
-
-            // Award XP
-            addXP(baseXP + bonusXP);
-
-            // Update challenges
-            updateChallengeProgress('brew_potions', 1);
-
-            // Mark daily potion as used
-            let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            data.lastPotionDate = new Date().toDateString();
-            localStorage.setItem('wyrnwickData', JSON.stringify(data));
-
-            // Show result
-            document.getElementById('brewingStage3').style.display = 'none';
-            document.getElementById('potionResult').style.display = 'block';
-            document.getElementById('potionResultText').innerHTML = resultText;
-        }
-
-        // Study Hall Functions
-        function openStudyModal() {
-            document.getElementById('studyModal').style.display = 'flex';
-        }
-
-        function closeStudyModal() {
-            document.getElementById('studyModal').style.display = 'none';
-            if (meditationTimer) {
-                clearInterval(meditationTimer);
-                meditationTimer = null;
-            }
-            meditationActive = false;
-        }
-
-        function startMeditation() {
-            if (meditationActive) return;
-            
-            meditationActive = true;
-            let timeLeft = 60; // 1 minute
-            
-            document.getElementById('meditationBtn').textContent = 'Meditating...';
-            document.getElementById('meditationBtn').disabled = true;
-            
-            meditationTimer = setInterval(() => {
-                timeLeft--;
-                const minutes = Math.floor(timeLeft / 60);
-                const seconds = timeLeft % 60;
-                document.getElementById('meditationTimer').textContent = 
-                    `${minutes}:${seconds.toString().padStart(2, '0')}`;
-                
-                if (timeLeft <= 0) {
-                    clearInterval(meditationTimer);
-                    completeMeditation();
-                }
-            }, 1000);
-        }
-
-        function completeMeditation() {
-            addXP(10);
-            updateChallengeProgress('meditation', 1);
-            
-            alert('🧘 Meditation complete! You feel refreshed and gain 10 XP.');
-            
-            document.getElementById('meditationBtn').textContent = '🧘 Begin Meditation';
-            document.getElementById('meditationBtn').disabled = false;
-            document.getElementById('meditationTimer').textContent = '1:00';
-            meditationActive = false;
-            
-            closeStudyModal();
-        }
-
-        // Weekly Challenges Functions
-        function getWeeklyPrompts() {
-            const weekStart = getWeekStart();
-            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            
-            if (!data.weeklyPrompts || data.weekStart !== weekStart) {
-                // New week, reset challenges
-                const shuffled = [...weeklyPrompts].sort(() => Math.random() - 0.5);
-                data.weeklyPrompts = shuffled.slice(0, 3); // Pick 3 random challenges
-                data.weekStart = weekStart;
-                data.challengeProgress = {};
-                localStorage.setItem('wyrnwickData', JSON.stringify(data));
-            }
-            
-            return data.weeklyPrompts;
-        }
-
-        function getWeekStart() {
-            const now = new Date();
-            const day = now.getDay(); // 0 = Sunday
-            const diff = now.getDate() - day; // Adjust to get Monday
-            const monday = new Date(now.setDate(diff));
-            return monday.toDateString();
-        }
-
-        function updateChallengeProgress(challengeId, amount) {
-            let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            if (!data.challengeProgress) data.challengeProgress = {};
-            
-            data.challengeProgress[challengeId] = (data.challengeProgress[challengeId] || 0) + amount;
-            localStorage.setItem('wyrnwickData', JSON.stringify(data));
-            
-            updateChallengesDisplay();
-        }
-
-        function updateChallengesDisplay() {
-            const challenges = getWeeklyPrompts();
-            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            const progress = data.challengeProgress || {};
-            
-            const challengeList = document.getElementById('challengeList');
-            challengeList.innerHTML = challenges.map(challenge => {
-                const currentProgress = progress[challenge.id] || 0;
-                const isCompleted = currentProgress >= challenge.target;
-                
-                return `
-                    <div class="challenge-item ${isCompleted ? 'completed' : ''}">
-                        <div>
-                            <div class="challenge-text">${challenge.text}</div>
-                            <div style="font-size: 0.9rem; color: #ccc;">Progress: ${currentProgress}/${challenge.target}</div>
-                        </div>
-                        <div class="challenge-reward">${challenge.reward}</div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // House Tournament Functions
-        function updateHouseTournament() {
-            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            const currentHouse = localStorage.getItem('wyrnwickHouse');
-            
-            // Initialize house points if not exists
-            if (!data.allHousePoints) {
-                data.allHousePoints = {
-                    viperthorn: Math.floor(Math.random() * 500) + 800,
-                    braverun: Math.floor(Math.random() * 500) + 800,
-                    nightwing: Math.floor(Math.random() * 500) + 800,
-                    cinderglen: Math.floor(Math.random() * 500) + 800
-                };
-            }
-            
-            // Update current house points
-            data.allHousePoints[currentHouse] = data.housePoints || 0;
-            localStorage.setItem('wyrnwickData', JSON.stringify(data));
-            
-            // Sort houses by points
-            const houses = [
-                { name: 'Viperthorn', emoji: '🐲', points: data.allHousePoints.viperthorn },
-                { name: 'Braverun', emoji: '🦁', points: data.allHousePoints.braverun },
-                { name: 'Nightwing', emoji: '🦅', points: data.allHousePoints.nightwing },
-                { name: 'Cinderglen', emoji: '🦔', points: data.allHousePoints.cinderglen }
-            ].sort((a, b) => b.points - a.points);
-            
-            // Update leaderboard display
-            const leaderboard = document.getElementById('houseLeaderboard');
-            leaderboard.innerHTML = houses.map((house, index) => `
-                <div class="leaderboard-item ${index === 0 ? 'champion' : ''}">
-                    <div class="house-position">
-                        <div class="position-number">${index + 1}</div>
-                        <div>${house.emoji} ${house.name}</div>
-                    </div>
-                    <div>${house.points} pts</div>
+            document.getElementById('calculatedGoals').style.display = 'block';
+            document.getElementById('goalsDisplay').innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                    <div><strong>BMR:</strong> ${Math.round(bmr)} cal</div>
+                    <div><strong>TDEE:</strong> ${tdee} cal</div>
+                    <div><strong>Goal:</strong> ${goalCalories} cal</div>
+                    <div><strong>Protein:</strong> ${macros.protein}g</div>
+                    <div><strong>Carbs:</strong> ${macros.carbs}g</div>
+                    <div><strong>Fat:</strong> ${macros.fat}g</div>
                 </div>
-            `).join('');
-            
-            // Update champion house display
-            document.getElementById('championHouse').textContent = houses[0].name;
+            `;
         }
 
-        // Streak Functions
-        function updateStreak() {
-            let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            const today = new Date().toDateString();
-            const yesterday = new Date(Date.now() - 86400000).toDateString();
-            
-            if (!data.lastActiveDate) {
-                // First time user
-                data.streak = 1;
-                data.lastActiveDate = today;
-            } else if (data.lastActiveDate === today) {
-                // Already active today, no change
-                return;
-            } else if (data.lastActiveDate === yesterday) {
-                // Consecutive day
-                data.streak = (data.streak || 0) + 1;
-                data.lastActiveDate = today;
-            } else {
-                // Streak broken
-                data.streak = 1;
-                data.lastActiveDate = today;
-            }
-            
-            localStorage.setItem('wyrnwickData', JSON.stringify(data));
-            updateStreakDisplay();
+        function saveGoals() {
+            const profile = {
+                sex: document.getElementById('profileSex').value,
+                age: parseInt(document.getElementById('profileAge').value),
+                height_cm: parseInt(document.getElementById('profileHeight').value),
+                weight_kg: parseInt(document.getElementById('profileWeight').value),
+                activity: document.getElementById('profileActivity').value,
+                goal: document.getElementById('profileGoal').value
+            };
+
+            const goalCalories = calculateGoalCalories(profile);
+            const macros = calculateMacroTargets(profile, goalCalories);
+
+            let data = loadData();
+            data.profile = profile;
+            data.goals = {
+                calories: goalCalories,
+                protein: macros.protein,
+                carbs: macros.carbs,
+                fat: macros.fat
+            };
+            saveData(data);
+
+            closeGoalsModal();
+            updateGoalsDisplay();
+            alert('✨ Goals saved successfully!');
         }
 
-        function updateStreakDisplay() {
-            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            document.getElementById('streakCount').textContent = data.streak || 0;
-        }
-
-        // Student key functions
-        function checkStudentKey() {
-            const key = document.getElementById('studentKey').value.toUpperCase();
-            if (validKeys.includes(key)) {
-                localStorage.setItem('wyrnwickKeyAccess', 'premium');
-                proceedToAcademy();
-            } else {
-                alert('Invalid student key. Please check your admission letter.');
-            }
-        }
-
-        function skipKeyCheck() {
-            localStorage.setItem('wyrnwickKeyAccess', 'guest');
-            proceedToAcademy();
-        }
-
-        function proceedToAcademy() {
-            document.getElementById('keyGate').style.display = 'none';
-            const savedHouse = localStorage.getItem('wyrnwickHouse');
-            if (savedHouse) {
-                showTracker();
-            } else {
-                document.getElementById('welcomePage').style.display = 'flex';
-            }
-        }
-
-        // Initialize stars
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            for (let i = 0; i < 100; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                starsContainer.appendChild(star);
-            }
-        }
-
-        // House selection
-        function selectHouse(house) {
-            localStorage.setItem('wyrnwickHouse', house);
-            showTracker();
-        }
-
-        // Show tracker page
-        function showTracker() {
-            const house = localStorage.getItem('wyrnwickHouse');
-            if (!house) return;
-
-            document.getElementById('welcomePage').style.display = 'none';
-            document.getElementById('trackerPage').style.display = 'block';
-            document.body.className = house;
-            document.getElementById('houseWelcome').textContent = `Welcome, ${house.charAt(0).toUpperCase() + house.slice(1)} student!`;
-            
-            loadData();
-            updateDisplay();
-            updateCharacterDisplay();
-            updateChallengesDisplay();
-            updateHouseTournament();
-            updateStreakDisplay();
-        }
-
-        // XP and leveling system
-        function addXP(amount) {
-            let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            if (!data.xp) data.xp = 0;
-            if (!data.level) data.level = 1;
-
-            data.xp += amount;
-            
-            // Show XP gain animation
-            showXPGain(amount);
-            
-            // Check for level up
-            const xpNeeded = data.level * 100;
-            if (data.xp >= xpNeeded) {
-                data.level++;
-                data.xp = data.xp - xpNeeded;
-                showLevelUp(data.level);
-                
-                // Award house points for leveling up
-                data.housePoints = (data.housePoints || 0) + 50;
-            }
-
-            localStorage.setItem('wyrnwickData', JSON.stringify(data));
-            updateXPDisplay();
-        }
-
-        function updateXPDisplay() {
-            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            const xp = data.xp || 0;
-            const level = data.level || 1;
-            const xpNeeded = level * 100;
-            
-            const percentage = (xp / xpNeeded) * 100;
-            document.getElementById('xpFill').style.width = percentage + '%';
-            document.getElementById('xpText').textContent = `Level ${level} - ${xp} / ${xpNeeded} XP`;
-        }
-
-        function showLevelUp(level) {
-            const element = document.createElement('div');
-            element.className = 'level-up';
-            element.textContent = `🎉 LEVEL ${level}! 🎉`;
-            element.style.left = '50%';
-            element.style.top = '40%';
-            document.body.appendChild(element);
-
-            setTimeout(() => {
-                element.remove();
-            }, 2000);
-        }
-
-        function showXPGain(amount) {
-            const element = document.createElement('div');
-            element.className = 'xp-gained';
-            element.textContent = `+${amount} XP`;
-            element.style.left = '60%';
-            element.style.top = '60%';
-            document.body.appendChild(element);
-
-            setTimeout(() => {
-                element.remove();
-            }, 1000);
-        }
-
-        // Food auto-suggest
-        function setupAutoSuggest() {
+        // Food Input Functions
+        function setupFoodSearch() {
             const input = document.getElementById('foodInput');
             const dropdown = document.getElementById('suggestDropdown');
+            const quantityInput = document.getElementById('quantityInput');
+            const unitSelect = document.getElementById('unitSelect');
 
             input.addEventListener('input', function() {
                 const value = this.value.toLowerCase();
                 if (value.length < 2) {
                     dropdown.style.display = 'none';
+                    selectedFood = null;
+                    updateNutritionPreview();
                     return;
                 }
 
-                const matches = foods.filter(food => 
-                    food.name.toLowerCase().includes(value)
-                ).slice(0, 5);
+                // Combine recent, favorites, and search results
+                let suggestions = [];
+                
+                // Add recent foods first (if they match)
+                const recentMatches = recentFoods
+                    .map(id => FOODS_CATALOG.find(f => f.id === id))
+                    .filter(food => food && (
+                        food.name.toLowerCase().includes(value) ||
+                        food.aliases.some(alias => alias.toLowerCase().includes(value))
+                    ));
+                
+                suggestions = suggestions.concat(recentMatches);
+                
+                // Add search results
+                const searchResults = fuzzySearch(value, FOODS_CATALOG);
+                searchResults.forEach(food => {
+                    if (!suggestions.find(s => s.id === food.id)) {
+                        suggestions.push(food);
+                    }
+                });
 
-                if (matches.length > 0) {
-                    dropdown.innerHTML = matches.map(food => 
-                        `<div class="suggest-item" onclick="selectFood('${food.name}', ${food.calories})">${food.name} (${food.calories} cal)</div>`
-                    ).join('');
+                if (suggestions.length > 0) {
+                    dropdown.innerHTML = suggestions.slice(0, 6).map(food => `
+                        <div class="suggest-item" onclick="selectFood('${food.id}')">
+                            <div class="suggest-food-name">${food.name} ${favoriteFoods.includes(food.id) ? '⭐' : ''}</div>
+                            <div class="suggest-food-info">${food.kcal} cal · ${food.protein}p · ${food.carbs}c · ${food.fat}f per ${food.per}</div>
+                        </div>
+                    `).join('');
                     dropdown.style.display = 'block';
                 } else {
                     dropdown.style.display = 'none';
                 }
             });
+
+            // Update preview when quantity or unit changes
+            quantityInput.addEventListener('input', updateNutritionPreview);
+            unitSelect.addEventListener('change', updateNutritionPreview);
 
             // Hide dropdown when clicking outside
             document.addEventListener('click', function(e) {
@@ -1714,243 +2073,162 @@
             });
         }
 
-        // Select food from dropdown
-        function selectFood(name, calories) {
-            document.getElementById('foodInput').value = name;
-            document.getElementById('caloriesInput').value = calories;
-            document.getElementById('suggestDropdown').style.display = 'none';
+        function selectFood(foodId) {
+            const food = FOODS_CATALOG.find(f => f.id === foodId);
+            if (food) {
+                selectedFood = food;
+                document.getElementById('foodInput').value = food.name;
+                document.getElementById('suggestDropdown').style.display = 'none';
+                updateNutritionPreview();
+                
+                // Update unit options based on food
+                updateUnitOptions(food);
+            }
         }
 
-        // Add food to log
-        function addFood() {
-            const foodName = document.getElementById('foodInput').value.trim();
-            const quantity = parseFloat(document.getElementById('quantityInput').value) || 1;
-            let calories = parseInt(document.getElementById('caloriesInput').value);
+        function updateUnitOptions(food) {
+            const unitSelect = document.getElementById('unitSelect');
+            const standardUnits = ['g', 'oz'];
+            
+            // Add food-specific units
+            const foodSpecificUnits = [];
+            Object.keys(UNIT_MAP).forEach(unit => {
+                if (typeof UNIT_MAP[unit] === 'object' && UNIT_MAP[unit][food.id]) {
+                    foodSpecificUnits.push(unit);
+                }
+            });
+            
+            const allUnits = [...standardUnits, ...foodSpecificUnits];
+            
+            unitSelect.innerHTML = allUnits.map(unit => 
+                `<option value="${unit}">${unit}</option>`
+            ).join('');
+        }
 
-            if (!foodName) {
-                alert('Please enter a food name!');
+        function updateNutritionPreview() {
+            const preview = document.getElementById('nutritionPreview');
+            const previewText = document.getElementById('previewText');
+            
+            if (!selectedFood) {
+                preview.style.display = 'none';
                 return;
             }
+            
+            const quantity = parseFloat(document.getElementById('quantityInput').value) || 1;
+            const unit = document.getElementById('unitSelect').value;
+            
+            const nutrition = calculateNutrition(selectedFood, quantity, unit);
+            
+            previewText.innerHTML = `
+                <strong>= ${nutrition.kcal} cal</strong> · 
+                ${nutrition.protein}g protein · 
+                ${nutrition.carbs}g carbs · 
+                ${nutrition.fat}g fat
+                <br><small>(${nutrition.grams}g total)</small>
+            `;
+            
+            preview.style.display = 'block';
+        }
 
-            // Auto-calculate calories if not provided
-            if (!calories) {
-                const food = foods.find(f => f.name.toLowerCase() === foodName.toLowerCase());
-                calories = food ? food.calories : 100; // Default to 100 if not found
+        function addMeal() {
+            if (!selectedFood) {
+                alert('Please select a food first!');
+                return;
             }
-
-            const totalCalories = Math.round(calories * quantity);
-
-            // Get current data
-            let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            if (!data.foodsToday) data.foodsToday = [];
-            if (!data.dailyMana) data.dailyMana = 0;
-            if (!data.housePoints) data.housePoints = 0;
-            if (!data.earnedRunes) data.earnedRunes = [];
-
-            // Add food
-            data.foodsToday.push({
-                name: foodName,
+            
+            const quantity = parseFloat(document.getElementById('quantityInput').value) || 1;
+            const unit = document.getElementById('unitSelect').value;
+            
+            const nutrition = calculateNutrition(selectedFood, quantity, unit);
+            
+            const meal = {
+                id: Date.now().toString(),
+                foodId: selectedFood.id,
+                foodName: selectedFood.name,
                 quantity: quantity,
-                calories: totalCalories,
+                unit: unit,
+                nutrition: nutrition,
                 timestamp: Date.now()
-            });
-
-            data.dailyMana += totalCalories;
-            data.housePoints += Math.floor(totalCalories / 10); // 1 point per 10 calories
-
-            // Save data
-            localStorage.setItem('wyrnwickData', JSON.stringify(data));
-
+            };
+            
+            let data = loadData();
+            if (!data.mealsToday) data.mealsToday = [];
+            if (!data.dailyTotals) data.dailyTotals = { kcal: 0, protein: 0, carbs: 0, fat: 0 };
+            
+            // Add meal
+            data.mealsToday.push(meal);
+            
+            // Update totals
+            data.dailyTotals.kcal += nutrition.kcal;
+            data.dailyTotals.protein += nutrition.protein;
+            data.dailyTotals.carbs += nutrition.carbs;
+            data.dailyTotals.fat += nutrition.fat;
+            
+            // Update tracking stats
+            data.mealsLogged = (data.mealsLogged || 0) + 1;
+            data.housePoints = (data.housePoints || 0) + Math.floor(nutrition.kcal / 10);
+            
+            // Add to recent foods
+            if (!recentFoods.includes(selectedFood.id)) {
+                recentFoods.unshift(selectedFood.id);
+                recentFoods = recentFoods.slice(0, 15); // Keep last 15
+                data.recentFoods = recentFoods;
+            }
+            
+            saveData(data);
+            
             // Update streak
             updateStreak();
-
-            // Add XP for logging food
+            
+            // Add XP
             addXP(10);
-
+            
             // Update challenges
             updateChallengeProgress('log_meals', 1);
-            updateChallengeProgress('house_points', Math.floor(totalCalories / 10));
-
-            // Show mana gain animation
-            showManaGain(totalCalories);
-
+            updateChallengeProgress('house_points', Math.floor(nutrition.kcal / 10));
+            
+            // Show gain animation
+            showNutritionGain(nutrition.kcal);
+            
             // Clear inputs
             document.getElementById('foodInput').value = '';
             document.getElementById('quantityInput').value = '1';
-            document.getElementById('caloriesInput').value = '';
-
-            // Update display
-            updateDisplay();
-            checkRunes();
+            selectedFood = null;
+            updateNutritionPreview();
+            
+            // Update displays
+            updateFoodLog();
+            updateGoalsDisplay();
+            checkTrophies();
             updateHouseTournament();
         }
 
-        // Show mana gain animation
-        function showManaGain(calories) {
-            const element = document.createElement('div');
-            element.className = 'mana-gained';
-            element.textContent = `+${calories} Calories!`;
-            element.style.left = '50%';
-            element.style.top = '50%';
-            document.body.appendChild(element);
-
-            setTimeout(() => {
-                element.remove();
-            }, 1000);
-        }
-
-        // Update display
-        function updateDisplay() {
-            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            const dailyMana = data.dailyMana || 0;
-            const housePoints = data.housePoints || 0;
-            const foodsToday = data.foodsToday || [];
-
-            // Update mana bar
-            const percentage = Math.min((dailyMana / 1200) * 100, 100);
-            document.getElementById('manaFill').style.width = percentage + '%';
-            document.getElementById('manaText').textContent = `${dailyMana} / 1200 Calories (Mana)`;
-
-            // Update house points
-            document.getElementById('housePoints').textContent = housePoints;
-
-            // Update food log
-            const foodLog = document.getElementById('foodLog');
-            foodLog.innerHTML = foodsToday.map(food => `
-                <div class="food-item">
-                    <span class="food-name">${food.name} ${food.quantity > 1 ? `(×${food.quantity})` : ''}</span>
-                    <span class="food-calories">${food.calories} cal</span>
-                </div>
-            `).join('');
-
-            // Update runes
-            updateRunes();
-            updateXPDisplay();
-        }
-
-        // Check and award runes
-        function checkRunes() {
-            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            const dailyMana = data.dailyMana || 0;
-            const housePoints = data.housePoints || 0;
-            const foodsToday = data.foodsToday || [];
-            const level = data.level || 1;
-            const streak = data.streak || 0;
-            let earnedRunes = data.earnedRunes || [];
-
-            const runes = [
-                {id: 'rune1', name: 'First Feast', condition: () => foodsToday.length >= 1},
-                {id: 'rune2', name: 'Mana Master', condition: () => dailyMana >= 1200},
-                {id: 'rune3', name: 'Power Surge', condition: () => dailyMana >= 1500},
-                {id: 'rune4', name: 'Mana Manager', condition: () => dailyMana >= 1200 && dailyMana <= 1400},
-                {id: 'rune5', name: 'Level Master', condition: () => level >= 5},
-                {id: 'rune6', name: 'Legend', condition: () => housePoints >= 1000},
-                {id: 'rune7', name: 'Streak Master', condition: () => streak >= 7},
-                {id: 'rune8', name: 'Weekly Warrior', condition: () => {
-                    const progress = data.challengeProgress || {};
-                    return Object.values(progress).some(p => p >= 1);
-                }}
-            ];
-
-            runes.forEach(rune => {
-                if (rune.condition() && !earnedRunes.includes(rune.name)) {
-                    earnedRunes.push(rune.name);
-                    showRuneEarned(rune.name);
-                }
-            });
-
-            data.earnedRunes = earnedRunes;
-            localStorage.setItem('wyrnwickData', JSON.stringify(data));
-        }
-
-        // Show rune earned notification
-        function showRuneEarned(runeName) {
-            // Add sparkle animation to the rune
-            const runeElements = document.querySelectorAll('.rune');
-            runeElements.forEach(element => {
-                const nameElement = element.querySelector('.rune-name');
-                if (nameElement.textContent === runeName) {
-                    element.classList.add('newly-earned');
-                    setTimeout(() => {
-                        element.classList.remove('newly-earned');
-                    }, 1000);
-                }
-            });
+        function editMeal(mealId) {
+            let data = loadData();
+            const meal = data.mealsToday.find(m => m.id === mealId);
             
-            alert(`🎉 Rune Earned: ${runeName}! 🎉`);
-        }
-
-        // Update runes display
-        function updateRunes() {
-            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-            const earnedRunes = data.earnedRunes || [];
-
-            const runeElements = document.querySelectorAll('.rune');
-            runeElements.forEach((element, index) => {
-                const runeName = element.querySelector('.rune-name').textContent;
-                if (earnedRunes.includes(runeName)) {
-                    element.classList.add('earned');
+            if (meal) {
+                // Populate form with meal data
+                const food = FOODS_CATALOG.find(f => f.id === meal.foodId);
+                if (food) {
+                    selectFood(food.id);
+                    document.getElementById('quantityInput').value = meal.quantity;
+                    document.getElementById('unitSelect').value = meal.unit;
+                    updateNutritionPreview();
+                    
+                    // Remove the meal (will be re-added when user submits)
+                    deleteMeal(mealId, false);
                 }
-            });
-        }
-
-        // Clear day
-        function clearDay() {
-            if (confirm('Are you sure you want to clear today\'s spell log?')) {
-                let data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
-                data.foodsToday = [];
-                data.dailyMana = 0;
-                localStorage.setItem('wyrnwickData', JSON.stringify(data));
-                updateDisplay();
-                updateHouseTournament();
             }
         }
 
-        // Load data
-        function loadData() {
-            const data = JSON.parse(localStorage.getItem('wyrnwickData') || '{}');
+        function deleteMeal(mealId, showUndo = true) {
+            let data = loadData();
+            const mealIndex = data.mealsToday.findIndex(m => m.id === mealId);
             
-            // Load character data
-            if (data.character) {
-                characterData = data.character;
-            }
-            
-            // Check if it's a new day
-            const today = new Date().toDateString();
-            const lastLogin = data.lastLogin || '';
-
-            if (lastLogin !== today) {
-                // New day - reset daily stats but keep house points, runes, XP, level, and challenges
-                data.foodsToday = [];
-                data.dailyMana = 0;
-                data.lastLogin = today;
-                localStorage.setItem('wyrnwickData', JSON.stringify(data));
-            }
-        }
-
-        // Initialize app
-        function initApp() {
-            createStars();
-            setupAutoSuggest();
-
-            // Check if user has key access
-            const keyAccess = localStorage.getItem('wyrnwickKeyAccess');
-            if (!keyAccess) {
-                document.getElementById('keyGate').style.display = 'flex';
-                return;
-            }
-
-            const savedHouse = localStorage.getItem('wyrnwickHouse');
-            if (savedHouse) {
-                showTracker();
-            } else {
-                document.getElementById('keyGate').style.display = 'none';
-                document.getElementById('welcomePage').style.display = 'flex';
-            }
-        }
-
-        // Start the app
-        initApp();
-    </script>
-</body>
-</html>
+            if (mealIndex !== -1) {
+                const meal = data.mealsToday[mealIndex];
+                
+                // Store for undo
+                if (showUndo) {
+                    lastDeletedMeal = { meal, index: mealIndex };
